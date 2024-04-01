@@ -13,11 +13,21 @@ static std::mutex _mutexClients;
 
 constexpr int SERVER_PORT = 8826;
 constexpr int MSG_LENGTH = 5;
-constexpr const char* MSG = "Hello";
+#define MSG "Hello"
 
 class Communicator
 {
 public:
+
+	/*
+	* ctor of class Communicator
+	*/
+	Communicator();
+
+	/*
+	* dtor of class Communicator
+	*/
+	~Communicator();
 	
 	/*
 	* function starts the handle proccess of all requests, it listens to clients joining requests and

@@ -8,6 +8,9 @@ class Server
 {
 public:
 
+	/*
+	* function starts server
+	*/
 	void run();
 
 private:
