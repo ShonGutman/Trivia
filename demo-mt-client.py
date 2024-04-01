@@ -23,7 +23,7 @@ def main():
 
         try:
             # Send a message to the server
-            message = "Hello, server!"
+            message = "Hello"
             server_sock.sendall(message.encode())
 
             # Receive response from the server
