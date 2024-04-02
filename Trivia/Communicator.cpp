@@ -67,9 +67,9 @@ void Communicator::acceptClient()
 
 	std::cout << "Client accepted. Server and client can speak" << std::endl;
 
-	// create thread that handels the new client
-	std::thread t(&Communicator::handleNewClient, this, client_socket);
-	t.detach();
+	// create a thread that handels the new client
+	std::thread clientThread(&Communicator::handleNewClient, this, client_socket);
+	clientThread.detach();
 }
 
 void Communicator::handleNewClient(SOCKET clientSocket)
@@ -108,12 +108,12 @@ void Communicator::sendData(SOCKET clientSocket, const std::string& message)
 std::string Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
 {
 		char* msg = getMsgFromSocket(clientSocket, bytesNum, 0);
-		std::string s(msg);
+		std::string msgString(msg);
 
 		//remove allocated memory
 		delete msg;
 
-		return s;
+		return msgString;
 }
 
 char* Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags)

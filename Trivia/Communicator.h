@@ -56,6 +56,7 @@ private:
 	/*
 	* send msg to client
 	* @param clientSocket - socket of client
+	* @param message - msg to send to client
 	*/
 	static void sendData(SOCKET clientSocket, const std::string& message);
 
