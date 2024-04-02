@@ -81,15 +81,18 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "Error: " << e.what() << std::endl;
+		std::cerr << "Error: " << e.what() << std::endl;
 		closesocket(clientSocket);
 		return;
 	}
 
 	if (strncmp(msg.c_str(), MSG, MSG_LENGTH) != 0)
 	{
+		std::cerr << "Client Msg doesn't match expected msg. Closing Client" << std::endl;
+
+		//end client socket & thread
 		closesocket(clientSocket);
-		throw std::exception("Client Msg doesn't match expected msg");
+		return;
 	}
 
 	sendData(clientSocket, MSG);
