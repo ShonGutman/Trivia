@@ -1,5 +1,57 @@
 #include "JsonResponsePacketSerializer.h"
 
+using namespace nlohmann;
+
+Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errResponse)
+{
+    Buffer errBuffer;
+    json jsonErr;
+
+    ResponseId responseID = ERROR_RESPONSE_ID;
+
+    // Add data to the json object.
+    jsonErr[STATUS] = std::to_string(responseID);
+    jsonErr[MESSAGE] = errResponse.message;
+
+    errBuffer = strToBin(jsonErr.dump());
+    errBuffer = fitBuffToProtocol(errBuffer, responseID);
+
+    return errBuffer;
+
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse LogResponse)
+{
+    Buffer loginBuffer;
+    json jsonLogin;
+
+    ResponseId responseID = LOGIN_RESPONSE_ID;
+
+    // Add data to the json object.
+    jsonLogin[STATUS] = std::to_string(responseID);
+
+    loginBuffer = strToBin(jsonLogin.dump());
+    loginBuffer = fitBuffToProtocol(loginBuffer, responseID);
+
+    return loginBuffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse)
+{
+    Buffer SignupBuffer;
+    json jsonSignup;
+
+    ResponseId responseID = LOGIN_RESPONSE_ID;
+
+    // Add data to the json object.
+    jsonSignup[STATUS] = std::to_string(responseID);
+
+    SignupBuffer = strToBin(jsonSignup.dump());
+    SignupBuffer = fitBuffToProtocol(SignupBuffer, responseID);
+
+    return SignupBuffer;
+}
+
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 {
     Buffer convertResult;
@@ -11,7 +63,7 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     }
 
     // Temporary buffer to store binary digits
-    std::vector<int> binaryDigits;
+    std::vector<unsigned char> binaryDigits;
 
     // Convert decimal to binary
     while (decNum > 0) {
@@ -20,9 +72,62 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     }
 
     // Reverse the binary digits to get the correct binary representation
-    for (int i = binaryDigits.size() - 1; i >= 0; --i) {
-        convertResult.push_back(binaryDigits[i]);
+    std::reverse(binaryDigits.begin(), binaryDigits.end());
+
+    // Pad with zeros to make the number of bits a multiple of 8
+    while (binaryDigits.size() % 8 != 0) {
+        binaryDigits.insert(binaryDigits.begin(), 0);
+    }
+
+    // Divide into bytes and put each byte in Buffer
+    for (size_t i = 0; i < binaryDigits.size(); i += 8) {
+        unsigned char byte = 0;
+        for (size_t j = 0; j < 8; ++j) {
+            byte |= (binaryDigits[i + j] << (7 - j));
+        }
+        convertResult.push_back(byte);
     }
 
     return convertResult;
 }
+
+
+Buffer JsonResponsePacketSerializer::strToBin(std::string str) 
+{
+    Buffer convertResult;
+    convertResult.reserve(str.size());
+
+    // Iterate over each character in the string and convert it to unsigned char
+    for (char c : str) {
+        convertResult.push_back(static_cast<unsigned char>(c));
+    }
+
+    return convertResult;
+}
+
+Buffer JsonResponsePacketSerializer::fitBuffToProtocol(json msg, unsigned int code)
+{
+    // Protocol goes like this :
+    // 1 byte - code
+    // 4 bytes - size
+    // x bytes - msg
+
+    Buffer protocolBuffer;
+
+    protocolBuffer.push_back(code);
+
+    unsigned int msgSize = msg.size();
+    Buffer sizeBuffer = decToBin(msgSize);
+    for (const auto& byte : sizeBuffer)
+    {
+        protocolBuffer.push_back(byte);
+    }
+
+    // Add message to protocol buffer
+    for (unsigned char byte : msg) {
+        protocolBuffer.push_back(byte);
+    }
+
+    return protocolBuffer;
+}
+

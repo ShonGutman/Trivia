@@ -2,6 +2,7 @@
 
 #include "Responses.h"
 
+
 class JsonResponsePacketSerializer
 {
 public:
@@ -11,4 +12,7 @@ public:
 
 private:
 	static Buffer decToBin(unsigned int);
+	static Buffer strToBin(std::string str);
+
+	static Buffer fitBuffToProtocol(json msg, unsigned int code);
 };
