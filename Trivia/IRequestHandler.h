@@ -7,10 +7,12 @@
 
 // to avoid circular definition
 struct RequestResult;
+struct RequestInfo;
 
 
 class IRequestHandler
 {
+public:
 	/*
 	 * Checks if the provided RequestInfo object is relevant to this request handler.
 	 * This function is used to determine if the handler should process the request
