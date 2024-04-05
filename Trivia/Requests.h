@@ -4,6 +4,9 @@
 
 #include "IRequestHandler.h"
 
+// to avoid circular definition
+class IRequestHandler;
+
 using std::tm;
 
 #define BYTE char
