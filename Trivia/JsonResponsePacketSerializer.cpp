@@ -1,7 +1,5 @@
 #include "JsonResponsePacketSerializer.h"
 
-using namespace nlohmann;
-
 Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errResponse)
 {
     Buffer errBuffer;
@@ -10,11 +8,10 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errRespons
     ResponseId responseID = ERROR_RESPONSE_ID;
 
     // Add data to the json object.
-    jsonErr[STATUS] = std::to_string(responseID);
+    jsonErr[STATUS] = responseID;
     jsonErr[MESSAGE] = errResponse.message;
 
-    errBuffer = strToBin(jsonErr.dump());
-    errBuffer = fitBuffToProtocol(errBuffer, responseID);
+    errBuffer = fitBuffToProtocol(jsonErr.dump(), responseID);
 
     return errBuffer;
 
@@ -28,10 +25,9 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse LogRespons
     ResponseId responseID = LOGIN_RESPONSE_ID;
 
     // Add data to the json object.
-    jsonLogin[STATUS] = std::to_string(responseID);
+    jsonLogin[STATUS] = responseID;
 
-    loginBuffer = strToBin(jsonLogin.dump());
-    loginBuffer = fitBuffToProtocol(loginBuffer, responseID);
+    loginBuffer = fitBuffToProtocol(jsonLogin.dump(), responseID);
 
     return loginBuffer;
 }
@@ -41,13 +37,12 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse)
     Buffer SignupBuffer;
     json jsonSignup;
 
-    ResponseId responseID = LOGIN_RESPONSE_ID;
+    ResponseId responseID = SIGN_UP_RESPONSE_ID;
 
     // Add data to the json object.
-    jsonSignup[STATUS] = std::to_string(responseID);
+    jsonSignup[STATUS] = responseID;
 
-    SignupBuffer = strToBin(jsonSignup.dump());
-    SignupBuffer = fitBuffToProtocol(SignupBuffer, responseID);
+    SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), responseID);
 
     return SignupBuffer;
 }
@@ -92,10 +87,9 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 }
 
 
-Buffer JsonResponsePacketSerializer::strToBin(std::string str) 
+Buffer JsonResponsePacketSerializer::strToBin(std::string str)
 {
     Buffer convertResult;
-    convertResult.reserve(str.size());
 
     // Iterate over each character in the string and convert it to unsigned char
     for (char c : str) {
@@ -105,7 +99,7 @@ Buffer JsonResponsePacketSerializer::strToBin(std::string str)
     return convertResult;
 }
 
-Buffer JsonResponsePacketSerializer::fitBuffToProtocol(json msg, unsigned int code)
+Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned int code)
 {
     // Protocol goes like this :
     // 1 byte - code
@@ -130,4 +124,3 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(json msg, unsigned int co
 
     return protocolBuffer;
 }
-

@@ -12,6 +12,8 @@ typedef std::vector<BYTE> Buffer;
 #define STATUS "status"
 #define MESSAGE "message"
 
+using namespace nlohmann;
+
 typedef enum ResponseId
 {
 	LOGIN_RESPONSE_ID = 1,
