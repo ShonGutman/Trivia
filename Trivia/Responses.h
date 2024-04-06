@@ -1,18 +1,12 @@
 #pragma once
 
 #include <vector>
-#include <ctime>
-#include <string>
-
-#include "json.hpp"
 
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
 #define STATUS "status"
 #define MESSAGE "message"
-
-using namespace nlohmann;
 
 typedef enum ResponseId
 {

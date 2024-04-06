@@ -1,6 +1,12 @@
 #pragma once
 
 #include "Responses.h"
+#include "json.hpp"
+
+#include <ctime>
+#include <string>
+
+using json = nlohmann::json;
 
 class JsonResponsePacketSerializer
 {
