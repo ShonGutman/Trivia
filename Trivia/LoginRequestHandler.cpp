@@ -7,7 +7,7 @@ bool LoginRequestHandler::isRequestRelevant(RequestInfo info)
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo info)
 {
-    //not implemented yet!
+    //not implemented yet! - THIS FUNCTION REQUEIRES SERI :)
     return RequestResult();
 }
 
