@@ -1,13 +1,13 @@
 #include "JsonResponsePacketSerializer.h"
 
-Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse response)
 {
     Buffer errBuffer;
     json jsonErr;
 
     // Add data to the json object.
     jsonErr[STATUS] = ERROR_RESPONSE_ID;
-    jsonErr[MESSAGE] = errResponse.message;
+    jsonErr[MESSAGE] = response.message;
 
     errBuffer = fitBuffToProtocol(jsonErr.dump(), ERROR_RESPONSE_ID);
 
@@ -15,7 +15,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errRespons
 
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse LogResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse response)
 {
     Buffer loginBuffer;
     json jsonLogin;
@@ -28,7 +28,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse LogRespons
     return loginBuffer;
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
 {
     Buffer SignupBuffer;
     json jsonSignup;
@@ -52,7 +52,7 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     }
 
     // Temporary buffer to store binary digits
-    std::vector<unsigned char> binaryDigits;
+    Buffer binaryDigits;
 
     // Convert decimal to binary
     while (decNum > 0) {
