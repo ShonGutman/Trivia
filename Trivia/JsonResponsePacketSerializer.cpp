@@ -64,14 +64,14 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     std::reverse(binaryDigits.begin(), binaryDigits.end());
 
     // Pad with zeros to make the number of bits a multiple of 8
-    while (binaryDigits.size() % 8 != 0) {
+    while (binaryDigits.size() % SIZE_BYTE != 0) {
         binaryDigits.insert(binaryDigits.begin(), 0);
     }
 
     // Divide into bytes and put each byte in Buffer
     for (size_t i = 0; i < binaryDigits.size(); i += 8) {
         unsigned char byte = 0;
-        for (size_t j = 0; j < 8; ++j) {
+        for (size_t j = 0; j < SIZE_BYTE; ++j) {
             byte |= (binaryDigits[i + j] << (7 - j));
         }
         convertResult.push_back(byte);
@@ -101,8 +101,6 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned
     // x bytes - msg
 
     Buffer protocolBuffer;
-
-    const int SIZE_BYTE_SIZE = 4;
 
     // Add code to the protocol buffer
     protocolBuffer.push_back(code);

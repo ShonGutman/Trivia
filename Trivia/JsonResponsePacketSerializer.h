@@ -8,6 +8,9 @@
 
 using json = nlohmann::json;
 
+#define SIZE_BYTE 8
+#define SIZE_BYTE_SIZE 4
+
 class JsonResponsePacketSerializer
 {
 public:
