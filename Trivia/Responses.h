@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
