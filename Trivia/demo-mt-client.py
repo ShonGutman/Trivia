@@ -1,12 +1,13 @@
 import socket
+import json
 
 SERVER_PORT = 8826
 SERVER_IP = '127.0.0.1'
 
 def connect_to_server():
     """
-    function will create a TCP socket with the server
-    #note: socket must be closed outside function
+    The function will establish a TCP connection with the server
+    # Note: Connection must be closed outside the function
     :return: server_sock
     :rtype: TCP socket
     """
@@ -17,16 +18,41 @@ def connect_to_server():
 
 def main():
     try:
-        # Connect to the server
+        # Attempt to connect to the server
         server_sock = connect_to_server()
         print("Connection successful")
 
         try:
-            # Send a message to the server
-            message = input("Place your input here: ")
+            message_type = input("Type 'login' or 'signup': ").lower()
+
+            if message_type == 'login':
+                # Prepare login message in JSON format
+                username = input("Enter your username: ")
+                password = input("Enter your password: ")
+                message_type = 1;
+                message_data = {"username": username, "password": password}
+                
+            elif message_type == 'signup':
+                # Prepare signup message in JSON format
+                username = input("Enter your username: ")
+                password = input("Enter your password: ")
+                mail = input("Enter your email: ")
+                message_type = 2;
+
+                message_data = {"username": username, "password": password, "mail": mail}
+            else:
+                print("Invalid message type")
+                return
+
+            # Add code and message length according to the format
+            message_data["code"] = message_type
+            message_data["length"] = len(json.dumps(message_data))
+
+            # Send message to server in JSON format
+            message = json.dumps(message_data)
             server_sock.sendall(message.encode())
 
-            # Receive response from the server
+            # Receive response from server
             data = server_sock.recv(1024)
             print("Received from server:", data.decode())
         finally:
