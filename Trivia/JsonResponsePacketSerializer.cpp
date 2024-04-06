@@ -102,10 +102,32 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned
 
     Buffer protocolBuffer;
 
+    const int SIZE_BYTE_SIZE = 4;
+
+    // Add code to the protocol buffer
     protocolBuffer.push_back(code);
 
     unsigned int msgSize = msg.size();
     Buffer sizeBuffer = decToBin(msgSize);
+    // Check if the size buffer needs padding or if it's too big
+    if (sizeBuffer.size() < SIZE_BYTE_SIZE)
+    {
+        // Calculate the number of null bytes to add for padding
+        int nullAmount = SIZE_BYTE_SIZE - sizeBuffer.size();
+
+        // Add null bytes for padding
+        for (int i = 0; i < nullAmount; i++)
+        {
+            protocolBuffer.push_back('\0');
+        }
+    }
+    else if (sizeBuffer.size() > SIZE_BYTE_SIZE)
+    {
+        throw ("msg too big");
+        return protocolBuffer; // Return empty buffer
+    }
+
+    // Add the rest of the size buffer to the protocol buffer
     for (const auto& byte : sizeBuffer)
     {
         protocolBuffer.push_back(byte);
