@@ -5,13 +5,11 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse errRespons
     Buffer errBuffer;
     json jsonErr;
 
-    ResponseId responseID = ERROR_RESPONSE_ID;
-
     // Add data to the json object.
-    jsonErr[STATUS] = responseID;
+    jsonErr[STATUS] = ERROR_RESPONSE_ID;
     jsonErr[MESSAGE] = errResponse.message;
 
-    errBuffer = fitBuffToProtocol(jsonErr.dump(), responseID);
+    errBuffer = fitBuffToProtocol(jsonErr.dump(), ERROR_RESPONSE_ID);
 
     return errBuffer;
 
@@ -22,12 +20,10 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse LogRespons
     Buffer loginBuffer;
     json jsonLogin;
 
-    ResponseId responseID = LOGIN_RESPONSE_ID;
-
     // Add data to the json object.
-    jsonLogin[STATUS] = responseID;
+    jsonLogin[STATUS] = LOGIN_RESPONSE_ID;
 
-    loginBuffer = fitBuffToProtocol(jsonLogin.dump(), responseID);
+    loginBuffer = fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
 
     return loginBuffer;
 }
@@ -37,12 +33,10 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse)
     Buffer SignupBuffer;
     json jsonSignup;
 
-    ResponseId responseID = SIGN_UP_RESPONSE_ID;
-
     // Add data to the json object.
-    jsonSignup[STATUS] = responseID;
+    jsonSignup[STATUS] = SIGN_UP_RESPONSE_ID;
 
-    SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), responseID);
+    SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 
     return SignupBuffer;
 }
