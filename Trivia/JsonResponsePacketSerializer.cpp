@@ -128,15 +128,11 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned
     }
 
     // Add the rest of the size buffer to the protocol buffer
-    for (const auto& byte : sizeBuffer)
-    {
-        protocolBuffer.push_back(byte);
-    }
+    protocolBuffer.insert(protocolBuffer.end(), sizeBuffer.begin(), sizeBuffer.end());
 
     // Add message to protocol buffer
-    for (unsigned char byte : msg) {
-        protocolBuffer.push_back(byte);
-    }
+    protocolBuffer.insert(protocolBuffer.end(), msg.begin(), msg.end());
+
 
     return protocolBuffer;
 }
