@@ -72,7 +72,7 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     for (size_t i = 0; i < binaryDigits.size(); i += 8) {
         unsigned char byte = 0;
         for (size_t j = 0; j < SIZE_BYTE; ++j) {
-            byte |= (binaryDigits[i + j] << (7 - j));
+            byte |= (binaryDigits[i + j] << (SIZE_BYTE - 1 - j));
         }
         convertResult.push_back(byte);
     }
