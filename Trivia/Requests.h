@@ -9,7 +9,7 @@ class IRequestHandler;
 
 using std::tm;
 
-#define BYTE char
+#define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
 typedef enum RequestId
