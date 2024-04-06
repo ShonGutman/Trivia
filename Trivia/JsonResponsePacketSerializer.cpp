@@ -69,7 +69,7 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
     }
 
     // Divide into bytes and put each byte in Buffer
-    for (size_t i = 0; i < binaryDigits.size(); i += 8) {
+    for (size_t i = 0; i < binaryDigits.size(); i += SIZE_BYTE) {
         unsigned char byte = 0;
         for (size_t j = 0; j < SIZE_BYTE; ++j) {
             byte |= (binaryDigits[i + j] << (SIZE_BYTE - 1 - j));
