@@ -5,7 +5,6 @@
 
 #include <ctime>
 #include <string>
-#include <bitset>
 
 using json = nlohmann::json;
 

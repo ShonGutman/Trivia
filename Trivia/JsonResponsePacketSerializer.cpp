@@ -47,21 +47,15 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 
     Buffer convertResult;
 
-    for (int i = 0; i < MSG_MAX_SIZE; i++)
+    char bytesBuffer[MSG_MAX_SIZE];
+    //copy number bytes into char array of MSG_MAX_SIZE bytes
+    memcpy(bytesBuffer, (char*)&decNum, MSG_MAX_SIZE);
+
+    //run from end to start since we read number in opposite way
+    for (int i = MSG_MAX_SIZE - 1; i >= 0; i--)
     {
-        // Convert the least significant byte of decNum to a binary representation
-        // using std::bitset and push it to the convertResult Buffer
-        convertResult.push_back(std::bitset<SIZE_BYTE>(decNum).to_ulong());
-
-        // Right-shift decNum by SIZE_BYTE bits (8 bits for a byte)
-        // to extract the next byte for the next iteration
-        decNum = decNum >> SIZE_BYTE;
+        convertResult.push_back(bytesBuffer[i]);
     }
-    
-    // Since we pushed the bytes in reverse order, we need to reverse
-    // the Buffer to get the correct binary representation
-    std::reverse(convertResult.begin(), convertResult.end());
-
     return convertResult;
 }
 
