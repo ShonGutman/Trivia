@@ -45,16 +45,18 @@ def main():
                 return
 
             # Add code and message length according to the format
-            message_data["code"] = message_type
-            message_data["length"] = len(json.dumps(message_data))
+            data = []
+            data.append(message_type)
+            data.append(len(json.dumps(message_data)))
+            data.extend(json.dumps(message_data))
+
 
             # Send message to server in JSON format
-            message = json.dumps(message_data)
-            server_sock.sendall(message.encode())
+            server_sock.sendall(data.encode())
 
             # Receive response from server
-            data = server_sock.recv(1024)
-            print("Received from server:", data.decode())
+            server_data = server_sock.recv(1024)
+            print("Received from server:", server_data.decode())
         finally:
             # Close the connection
             server_sock.close()
