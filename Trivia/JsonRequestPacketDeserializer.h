@@ -9,6 +9,9 @@ using json = nlohmann::json;
 #define PASSWORD_KEY "password"
 #define EMAIL_LEY "email"
 
+#define SIZE_BYTE 8
+#define MSG_MAX_SIZE 4
+
 class JsonRequestPacketDeserializer
 {
 public:
@@ -34,6 +37,17 @@ public:
 	 * @return The deserialized SignupRequest object.
 	 */
 	static SignupRequest deserializeSignUpRequest(Buffer& buffer);
+
+	/**
+	 * Converts a binary buffer to its decimal representation.
+	 *
+	 * This function takes a buffer containing binary data and converts it to its equivalent
+	 * decimal representation.
+	 *
+	 * @param buffer The buffer containing the binary data to be converted.
+	 * @return The decimal representation of the binary data.
+	 */
+	static int binToDec(Buffer& buffer);
 
 private:
 

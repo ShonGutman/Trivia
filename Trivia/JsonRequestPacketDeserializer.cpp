@@ -27,6 +27,22 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     return request;
 }
 
+int JsonRequestPacketDeserializer::binToDec(Buffer& buffer)
+{
+    char bytesBuffer[MSG_MAX_SIZE];
+
+
+    //run from end to start since we read number in opposite way
+    for (int i = 0; i < MSG_MAX_SIZE; i++)
+    {
+        bytesBuffer[i] = buffer[MSG_MAX_SIZE - 1 - i];
+    }
+
+    int decNum = 0;
+    memcpy(&decNum, (int*)bytesBuffer, MSG_MAX_SIZE);
+    return decNum;
+}
+
 nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(Buffer& buffer)
 {
     //convert buffer to std::string
