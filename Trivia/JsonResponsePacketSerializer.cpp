@@ -43,40 +43,19 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 {
+    //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
+
     Buffer convertResult;
 
-    // Edge case for 0
-    if (decNum == 0) {
-        convertResult.push_back(0);
-        return convertResult;
+    char bytesBuffer[MSG_MAX_SIZE];
+    //copy number bytes into char array of MSG_MAX_SIZE bytes
+    memcpy(bytesBuffer, (char*)&decNum, MSG_MAX_SIZE);
+
+    //run from end to start since we read number in opposite way
+    for (int i = MSG_MAX_SIZE - 1; i >= 0; i--)
+    {
+        convertResult.push_back(bytesBuffer[i]);
     }
-
-    // Temporary buffer to store binary digits
-    Buffer binaryDigits;
-
-    // Convert decimal to binary
-    while (decNum > 0) {
-        binaryDigits.push_back(decNum % 2);
-        decNum /= 2;
-    }
-
-    // Reverse the binary digits to get the correct binary representation
-    std::reverse(binaryDigits.begin(), binaryDigits.end());
-
-    // Pad with zeros to make the number of bits a multiple of 8
-    while (binaryDigits.size() % SIZE_BYTE != 0) {
-        binaryDigits.insert(binaryDigits.begin(), 0);
-    }
-
-    // Divide into bytes and put each byte in Buffer
-    for (size_t i = 0; i < binaryDigits.size(); i += SIZE_BYTE) {
-        unsigned char byte = 0;
-        for (size_t j = 0; j < SIZE_BYTE; ++j) {
-            byte |= (binaryDigits[i + j] << (SIZE_BYTE - 1 - j));
-        }
-        convertResult.push_back(byte);
-    }
-
     return convertResult;
 }
 
@@ -86,7 +65,8 @@ Buffer JsonResponsePacketSerializer::strToBin(std::string str)
     Buffer convertResult;
 
     // Iterate over each character in the string and convert it to unsigned char
-    for (char c : str) {
+    for (char c : str) 
+    {
         convertResult.push_back(static_cast<unsigned char>(c));
     }
 
@@ -106,24 +86,15 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned
     protocolBuffer.push_back(code);
 
     unsigned int msgSize = msg.size();
-    Buffer sizeBuffer = decToBin(msgSize);
-    // Check if the size buffer needs padding or if it's too big
-    if (sizeBuffer.size() < SIZE_BYTE_SIZE)
-    {
-        // Calculate the number of null bytes to add for padding
-        int nullAmount = SIZE_BYTE_SIZE - sizeBuffer.size();
 
-        // Add null bytes for padding
-        for (int i = 0; i < nullAmount; i++)
-        {
-            protocolBuffer.push_back('\0');
-        }
-    }
-    else if (sizeBuffer.size() > SIZE_BYTE_SIZE)
+    if (msgSize >= pow(2, MSG_MAX_SIZE * SIZE_BYTE))
     {
-        throw ("msg too big");
+        throw ("msg is too big");
         return protocolBuffer; // Return empty buffer
     }
+
+    Buffer sizeBuffer = decToBin(msgSize);
+
 
     // Add the rest of the size buffer to the protocol buffer
     protocolBuffer.insert(protocolBuffer.end(), sizeBuffer.begin(), sizeBuffer.end());
