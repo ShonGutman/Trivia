@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 
-#include "Requests.h"
+#include "JsonRequestPacketDeserializer.h"
+#include "JsonResponsePacketSerializer.h"
 
 // to avoid circular definition
 struct RequestResult;
@@ -21,7 +22,7 @@ public:
 	 * @param info - The RequestInfo object containing information about the request.
 	 * @return true if the request is relevant to this handler, false otherwise.
 	 */
-	virtual bool isRequestRelevant(RequestInfo info) = 0;
+	virtual bool isRequestRelevant(RequestInfo& info) = 0;
 
 	/*
 	 * Handles the incoming request and produces a result based on the provided information.
@@ -29,5 +30,5 @@ public:
 	 * @param info The information related to the request.
 	 * @return The result of handling the request.
 	 */
-	virtual RequestResult handleRequest(RequestInfo info) = 0;
+	virtual RequestResult handleRequest(RequestInfo& info) = 0;
 };
