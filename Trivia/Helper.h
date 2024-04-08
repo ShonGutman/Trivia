@@ -7,6 +7,18 @@ class Helper
 {
 public:
 
+	/**
+	 * Retrieves an integer code from the message received on the specified client socket.
+	 *
+	 * This function reads the specified amount of bytes from the client socket and interprets
+	 * them as an integer code.
+	 *
+	 * @param clientSocket The socket from which to read the message.
+	 * @param amountOfBytes The number of bytes to read from the message.
+	 * @return The integer code extracted from the message.
+	 */
+	static int getMessageintCode(SOCKET clientSocket, unsigned int amountOfBytes);
+
 	/*
 	* send msg to client
 	* @param clientSocket - socket of client

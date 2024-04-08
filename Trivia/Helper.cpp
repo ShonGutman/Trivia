@@ -1,5 +1,17 @@
 #include "Helper.h"
 
+int Helper::getMessageintCode(SOCKET clientSocket, unsigned int amountOfBytes)
+{
+	std::string msgTypeAsString = getMsgFromSocket(clientSocket, amountOfBytes);
+
+	if (msgTypeAsString == "")
+	{
+		return 0;
+	}
+
+	return std::atoi(msgTypeAsString.c_str());
+}
+
 void Helper::sendData(SOCKET clientSocket, const std::string& message)
 {
 	const char* data = message.c_str();
