@@ -6,15 +6,13 @@
 #include <string>
 #include <map>
 #include <thread>
-#include <mutex>
 #include "Helper.h"
-#include "IRequestHandler.h"
+#include "LoginRequestHandler.h"
 
-static std::mutex _mutexClients;
 
 constexpr int SERVER_PORT = 8826;
-constexpr int MSG_LENGTH = 5;
-#define MSG "Hello"
+constexpr int CODE_LENGTH_IN_BYTES = 1;
+constexpr int MSG_LENGTH_IN_BYTES = 4;
 
 class Communicator
 {
@@ -53,6 +51,8 @@ private:
 	* @param clientSocket - socket of client to handle
 	*/
 	void handleNewClient(SOCKET clientSocket);
+
+	static RequestInfo scanRequest(SOCKET clientSocket);
 
 	SOCKET _serverSocket;
 	std::map<SOCKET, IRequestHandler*> _clients;

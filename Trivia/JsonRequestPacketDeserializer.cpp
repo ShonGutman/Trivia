@@ -27,7 +27,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     return request;
 }
 
-int JsonRequestPacketDeserializer::binToDec(Buffer& buffer)
+int JsonRequestPacketDeserializer::binToDec(Buffer buffer)
 {
     char bytesBuffer[MSG_MAX_SIZE];
 

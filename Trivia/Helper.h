@@ -1,7 +1,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <WinSock2.h>
+
+#define BYTE unsigned char
+typedef std::vector<BYTE> Buffer;
 
 class Helper
 {
@@ -17,22 +21,22 @@ public:
 	 * @param amountOfBytes The number of bytes to read from the message.
 	 * @return The integer code extracted from the message.
 	 */
-	static int getMessageintCode(SOCKET clientSocket, unsigned int amountOfBytes);
+	static int getMessageIntCode(SOCKET clientSocket, unsigned int amountOfBytes);
 
 	/*
 	* send msg to client
 	* @param clientSocket - socket of client
 	* @param message - msg to send to client
 	*/
-	static void sendData(SOCKET clientSocket, const std::string& message);
+	static void sendData(SOCKET clientSocket, const Buffer& bufferMessage);
 
 	/*
 	* function reads data in clientSocket
 	* @param clientSocket - socket of client to read
 	* @param bytesNum - amount of bytes to read
-	* @return: readed data
+	* @return: readed data as buffer
 	*/
-	static std::string getMsgFromSocket(SOCKET clientSocket, const int bytesNum);
+	static Buffer getMsgFromSocket(SOCKET clientSocket, const int bytesNum);
 
 	/*
 	* --------------------------------------------------------------------------------------------

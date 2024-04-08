@@ -47,7 +47,7 @@ public:
 	 * @param buffer The buffer containing the binary data to be converted.
 	 * @return The decimal representation of the binary data.
 	 */
-	static int binToDec(Buffer& buffer);
+	static int binToDec(Buffer buffer);
 
 private:
 

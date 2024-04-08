@@ -1,6 +1,6 @@
 #include "Helper.h"
 
-int Helper::getMessageintCode(SOCKET clientSocket, unsigned int amountOfBytes)
+int Helper::getMessageIntCode(SOCKET clientSocket, unsigned int amountOfBytes)
 {
 	std::string msgTypeAsString = getMsgFromSocket(clientSocket, amountOfBytes);
 
@@ -12,8 +12,11 @@ int Helper::getMessageintCode(SOCKET clientSocket, unsigned int amountOfBytes)
 	return std::atoi(msgTypeAsString.c_str());
 }
 
-void Helper::sendData(SOCKET clientSocket, const std::string& message)
+void Helper::sendData(SOCKET clientSocket, const Buffer& bufferMessage)
 {
+	//convert buffer to string
+	std::string message(bufferMessage.begin(), bufferMessage.end());
+
 	const char* data = message.c_str();
 
 	if (send(clientSocket, data, message.size(), 0) == INVALID_SOCKET)
@@ -22,15 +25,18 @@ void Helper::sendData(SOCKET clientSocket, const std::string& message)
 	}
 }
 
-std::string Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
+Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
 {
 	char* msg = getMsgFromSocket(clientSocket, bytesNum, 0);
 	std::string msgString(msg);
 
+	//convert string to buffer
+	Buffer msgBuffer(msgString.begin(), msgString.end());
+
 	//remove allocated memory
 	delete msg;
 
-	return msgString;
+	return msgBuffer;
 }
 
 char* Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags)

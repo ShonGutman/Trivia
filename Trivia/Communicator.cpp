@@ -74,28 +74,73 @@ void Communicator::acceptClient()
 
 void Communicator::handleNewClient(SOCKET clientSocket)
 {
-	std::string msg;
-	try
+	LoginRequestHandler loginRequest;
+	IRequestHandler* requestHandler = &loginRequest;
+
+	while (true)
 	{
-		msg = Helper::getMsgFromSocket(clientSocket, MSG_LENGTH);
+		try
+		{
+			RequestInfo request = scanRequest(clientSocket);
+
+			if (requestHandler->isRequestRelevant(request))
+			{
+				RequestResult result = requestHandler->handleRequest(request);
+				
+				//send response to client
+				Helper::sendData(clientSocket, result.response);
+				
+				//switch handler
+				requestHandler = result.newHandler;
+			}
+
+			else
+			{
+				throw("Request is illegal!");
+			}
+
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Client " << clientSocket << " closed the socket" << std::endl;
+			std::cerr << "reason: " << e.what() << std::endl;
+
+			//end client socket & thread
+			closesocket(clientSocket);
+			return;
+		}
 	}
-	catch (const std::exception& e)
+}
+
+RequestInfo Communicator::scanRequest(SOCKET clientSocket)
+{
+	//define variables
+	int length = 0;
+	RequestInfo request;
+
+
+	request.id = (RequestId)Helper::getMessageIntCode(clientSocket, CODE_LENGTH_IN_BYTES);
+
+	//client closed connection
+	if (request.id == ERROR_REQUEST_ID)
 	{
-		std::cerr << "Error: " << e.what() << std::endl;
-		closesocket(clientSocket);
-		return;
+		//throw to be catched at handleClient
+		throw ("Client closed connection");
 	}
 
-	if (strncmp(msg.c_str(), MSG, MSG_LENGTH) != 0)
-	{
-		std::cerr << "Client Msg doesn't match expected msg. Closing Client" << std::endl;
+	//length is was a buffer of bytes so first read it as bytes and than convert from binary to number
+	length = JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, MSG_LENGTH_IN_BYTES));
 
-		//end client socket & thread
-		closesocket(clientSocket);
-		return;
-	}
+	//scan buffer from client request
+	request.buffer = Helper::getMsgFromSocket(clientSocket, length);
 
-	Helper::sendData(clientSocket, MSG);
+	// Get the current time
+	time_t currentTime = std::time(nullptr);
+
+	// Convert the current time to a tm structure (localtime returns a pointer)
+	request.recivalTime = *std::localtime(&currentTime);
+
+	return request;
 }
 
 
