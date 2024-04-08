@@ -77,7 +77,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 	std::string msg;
 	try
 	{
-		msg = getMsgFromSocket(clientSocket, MSG_LENGTH);
+		msg = Helper::getMsgFromSocket(clientSocket, MSG_LENGTH);
 	}
 	catch (const std::exception& e)
 	{
@@ -95,47 +95,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 		return;
 	}
 
-	sendData(clientSocket, MSG);
+	Helper::sendData(clientSocket, MSG);
 }
 
-void Communicator::sendData(SOCKET clientSocket, const std::string& message)
-{
-	const char* data = message.c_str();
 
-	if (send(clientSocket, data, message.size(), 0) == INVALID_SOCKET)
-	{
-		throw std::exception("Error while sending message to client");
-	}
-}
-
-std::string Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
-{
-		char* msg = getMsgFromSocket(clientSocket, bytesNum, 0);
-		std::string msgString(msg);
-
-		//remove allocated memory
-		delete msg;
-
-		return msgString;
-}
-
-char* Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags)
-{
-	if (bytesNum == 0)
-	{
-		return (char*)"";
-	}
-
-	char* data = new char[bytesNum + 1];
-	int res = recv(clientSocket, data, bytesNum, flags);
-
-	if (res == INVALID_SOCKET)
-	{
-		std::string s = "Error while recieving from socket: ";
-		s += std::to_string(clientSocket);
-		throw std::exception(s.c_str());
-	}
-
-	data[bytesNum] = 0;
-	return data;
-}
