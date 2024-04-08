@@ -121,13 +121,6 @@ RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 	//scan code as bytes and than convert it into a decimal number
 	request.id = (RequestId)JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES));
 
-	//client closed connection
-	if (request.id == ERROR_REQUEST_ID)
-	{
-		//throw to be catched at handleClient
-		throw ("Client closed connection");
-	}
-
 	//length is was a buffer of bytes so first read it as bytes and than convert from binary to number
 	length = JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, MSG_LENGTH_IN_BYTES));
 

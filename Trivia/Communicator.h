@@ -52,6 +52,15 @@ private:
 	*/
 	void handleNewClient(SOCKET clientSocket);
 
+	/**
+	 * Scans the incoming request from the specified client socket and extracts the relevant information.
+	 *
+	 * This function reads the incoming request from the client socket and extracts the relevant
+	 * information to construct a RequestInfo object.
+	 *
+	 * @param clientSocket The socket from which to read the request.
+	 * @return The RequestInfo object containing the extracted information from the request.
+	 */
 	static RequestInfo scanRequest(SOCKET clientSocket);
 
 	SOCKET _serverSocket;
