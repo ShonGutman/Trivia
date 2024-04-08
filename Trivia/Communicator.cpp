@@ -118,8 +118,8 @@ RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 	int length = 0;
 	RequestInfo request;
 
-
-	request.id = (RequestId)Helper::getMessageIntCode(clientSocket, CODE_LENGTH_IN_BYTES);
+	//scan code as bytes and than convert it into a decimal number
+	request.id = (RequestId)JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES));
 
 	//client closed connection
 	if (request.id == ERROR_REQUEST_ID)
@@ -133,12 +133,6 @@ RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 
 	//scan buffer from client request
 	request.buffer = Helper::getMsgFromSocket(clientSocket, length);
-
-	// Get the current time
-	time_t currentTime = std::time(nullptr);
-
-	// Convert the current time to a tm structure (localtime returns a pointer)
-	request.recivalTime = *std::localtime(&currentTime);
 
 	return request;
 }
