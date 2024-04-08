@@ -81,6 +81,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 	{
 		try
 		{
+			//scan the request from the client
 			RequestInfo request = scanRequest(clientSocket);
 
 			if (requestHandler->isRequestRelevant(request))
@@ -119,7 +120,7 @@ RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 	RequestInfo request;
 
 	//scan code as bytes and than convert it into a decimal number
-	request.id = (RequestId)JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES));
+	request.id = static_cast<RequestId>(JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES)));
 
 	//length is was a buffer of bytes so first read it as bytes and than convert from binary to number
 	length = JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, MSG_LENGTH_IN_BYTES));
