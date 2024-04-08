@@ -22,7 +22,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     //put data in jsonMsg into request object
     request.username = jsonMsg[USERNAME_KEY].get<std::string>();
     request.password = jsonMsg[PASSWORD_KEY].get<std::string>();
-    request.email = jsonMsg[EMAIL_LEY].get<std::string>();
+    request.email = jsonMsg[EMAIL_KEY].get<std::string>();
 
     return request;
 }
