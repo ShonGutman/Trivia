@@ -7,7 +7,7 @@ using json = nlohmann::json;
 
 #define USERNAME_KEY "username"
 #define PASSWORD_KEY "password"
-#define EMAIL_LEY "email"
+#define EMAIL_KEY "email"
 
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4
