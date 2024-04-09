@@ -73,7 +73,11 @@ def main():
                 mail = input("Enter your email: ")
                 message_type = SIGN_UP_CODE
 
+<<<<<<< HEAD
                 message_data = {"username": username, "password": password, "email": mail}
+=======
+                message_data = {"username": username, "password": password, "mail": mail}
+>>>>>>> e594d47 (fixed bugs in python server)
             else:
                 message_type = ERROR_CODE
 
