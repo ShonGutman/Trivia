@@ -72,12 +72,12 @@ def main():
             server_sock.sendall(data.encode())
 
             # Receive response from server as json
-            server_data = server_sock.recv(1024).decode()
-            if server_data == str(ERROR_CODE):
+            server_data = json.loads(server_sock.recv(1024).decode())
+            if server_data["status"] == str(ERROR_CODE):
                 raise Exception("Error occurred on the server side")
-            elif server_data == str(SIGN_UP_CODE):
+            elif server_data["status"] == str(SIGN_UP_CODE):
                 print("Signup!")
-            elif server_data == str(LOGIN_CODE):
+            elif server_data["status"] == str(LOGIN_CODE):
                 print("Login!")
 
         except Exception as e:
