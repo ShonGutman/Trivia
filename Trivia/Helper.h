@@ -28,6 +28,8 @@ public:
 	*/
 	static Buffer getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum);
 
+	static Buffer getLengthFromSocket(SOCKET clientSocket);
+
 	/*
 	* --------------------------------------------------------------------------------------------
 	* this function is helper to std::string getMsgFromSocket(SOCKET clientSocket, int bytesNum);
