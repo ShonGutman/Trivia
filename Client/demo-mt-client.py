@@ -25,6 +25,7 @@ def main():
 
             try:
                 message_type = input("Type 'login' or 'signup': ").lower()
+                message_data = {}
 
                 if message_type == 'login':
                     # Prepare login message in JSON format
@@ -43,7 +44,6 @@ def main():
                     message_data = {"username": username, "password": password, "mail": mail}
                 else:
                     message_type = 99
-                    message_data = {}
 
                 # Add code and message length according to the format
                 data = []
@@ -62,7 +62,7 @@ def main():
                 server_sock.close()
         except Exception as e:
             print("Could not connect:", e)
-            break;
+            break
 
 if __name__ == "__main__":
     main()
