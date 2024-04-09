@@ -74,10 +74,14 @@ def main():
                 message_type = SIGN_UP_CODE
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 message_data = {"username": username, "password": password, "email": mail}
 =======
                 message_data = {"username": username, "password": password, "mail": mail}
 >>>>>>> e594d47 (fixed bugs in python server)
+=======
+                message_data = {"username": username, "password": password, "email": mail}
+>>>>>>> 13b17e7 (fixed little bug in client, DAMN U SHELLY WHY THE F*** DID U CALL IT MAIL I WAS SCARY)
             else:
                 message_type = ERROR_CODE
 
