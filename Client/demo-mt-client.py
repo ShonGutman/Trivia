@@ -1,8 +1,14 @@
 import socket
-import json
 
 SERVER_PORT = 8826
 SERVER_IP = '127.0.0.1'
+
+LOGIN_CODE = 1
+SIGN_UP_CODE = 2
+ERROR_CODE = 99
+
+MSG_LEN_SIZE = 4
+
 
 def connect_to_server():
     """
@@ -16,53 +22,61 @@ def connect_to_server():
     server_sock.connect(server_address)
     return server_sock
 
+
 def main():
+    server_sock = None  # Initialize server_sock outside the try block
+    try:
+        # Attempt to connect to the server
+        server_sock = connect_to_server()
+        print("Connection successful")
+    except Exception as e:
+        print("Could not connect:", e)
+
     while True:
         try:
-            # Attempt to connect to the server
-            server_sock = connect_to_server()
-            print("Connection successful")
+            message_type = input("Type 'login' or 'signup': ").lower()
+            message_data = {}
 
-            try:
-                message_type = input("Type 'login' or 'signup': ").lower()
-                message_data = {}
+            if message_type == 'login':
+                # Prepare login message in JSON format
+                username = input("Enter your username: ")
+                password = input("Enter your password: ")
+                message_type = LOGIN_CODE
+                message_data = {"username": username, "password": password}
 
-                if message_type == 'login':
-                    # Prepare login message in JSON format
-                    username = input("Enter your username: ")
-                    password = input("Enter your password: ")
-                    message_type = 1
-                    message_data = {"username": username, "password": password}
-                    
-                elif message_type == 'signup':
-                    # Prepare signup message in JSON format
-                    username = input("Enter your username: ")
-                    password = input("Enter your password: ")
-                    mail = input("Enter your email: ")
-                    message_type = 2
+            elif message_type == 'signup':
+                # Prepare signup message in JSON format
+                username = input("Enter your username: ")
+                password = input("Enter your password: ")
+                mail = input("Enter your email: ")
+                message_type = SIGN_UP_CODE
 
-                    message_data = {"username": username, "password": password, "mail": mail}
-                else:
-                    message_type = 99
+                message_data = {"username": username, "password": password, "mail": mail}
+            else:
+                message_type = ERROR_CODE
 
-                # Add code and message length according to the format
-                data = []
-                data.append(message_type)
-                data.append(len(json.dumps(message_data)))
-                data.append(json.dumps(message_data))
+            # Add code and message length according to the format
+            data = [message_type]
 
-                # Send message to server in JSON format
-                server_sock.sendall(json.dumps(data).encode())
+            len_of_data = len(message_data)
+            if len_of_data <= MSG_LEN_SIZE:
+                data.append(str(len_of_data).zfill(MSG_LEN_SIZE))  # Pad message length
+            else:
+                raise ValueError("Message length exceeds maximum allowed size")
 
-                # Receive response from server
-                server_data = server_sock.recv(1024)
-                print("Received from server:", server_data.decode())
-            finally:
-                # Close the connection
-                server_sock.close()
+            data.append(message_data)
+
+            # Send message to server as string
+            message = ','.join(data)
+            server_sock.sendall(message.encode())
+
+            # Receive response from server
+            server_data = server_sock.recv(1024)
+            print("Received from server:", server_data.decode())
         except Exception as e:
-            print("Could not connect:", e)
-            break
+            print("Error:", e)
+            server_sock.close()  # Close the connection
+
 
 if __name__ == "__main__":
     main()
