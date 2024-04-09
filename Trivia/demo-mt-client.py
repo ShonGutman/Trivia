@@ -75,6 +75,7 @@ def main():
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 message_data = {"username": username, "password": password, "email": mail}
 =======
                 message_data = {"username": username, "password": password, "mail": mail}
@@ -82,6 +83,9 @@ def main():
 =======
                 message_data = {"username": username, "password": password, "email": mail}
 >>>>>>> 13b17e7 (fixed little bug in client, DAMN U SHELLY WHY THE F*** DID U CALL IT MAIL I WAS SCARY)
+=======
+                message_data = {"username": username, "password": password, "email": mail}
+>>>>>>> 13b17e7fa8a2bf912d406c4374f174012f813ba5
             else:
                 message_type = ERROR_CODE
 
