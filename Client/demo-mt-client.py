@@ -71,9 +71,15 @@ def main():
             # Send message to server as string
             server_sock.sendall(data.encode())
 
-            # Receive response from server
-            server_data = server_sock.recv(1024)
-            print("Received from server:", server_data.decode())
+            # Receive response from server as json
+            server_data = server_sock.recv(1024).decode()
+            if server_data == str(ERROR_CODE):
+                raise Exception("Error occurred on the server side")
+            elif server_data == str(SIGN_UP_CODE):
+                print("Signup!")
+            elif server_data == str(LOGIN_CODE):
+                print("Login!")
+
         except Exception as e:
             print("Error:", e)
             server_sock.close()  # Close the connection
