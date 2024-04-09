@@ -71,21 +71,10 @@ def main():
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
                 mail = input("Enter your email: ")
+                
                 message_type = SIGN_UP_CODE
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+                
                 message_data = {"username": username, "password": password, "email": mail}
-=======
-                message_data = {"username": username, "password": password, "mail": mail}
->>>>>>> e594d47 (fixed bugs in python server)
-=======
-                message_data = {"username": username, "password": password, "email": mail}
->>>>>>> 13b17e7 (fixed little bug in client, DAMN U SHELLY WHY THE F*** DID U CALL IT MAIL I WAS SCARY)
-=======
-                message_data = {"username": username, "password": password, "email": mail}
->>>>>>> 13b17e7fa8a2bf912d406c4374f174012f813ba5
             else:
                 message_type = ERROR_CODE
 
