@@ -1,5 +1,6 @@
 import socket
 import json
+import struct
 
 SERVER_PORT = 8826
 SERVER_IP = '127.0.0.1'
@@ -22,6 +23,25 @@ def connect_to_server():
     server_address = (SERVER_IP, SERVER_PORT)
     server_sock.connect(server_address)
     return server_sock
+
+
+def convert_to_byte_string(num):
+    """
+    Convert a number to a byte string representation and reverse it.
+
+    Note: This function assumes that the input number can be represented
+    as a 4-byte unsigned integer in little-endian byte order.
+
+    :param num: The number to be converted to a byte string.
+    :type num: int
+    :return: The reversed byte string representation of the input number.
+    :rtype: str
+    """
+
+    bytesBuffer = struct.pack("I", num)  # Pack the number into bytes
+
+    # need to reverse string
+    return bytesBuffer.decode('utf-8')[::-1]
 
 
 def main():
@@ -53,18 +73,27 @@ def main():
                 mail = input("Enter your email: ")
                 message_type = SIGN_UP_CODE
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                message_data = {"username": username, "password": password, "email": mail}
+=======
                 message_data = {"username": username, "password": password, "mail": mail}
+>>>>>>> e594d47 (fixed bugs in python server)
+=======
+                message_data = {"username": username, "password": password, "email": mail}
+>>>>>>> 13b17e7 (fixed little bug in client, DAMN U SHELLY WHY THE F*** DID U CALL IT MAIL I WAS SCARY)
+=======
+                message_data = {"username": username, "password": password, "email": mail}
+>>>>>>> 13b17e7fa8a2bf912d406c4374f174012f813ba5
             else:
                 message_type = ERROR_CODE
 
             # Add code and message length according to the format
-            data = str(message_type)
+            data = chr(message_type)
 
             len_of_data = len(json.dumps(message_data))
-            if len_of_data <= MSG_LEN_SIZE:
-                data += (str(len_of_data).zfill(MSG_LEN_SIZE))  # Pad message length
-            else:
-                raise ValueError("Message length exceeds maximum allowed size")
+            data += convert_to_byte_string(len_of_data)
 
             data += json.dumps(message_data)
 
@@ -72,12 +101,16 @@ def main():
             server_sock.sendall(data.encode())
 
             # Receive response from server as json
-            server_data = json.loads(server_sock.recv(1024).decode())
-            if server_data["status"] == str(ERROR_CODE):
+            response = server_sock.recv(1024).decode()
+            
+            #first 5 bytes are header from server, irrelevent in python demo client
+            server_data = json.loads(response[5:])
+            
+            if server_data["status"] == ERROR_CODE:
                 raise Exception("Error occurred on the server side")
-            elif server_data["status"] == str(SIGN_UP_CODE):
+            elif server_data["status"] == SIGN_UP_CODE:
                 print("Signup!")
-            elif server_data["status"] == str(LOGIN_CODE):
+            elif server_data["status"] == LOGIN_CODE:
                 print("Login!")
 
         except Exception as e:

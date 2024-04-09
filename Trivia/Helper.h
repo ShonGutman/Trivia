@@ -29,6 +29,23 @@ public:
 	static Buffer getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum);
 
 	/*
+	* function reads length in clientSocket
+	* @param clientSocket - socket of client to read
+	* @return: readed length as buffer
+	*/
+	static Buffer getLengthFromSocket(SOCKET clientSocket);
+
+	/*
+<<<<<<< HEAD
+	* function reads length in clientSocket
+	* @param clientSocket - socket of client to read
+	* @return: readed length as buffer
+	*/
+	static Buffer getLengthFromSocket(SOCKET clientSocket);
+
+	/*
+=======
+>>>>>>> 13b17e7fa8a2bf912d406c4374f174012f813ba5
 	* --------------------------------------------------------------------------------------------
 	* this function is helper to std::string getMsgFromSocket(SOCKET clientSocket, int bytesNum);
 	* it is better to use that function because it is easier and safer (secures usage of memory)

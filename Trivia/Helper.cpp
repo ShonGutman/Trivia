@@ -27,6 +27,25 @@ Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum
 	return msgBuffer;
 }
 
+Buffer Helper::getLengthFromSocket(SOCKET clientSocket)
+{
+	char* msg = getMsgFromSocket(clientSocket, MSG_MAX_SIZE, 0);
+
+	Buffer msgBuffer;
+
+	//put inside the buffer
+	for (int i = 0; i < MSG_MAX_SIZE; i++)
+	{
+		msgBuffer.push_back(msg[i]);
+	}
+
+	//remove allocated memory
+	delete msg;
+
+	return msgBuffer;
+
+}
+
 char* Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum, const unsigned int flags)
 {
 	if (bytesNum == 0)
@@ -51,7 +70,6 @@ char* Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum,
 unsigned int Helper::binToDec(const Buffer buffer)
 {
 	char bytesBuffer[MSG_MAX_SIZE];
-
 
 	//run from end to start since we read number in opposite way
 	for (int i = 0; i < MSG_MAX_SIZE; i++)
