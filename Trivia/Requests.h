@@ -22,7 +22,8 @@ typedef enum RequestId
 //general info of a request 
 struct RequestInfo
 {
-	RequestId id;
+	//by deafult id is error
+	RequestId id = ERROR_REQUEST_ID;
 	tm recivalTime;
 	Buffer buffer;
 };

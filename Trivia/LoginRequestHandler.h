@@ -6,6 +6,7 @@
 
 class LoginRequestHandler : public IRequestHandler
 {
-	bool isRequestRelevant(RequestInfo info);
-	RequestResult handleRequest(RequestInfo info);
+public:
+	bool isRequestRelevant(RequestInfo& info);
+	RequestResult handleRequest(RequestInfo& info);
 };

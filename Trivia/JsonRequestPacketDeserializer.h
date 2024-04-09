@@ -38,17 +38,6 @@ public:
 	 */
 	static SignupRequest deserializeSignUpRequest(Buffer& buffer);
 
-	/**
-	 * Converts a binary buffer to its decimal representation.
-	 *
-	 * This function takes a buffer containing binary data and converts it to its equivalent
-	 * decimal representation.
-	 *
-	 * @param buffer The buffer containing the binary data to be converted.
-	 * @return The decimal representation of the binary data.
-	 */
-	static int binToDec(Buffer& buffer);
-
 private:
 
 	/**
