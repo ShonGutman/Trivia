@@ -28,6 +28,8 @@ public:
 	*/
 	static Buffer getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum);
 
+	static Buffer getLengthFromSocket(SOCKET clientSocket);
+
 	/*
 	* function reads length in clientSocket
 	* @param clientSocket - socket of client to read
