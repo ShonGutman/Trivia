@@ -120,10 +120,10 @@ RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 	RequestInfo request;
 
 	//scan code as bytes and than convert it into a decimal number
-	request.id = static_cast<RequestId>(JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES)));
+	request.id = static_cast<RequestId>(Helper::binToDec(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES)));
 
 	//length is was a buffer of bytes so first read it as bytes and than convert from binary to number
-	length = JsonRequestPacketDeserializer::binToDec(Helper::getMsgFromSocket(clientSocket, MSG_LENGTH_IN_BYTES));
+	length = Helper::binToDec(Helper::getMsgFromSocket(clientSocket, MSG_LENGTH_IN_BYTES));
 
 	//scan buffer from client request
 	request.buffer = Helper::getMsgFromSocket(clientSocket, length);

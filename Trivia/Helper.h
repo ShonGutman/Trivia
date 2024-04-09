@@ -7,6 +7,8 @@
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
+#define MSG_MAX_SIZE 4
+
 class Helper
 {
 public:
@@ -24,7 +26,7 @@ public:
 	* @param bytesNum - amount of bytes to read
 	* @return: readed data as buffer
 	*/
-	static Buffer getMsgFromSocket(SOCKET clientSocket, const int bytesNum);
+	static Buffer getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum);
 
 	/*
 	* --------------------------------------------------------------------------------------------
@@ -35,5 +37,17 @@ public:
 	* note: returned data in allocatead in the heap! so it must be deleted!
 	* @return: readed data
 	*/
-	static char* getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags);
+	static char* getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum, const unsigned int flags);
+
+
+	/**
+	 * Converts a binary buffer to its decimal representation.
+	 *
+	 * This function takes a buffer containing binary data and converts it to its equivalent
+	 * decimal representation.
+	 *
+	 * @param buffer The buffer containing the binary data to be converted.
+	 * @return The decimal representation of the binary data.
+	 */
+	static unsigned int binToDec(const Buffer buffer);
 };

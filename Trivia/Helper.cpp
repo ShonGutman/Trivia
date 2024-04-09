@@ -13,7 +13,7 @@ void Helper::sendData(SOCKET clientSocket, const Buffer& bufferMessage)
 	}
 }
 
-Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
+Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum)
 {
 	char* msg = getMsgFromSocket(clientSocket, bytesNum, 0);
 	std::string msgString(msg);
@@ -27,7 +27,7 @@ Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
 	return msgBuffer;
 }
 
-char* Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags)
+char* Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum, const unsigned int flags)
 {
 	if (bytesNum == 0)
 	{
@@ -46,4 +46,20 @@ char* Helper::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const in
 
 	data[bytesNum] = 0;
 	return data;
+}
+
+unsigned int Helper::binToDec(const Buffer buffer)
+{
+	char bytesBuffer[MSG_MAX_SIZE];
+
+
+	//run from end to start since we read number in opposite way
+	for (int i = 0; i < MSG_MAX_SIZE; i++)
+	{
+		bytesBuffer[i] = buffer[MSG_MAX_SIZE - 1 - i];
+	}
+
+	int decNum = 0;
+	memcpy(&decNum, (int*)bytesBuffer, MSG_MAX_SIZE);
+	return decNum;
 }
