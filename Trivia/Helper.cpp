@@ -33,6 +33,7 @@ Buffer Helper::getLengthFromSocket(SOCKET clientSocket)
 
 	Buffer msgBuffer;
 
+	//put inside the buffer
 	for (int i = 0; i < MSG_MAX_SIZE; i++)
 	{
 		msgBuffer.push_back(msg[i]);
