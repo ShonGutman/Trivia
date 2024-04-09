@@ -1,4 +1,5 @@
 import socket
+import json
 
 SERVER_PORT = 8826
 SERVER_IP = '127.0.0.1'
@@ -34,17 +35,18 @@ def main():
 
     while True:
         try:
-            message_type = input("Type 'login' or 'signup': ").lower()
+            message_type_choice = input("Type 'login' or 'signup': ").lower()
             message_data = {}
+            message_type = 0
 
-            if message_type == 'login':
+            if message_type_choice == 'login':
                 # Prepare login message in JSON format
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
                 message_type = LOGIN_CODE
                 message_data = {"username": username, "password": password}
 
-            elif message_type == 'signup':
+            elif message_type_choice == 'signup':
                 # Prepare signup message in JSON format
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
@@ -56,19 +58,18 @@ def main():
                 message_type = ERROR_CODE
 
             # Add code and message length according to the format
-            data = [message_type]
+            data = str(message_type)
 
-            len_of_data = len(message_data)
+            len_of_data = len(json.dumps(message_data))
             if len_of_data <= MSG_LEN_SIZE:
-                data.append(str(len_of_data).zfill(MSG_LEN_SIZE))  # Pad message length
+                data += (str(len_of_data).zfill(MSG_LEN_SIZE))  # Pad message length
             else:
                 raise ValueError("Message length exceeds maximum allowed size")
 
-            data.append(message_data)
+            data += json.dumps(message_data)
 
             # Send message to server as string
-            message = ','.join(data)
-            server_sock.sendall(message.encode())
+            server_sock.sendall(data.encode())
 
             # Receive response from server
             server_data = server_sock.recv(1024)
