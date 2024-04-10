@@ -10,6 +10,17 @@ SqliteDatabase::~SqliteDatabase()
 	close();
 }
 
+bool SqliteDatabase::doesUserExists(const string& username) 
+{
+	string sqlStatement = R"(select count(*) from users where username = "{}";)";
+	sqlStatement = format(sqlStatement, { username });
+
+	int count = 0;
+	preformSqlRequest(sqlStatement, callbackNumber, &count);
+
+	return count != 0;
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = "myTrivia.sqlite";
@@ -44,8 +55,7 @@ void SqliteDatabase::close()
 bool SqliteDatabase::create_users_table()
 {
 	const string sqlStatement = R"(CREATE TABLE users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-		username TEXT NOT NULL,
+		username TEXT PRIMARY KEY NOT NULL,
 		password TEXT NOT NULL,
 		email TEXT NOT NULL);)";
 
@@ -69,4 +79,35 @@ bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, ch
 	}
 	sqlite3_free(errorMsg);
 	return true;
+}
+
+int SqliteDatabase::callbackNumber(void* data, int argc, char** argv, char** azColName)
+{
+	int* count = static_cast<int*>(data);
+
+	if (argv[0] == NULL)
+	{
+		*count = 0;
+		return 0;
+	}
+
+	*count = atoi(argv[0]);
+
+	return 0;
+}
+
+string SqliteDatabase::format(string fmt, std::vector<string> args)
+{
+	std::stringstream ss;
+	int i = fmt.find("{}");
+	for (i; i != string::npos; i = fmt.find("{}"))
+	{
+		ss << fmt.substr(0, i);
+		ss << args[0];
+		//remove first value
+		args.erase(args.begin());
+		fmt = fmt.substr(i + 2);
+	}
+	ss << fmt;
+	return ss.str();
 }
