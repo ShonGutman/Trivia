@@ -5,6 +5,11 @@ SqliteDatabase::SqliteDatabase()
 	open();
 }
 
+SqliteDatabase::~SqliteDatabase()
+{
+	close();
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = "myTrivia.sqlite";
@@ -28,6 +33,12 @@ bool SqliteDatabase::open()
 		}
 	}
 	return true;
+}
+
+void SqliteDatabase::close()
+{
+	sqlite3_close(_db);
+	_db = nullptr;
 }
 
 bool SqliteDatabase::create_users_table()

@@ -10,7 +10,7 @@ class SqliteDatabase : public IDatabase
 public:
 	// CTOR && DTOR //
 	SqliteDatabase();
-	virtual ~SqliteDatabase() = default;
+	virtual ~SqliteDatabase();
 
 private:
 
@@ -19,6 +19,11 @@ private:
 	@return if Database was opened successfully
 	*/
 	bool open() override;
+
+	/*
+	* function closes Database
+	*/
+	void close() override;
 
 	/*
 	* function creates table of users inisde a given data base
