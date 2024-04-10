@@ -13,7 +13,28 @@ public:
 	SqliteDatabase();
 	virtual ~SqliteDatabase();
 
+	/**
+	 * Checks if a user with the specified username exists in the SQLite database.
+	 *
+	 * This function queries the SQLite database to determine if a user with the
+	 * specified username exists.
+	 *
+	 * @param username The username to check for existence in the database.
+	 * @return true if the user exists, false otherwise.
+	 */
 	bool doesUserExists(const string& username) override;
+
+	/**
+	 * Checks if the password matches the one associated with the specified username in the SQLite database.
+	 *
+	 * This function queries the SQLite database to check if the password provided
+	 * matches the password associated with the given username.
+	 *
+	 * @param username The username whose password is to be checked.
+	 * @param password The password to compare with the one stored in the database.
+	 * @return true if the password matches, false otherwise.
+	 */
+	bool doesPasswordMatch(const string& username, const string& password) override;
 
 private:
 
@@ -30,7 +51,6 @@ private:
 
 	/*
 	* function creates table of users inisde a given data base
-	* @param db - given data base
 	* @return true if table created succesfully. false if not
 	*/
 	bool create_users_table();

@@ -21,6 +21,18 @@ bool SqliteDatabase::doesUserExists(const string& username)
 	return count != 0;
 }
 
+bool SqliteDatabase::doesPasswordMatch(const string& username, const string& password)
+{
+	string sqlStatement = R"(select count(*) from users where username = "{}" and
+								password = "{}";)";
+	sqlStatement = format(sqlStatement, { username, password });
+
+	int count = 0;
+	preformSqlRequest(sqlStatement, callbackNumber, &count);
+
+	return count != 0;
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = "myTrivia.sqlite";
