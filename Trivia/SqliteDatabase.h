@@ -1,12 +1,9 @@
 #pragma once
-#include <string>
-#include <iostream>
+
 #include <sstream>
 #include <io.h>
 #include "IDatabase.h"
 #include "sqlite3.h"
-
-using std::string;
 
 class SqliteDatabase : public IDatabase
 {
@@ -21,7 +18,7 @@ private:
 	*function opens SQL Database
 	@return if Database was opened successfully
 	*/
-	bool open();
+	bool open() override;
 
 	/*
 	* function creates table of users inisde a given data base
