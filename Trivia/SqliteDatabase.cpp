@@ -43,7 +43,7 @@ void SqliteDatabase::signUp(const string& username, const string& password, cons
 
 bool SqliteDatabase::open()
 {
-	string dbName = "myTrivia.sqlite";
+	string dbName = DB_FILENAME;
 	int doesExist = _access(dbName.c_str(), 0);
 
 	//check if there is error in opening the DB

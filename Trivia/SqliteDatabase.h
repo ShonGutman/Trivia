@@ -6,6 +6,8 @@
 #include "IDatabase.h"
 #include "sqlite3.h"
 
+#define DB_FILENAME "myTrivia.sqlite"
+
 class SqliteDatabase : public IDatabase
 {
 public:
