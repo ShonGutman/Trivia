@@ -36,6 +36,18 @@ public:
 	 */
 	bool doesPasswordMatch(const string& username, const string& password) override;
 
+	/**
+	 * Registers a new user in the SQLite database.
+	 *
+	 * This function inserts a new record into the SQLite database to register a new user
+	 * with the provided username, password, and email.
+	 *
+	 * @param username The username of the new user.
+	 * @param password The password of the new user.
+	 * @param email The email address of the new user.
+	 */
+	void signUp(const string& username, const string& password, const string& email) override;
+
 private:
 
 	/*
@@ -73,7 +85,6 @@ private:
 	//callBack functions:
 
 	static int callbackNumber(void* data, int argc, char** argv, char** azColName);
-
 
 
 	/*

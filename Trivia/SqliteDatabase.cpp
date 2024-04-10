@@ -33,6 +33,14 @@ bool SqliteDatabase::doesPasswordMatch(const string& username, const string& pas
 	return count != 0;
 }
 
+void SqliteDatabase::signUp(const string& username, const string& password, const string& email)
+{
+	string sqlStatement = R"(insert into users values ("{}", "{}", "{}");)";
+	sqlStatement = format(sqlStatement, { username, password, email });
+
+	preformSqlRequest(sqlStatement);
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = "myTrivia.sqlite";
