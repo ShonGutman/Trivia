@@ -74,68 +74,61 @@ void Communicator::acceptClient()
 
 void Communicator::handleNewClient(SOCKET clientSocket)
 {
-	std::string msg;
-	try
-	{
-		msg = getMsgFromSocket(clientSocket, MSG_LENGTH);
-	}
-	catch (const std::exception& e)
-	{
-		std::cerr << "Error: " << e.what() << std::endl;
-		closesocket(clientSocket);
-		return;
-	}
+	LoginRequestHandler loginRequest;
+	IRequestHandler* requestHandler = &loginRequest;
 
-	if (strncmp(msg.c_str(), MSG, MSG_LENGTH) != 0)
+	while (true)
 	{
-		std::cerr << "Client Msg doesn't match expected msg. Closing Client" << std::endl;
+		try
+		{
+			//scan the request from the client
+			RequestInfo request = scanRequest(clientSocket);
 
-		//end client socket & thread
-		closesocket(clientSocket);
-		return;
+			if (requestHandler->isRequestRelevant(request))
+			{
+				RequestResult result = requestHandler->handleRequest(request);
+				
+				//send response to client
+				Helper::sendData(clientSocket, result.response);
+				
+				//switch handler
+				requestHandler = result.newHandler;
+			}
+
+			else
+			{
+				throw("Request is illegal!");
+			}
+
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Client " << clientSocket << " closed the socket" << std::endl;
+			std::cerr << "reason: " << e.what() << std::endl;
+
+			//end client socket & thread
+			closesocket(clientSocket);
+			return;
+		}
 	}
-
-	sendData(clientSocket, MSG);
 }
 
-void Communicator::sendData(SOCKET clientSocket, const std::string& message)
+RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 {
-	const char* data = message.c_str();
+	//define variables
+	int length = 0;
+	RequestInfo request;
 
-	if (send(clientSocket, data, message.size(), 0) == INVALID_SOCKET)
-	{
-		throw std::exception("Error while sending message to client");
-	}
+	//scan code as bytes and than convert it into a decimal number
+	request.id = static_cast<RequestId>(Helper::getMsgFromSocket(clientSocket, CODE_LENGTH_IN_BYTES)[0]);
+
+	//length is was a buffer of bytes so first read it as bytes and than convert from binary to number
+	length = Helper::binToDec(Helper::getLengthFromSocket(clientSocket));
+
+	//scan buffer from client request
+	request.buffer = Helper::getMsgFromSocket(clientSocket, length);
+
+	return request;
 }
 
-std::string Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum)
-{
-		char* msg = getMsgFromSocket(clientSocket, bytesNum, 0);
-		std::string msgString(msg);
 
-		//remove allocated memory
-		delete msg;
-
-		return msgString;
-}
-
-char* Communicator::getMsgFromSocket(SOCKET clientSocket, const int bytesNum, const int flags)
-{
-	if (bytesNum == 0)
-	{
-		return (char*)"";
-	}
-
-	char* data = new char[bytesNum + 1];
-	int res = recv(clientSocket, data, bytesNum, flags);
-
-	if (res == INVALID_SOCKET)
-	{
-		std::string s = "Error while recieving from socket: ";
-		s += std::to_string(clientSocket);
-		throw std::exception(s.c_str());
-	}
-
-	data[bytesNum] = 0;
-	return data;
-}
