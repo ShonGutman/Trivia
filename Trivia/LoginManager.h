@@ -1,8 +1,12 @@
 #pragma once
 
 #include <set>
+#include <mutex>
 #include "LoggedUser.h"
 #include "IDatabase.h"
+
+static std::mutex _signupMutex;
+static std::mutex _loggedMutex;
 
 using std::string;
 
