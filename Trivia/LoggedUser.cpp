@@ -15,7 +15,32 @@ void LoggedUser::setName(const std::string& username)
 	_username = username;
 }
 
-bool LoggedUser::operator==(LoggedUser& other)
+bool LoggedUser::operator<(const LoggedUser& other) const
+{
+	return _username < other._username;
+}
+
+bool LoggedUser::operator<=(const LoggedUser& other) const
+{
+	return _username <= other._username;
+}
+
+bool LoggedUser::operator==(const LoggedUser& other) const
 {
 	return _username == other._username;
+}
+
+bool LoggedUser::operator!=(const LoggedUser& other) const
+{
+	return _username != other._username;
+}
+
+bool LoggedUser::operator>=(const LoggedUser& other) const
+{
+	return _username >= other._username;
+}
+
+bool LoggedUser::operator>(const LoggedUser& other) const
+{
+	return _username >= other._username;
 }

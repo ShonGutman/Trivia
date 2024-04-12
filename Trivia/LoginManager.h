@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <set>
 #include "LoggedUser.h"
 #include "IDatabase.h"
 
@@ -49,5 +49,5 @@ class LoginManager
 
 private:
 	IDatabase* _database;
-	std::vector<LoggedUser> _loggedUsers;
+	std::set<LoggedUser> _loggedUsers;
 };
