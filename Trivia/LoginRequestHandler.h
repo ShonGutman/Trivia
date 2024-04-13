@@ -23,5 +23,7 @@ private:
 
 	RequestResult login(RequestInfo& info);
 
+	RequestResult signup(RequestInfo& info);
+
 	RequestHandlerFactory& _factoryHandler;
 };

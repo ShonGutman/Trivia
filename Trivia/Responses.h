@@ -33,6 +33,6 @@ struct SignupResponse
 
 struct ErrorResponse
 {
-	ResponseId id;
+	ResponseId id = GENERAL_ERROR_RESPONSE_ID;
 	std::string message;
 }typedef ErrorResponse;

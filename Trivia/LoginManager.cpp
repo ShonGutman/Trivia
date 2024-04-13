@@ -5,7 +5,7 @@ LoginManager::LoginManager(IDatabase* database)
 {
 }
 
-void LoginManager::signUp(const string& username, const string& password, const string& email)
+void LoginManager::signup(const string& username, const string& password, const string& email)
 {
 	//lock the mutex - to protect database (shared variable)
 	std::unique_lock<std::mutex> locker(_signupMutex);
