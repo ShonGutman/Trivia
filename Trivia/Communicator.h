@@ -8,6 +8,7 @@
 #include <thread>
 #include "Helper.h"
 #include "LoginRequestHandler.h"
+#include "RequestHandlerFactory.h"
 
 
 constexpr int SERVER_PORT = 8826;
@@ -18,10 +19,9 @@ class Communicator
 {
 public:
 
-	/*
-	* ctor of class Communicator
-	*/
+	//CTOR//
 	Communicator();
+	Communicator(RequestHandlerFactory* factory);
 
 	/*
 	* dtor of class Communicator
@@ -65,5 +65,6 @@ private:
 
 	SOCKET _serverSocket;
 	std::map<SOCKET, IRequestHandler*> _clients;
+	RequestHandlerFactory* _factory;
 
 };

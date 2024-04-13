@@ -9,7 +9,10 @@ class LoginRequestHandler;
 
 class RequestHandlerFactory
 {
+public:
+
 	//CTOR//
+	RequestHandlerFactory() = default;
 	RequestHandlerFactory(IDatabase* database);
 
 	/**
