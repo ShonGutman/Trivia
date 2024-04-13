@@ -12,7 +12,9 @@ using std::string;
 
 class LoginManager
 {
+public:
 	// CTOR //
+	LoginManager() = default;
 	LoginManager(IDatabase* database);
 
 	/**
