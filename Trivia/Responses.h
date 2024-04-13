@@ -6,8 +6,8 @@
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
-#define STATUS "status"
-#define MESSAGE "message"
+#define STATUS_KEY "status"
+#define MESSAGE_KEY "message"
 
 typedef enum : unsigned int {
 	LOGIN_RESPONSE_ID = 1,
@@ -15,14 +15,20 @@ typedef enum : unsigned int {
 	ERROR_RESPONSE_ID = 99
 } ResponseId;
 
+typedef enum : unsigned int
+{
+	SUCCESS = 100,
+	FAILED = 101
+}STATUS;
+
 struct LoginResponse
 {
-	ResponseId status;
+	STATUS status;
 }typedef LoginResponse;
 
 struct SignupResponse
 {
-	ResponseId status;
+	STATUS status;
 }typedef SignupResponse;
 
 struct ErrorResponse
