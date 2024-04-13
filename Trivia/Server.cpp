@@ -3,8 +3,8 @@
 Server::Server()
 {
 	_database = new SqliteDatabase();
-	_factory = RequestHandlerFactory(_database);
-	_communicator = Communicator(&_factory);
+	_factory = new RequestHandlerFactory(_database);
+	_communicator = new Communicator(_factory);
 }
 
 Server::~Server()
@@ -14,5 +14,5 @@ Server::~Server()
 
 void Server::run()
 {
-	this->_communicator.startHandleRequests();
+	this->_communicator->startHandleRequests();
 }

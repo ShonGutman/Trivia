@@ -23,7 +23,7 @@ public:
 	void run();
 
 private:
-	Communicator _communicator;
-	RequestHandlerFactory _factory;
+	Communicator* _communicator;
+	RequestHandlerFactory* _factory;
 	IDatabase* _database;
 };

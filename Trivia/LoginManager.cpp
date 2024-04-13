@@ -13,6 +13,10 @@ void LoginManager::signup(const string& username, const string& password, const 
 	{
 		_database->signUp(username, password, email);
 		locker.unlock();
+
+		//lock the mutex - to protect _loggedUsers (shared variable)
+		std::lock_guard<std::mutex> locker(_loggedMutex);
+		_loggedUsers.insert(LoggedUser(username));
 	}
 
 	else
@@ -33,13 +37,13 @@ void LoginManager::login(const string& username, const string& password)
 		//result is a pair of 2 values a iterator to object and bool to indicate if element was inserted successfully
 		if (!result.second)
 		{
-			throw("User is already logged!");
+			throw ("User is already logged!");
 		}
 	}
 
 	else
 	{
-		throw("password doesn't match given username!");
+		throw ("password doesn't match given username!");
 	}
 }
 

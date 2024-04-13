@@ -31,7 +31,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
 
     RequestResult result;
 
-    LoginManager manager = _factoryHandler.getLoginManager();
+    LoginManager& manager = _factoryHandler.getLoginManager();
 
     try
     {
@@ -66,7 +66,7 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
 
     RequestResult result;
 
-    LoginManager manager = _factoryHandler.getLoginManager();
+    LoginManager& manager = _factoryHandler.getLoginManager();
 
     try
     {
