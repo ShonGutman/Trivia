@@ -14,7 +14,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
         LoginResponse response;
 
         //OK reponse to login
-        response.status = LOGIN_RESPONSE_ID;
+        response.status = SUCCESS;
 
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
@@ -25,7 +25,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
         SignupResponse response;
 
         //OK reponse to sign up
-        response.status = SIGN_UP_RESPONSE_ID;
+        response.status = SUCCESS;
 
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }

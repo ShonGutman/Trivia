@@ -56,6 +56,6 @@ private:
 	* @param code: The code representing the message type.
 	* @return: The binary buffer containing the message and code formatted according to the protocol.
 	*/
-	static Buffer fitBuffToProtocol(std::string msg, unsigned int code);
+	static Buffer fitBuffToProtocol(std::string msg, ResponseId code);
 
 };
