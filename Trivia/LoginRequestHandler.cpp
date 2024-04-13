@@ -12,16 +12,10 @@ bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
 {
-    RequestResult result;
+
     if (LOGIN_REQUEST_ID == info.id)
     {
-        LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
-        LoginResponse response;
-
-        //OK reponse to login
-        response.status = SUCCESS;
-
-        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+        return this->login(info);
     }
 
     else if(SIGN_UP_REQUEST_ID == info.id)
@@ -35,7 +29,40 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
-    result.newHandler = this;
+}
+
+RequestResult LoginRequestHandler::login(RequestInfo& info)
+{
+    LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+
+    RequestResult result;
+
+    LoginManager manager = _factoryHandler.getLoginManager();
+
+    try
+    {
+        LoginResponse response;
+        manager.login(request.username, request.password);
+
+        //SUCCESS reponse to login
+        response.status = SUCCESS;
+
+        //set newHandler to menuHandler!
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+        
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to login
+        response.message = e.what();
+        response.id = LOGIN_RESPONSE_ID;
+
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
     return result;
 }
 

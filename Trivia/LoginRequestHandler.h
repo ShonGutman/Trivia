@@ -20,5 +20,8 @@ public:
 	RequestResult handleRequest(RequestInfo& info);
 
 private:
+
+	RequestResult login(RequestInfo& info);
+
 	RequestHandlerFactory& _factoryHandler;
 };

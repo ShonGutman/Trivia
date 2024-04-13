@@ -12,7 +12,7 @@ typedef std::vector<BYTE> Buffer;
 typedef enum : unsigned int {
 	LOGIN_RESPONSE_ID = 1,
 	SIGN_UP_RESPONSE_ID = 2,
-	ERROR_RESPONSE_ID = 99
+	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
 typedef enum : unsigned int
@@ -33,5 +33,6 @@ struct SignupResponse
 
 struct ErrorResponse
 {
+	ResponseId id;
 	std::string message;
 }typedef ErrorResponse;
