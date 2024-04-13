@@ -1,7 +1,11 @@
 #pragma once
 
 #include "LoginManager.h"
+#include "IDatabase.h"
 #include "LoginRequestHandler.h"
+
+// to avoid circular definition
+class LoginRequestHandler;
 
 class RequestHandlerFactory
 {

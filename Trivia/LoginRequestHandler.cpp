@@ -1,5 +1,10 @@
 #include "LoginRequestHandler.h"
 
+LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& factory)
+    :_factoryHandler(factory)
+{
+}
+
 bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
 {
     return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
