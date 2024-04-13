@@ -21,8 +21,32 @@ public:
 
 private:
 
+	/**
+	 * Handles a login request.
+	 *
+	 * This function processes a login request received from the client. It deserializes
+	 * the request information, validates the login credentials using the LoginManager,
+	 * and generates an appropriate response. If the login is successful, it returns a
+	 * success response along with a new handler for the menu request. If the login fails,
+	 * it returns an error response and remains in the login state.
+	 *
+	 * @param info The request information containing the login details.
+	 * @return The result of handling the login request, including the response and the new handler.
+	 */
 	RequestResult login(RequestInfo& info);
 
+	/**
+	 * Handles a signup request.
+	 *
+	 * This function processes a signup request received from the client. It deserializes
+	 * the request information, registers the new user using the LoginManager, and generates
+	 * an appropriate response. If the signup is successful, it returns a success response
+	 * along with a new handler for the menu request. If the signup fails, it returns an
+	 * error response and remains in the login state.
+	 *
+	 * @param info The request information containing the signup details.
+	 * @return The result of handling the signup request, including the response and the new handler.
+	 */
 	RequestResult signup(RequestInfo& info);
 
 	RequestHandlerFactory& _factoryHandler;

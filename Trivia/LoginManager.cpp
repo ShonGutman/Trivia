@@ -16,6 +16,7 @@ void LoginManager::signup(const string& username, const string& password, const 
 
 		//lock the mutex - to protect _loggedUsers (shared variable)
 		std::lock_guard<std::mutex> lock(_loggedMutex);
+		//add user to logged users
 		_loggedUsers.insert(LoggedUser(username));
 	}
 

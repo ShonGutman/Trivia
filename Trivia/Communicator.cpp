@@ -114,6 +114,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 
 			else
 			{
+				//send error msg to client
 				ErrorResponse err;
 				Helper::sendData(clientSocket, JsonResponsePacketSerializer::serializerResponse(err));
 			}
@@ -134,7 +135,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 RequestInfo Communicator::scanRequest(SOCKET clientSocket)
 {
 	//define variables
-	int length = 0;
+	unsigned int length = 0;
 	RequestInfo request;
 
 	//scan code as bytes and than convert it into a decimal number

@@ -41,6 +41,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
         //SUCCESS reponse to login
         response.status = SUCCESS;
 
+        //assign to MenuHandler 
         result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
         
@@ -53,6 +54,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
         response.message = e.what();
         response.id = LOGIN_RESPONSE_ID;
 
+        //assign to LoginHandler
         result.newHandler = _factoryHandler.createLoginRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
@@ -76,6 +78,7 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
         //SUCCESS reponse to signup
         response.status = SUCCESS;
 
+        //assign to MenuHandler 
         result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
@@ -88,6 +91,7 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
         response.message = e.what();
         response.id = SIGN_UP_RESPONSE_ID;
 
+        //assign to LoginHandler 
         result.newHandler = _factoryHandler.createLoginRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
