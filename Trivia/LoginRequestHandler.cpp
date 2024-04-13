@@ -47,7 +47,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
         //SUCCESS reponse to login
         response.status = SUCCESS;
 
-        //set newHandler to menuHandler!
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
         
     }
