@@ -10,6 +10,8 @@ Server::Server()
 Server::~Server()
 {
 	delete _database;
+	delete _factory;
+	delete _communicator;
 }
 
 void Server::run()
