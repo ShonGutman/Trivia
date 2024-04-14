@@ -5,12 +5,16 @@ import struct
 SERVER_PORT = 8826
 SERVER_IP = '127.0.0.1'
 
+SUCCESS_CODE = 100
+ERROR_CODE = 101
+
 LOGIN_CODE = 1
 SIGN_UP_CODE = 2
-ERROR_CODE = 99
 
 MSG_LEN_SIZE = 4
 
+ERROR_MSG_KEY = 'message'
+STATUS_KEY = 'status'
 
 def connect_to_server():
     """
@@ -92,15 +96,19 @@ def main():
             # Receive response from server as json
             response = server_sock.recv(1024).decode()
             
-            #first 5 bytes are header from server, irrelevent in python demo client
+            # first byte is the code that helps us determine the type of response
+            server_data_code = response[0]
+
+            # first 5 bytes are header from server, irrelevant in python demo client
             server_data = json.loads(response[5:])
             
-            if server_data["status"] == ERROR_CODE:
-                raise Exception("Error occurred on the server side")
-            elif server_data["status"] == SIGN_UP_CODE:
-                print("Signup!")
-            elif server_data["status"] == LOGIN_CODE:
-                print("Login!")
+            if server_data[STATUS_KEY] == ERROR_CODE:
+                print(server_data[ERROR_MSG_KEY])
+            elif server_data[STATUS_KEY] == SUCCESS_CODE:
+                if server_data_code == chr(LOGIN_CODE):
+                    print("User logged in successfully")
+                if server_data_code == chr(SIGN_UP_CODE):
+                    print("User signed up successfully")
 
         except Exception as e:
             print("Error:", e)
