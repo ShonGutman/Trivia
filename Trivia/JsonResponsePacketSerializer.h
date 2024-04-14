@@ -11,9 +11,6 @@ using json = nlohmann::json;
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4
 
-#define STATUS_KEY "status"
-#define MESSAGE_KEY "message"
-
 class JsonResponsePacketSerializer
 {
 public:
