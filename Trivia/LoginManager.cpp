@@ -5,7 +5,7 @@ LoginManager::LoginManager(IDatabase* database)
 {
 }
 
-void LoginManager::signUp(const string& username, const string& password, const string& email)
+void LoginManager::signup(const string& username, const string& password, const string& email)
 {
 	//lock the mutex - to protect database (shared variable)
 	std::unique_lock<std::mutex> locker(_signupMutex);
@@ -13,11 +13,16 @@ void LoginManager::signUp(const string& username, const string& password, const 
 	{
 		_database->signUp(username, password, email);
 		locker.unlock();
+
+		//lock the mutex - to protect _loggedUsers (shared variable)
+		std::lock_guard<std::mutex> lock(_loggedMutex);
+		//add user to logged users
+		_loggedUsers.insert(LoggedUser(username));
 	}
 
 	else
 	{
-		throw("User already exists, can't signup!");
+		throw std::runtime_error("User already exists, can't signup!");
 	}
 }
 
@@ -33,13 +38,13 @@ void LoginManager::login(const string& username, const string& password)
 		//result is a pair of 2 values a iterator to object and bool to indicate if element was inserted successfully
 		if (!result.second)
 		{
-			throw("User is already logged!");
+			throw std::runtime_error("User is already logged!");
 		}
 	}
 
 	else
 	{
-		throw("password doesn't match given username!");
+		throw std::runtime_error("password doesn't match given username!");
 	}
 }
 
@@ -52,7 +57,7 @@ void LoginManager::logout(const string& username)
 
 	if (!erased)
 	{
-		throw("User doesn't exists, can't erase ...");
+		throw std::runtime_error("User doesn't exists, can't erase ...");
 	}
 }
 

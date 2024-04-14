@@ -9,7 +9,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse response)
     jsonErr[STATUS_KEY] = FAILED;
     jsonErr[MESSAGE_KEY] = response.message;
 
-    errBuffer = fitBuffToProtocol(jsonErr.dump(), ERROR_RESPONSE_ID);
+    errBuffer = fitBuffToProtocol(jsonErr.dump(), response.id);
 
     return errBuffer;
 

@@ -50,7 +50,7 @@ bool SqliteDatabase::open()
 	if (sqlite3_open(dbName.c_str(), &_db) != SQLITE_OK)
 	{
 		_db = nullptr;
-		throw ("Failed to open DB!");
+		throw std::runtime_error("Failed to open DB!");
 		return false;
 	}
 
@@ -94,7 +94,7 @@ bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, ch
 	{
 		std::cerr << "error: " << errorMsg << std::endl;
 		sqlite3_free(errorMsg);
-		throw ("Failed to preform SQL!");
+		throw std::runtime_error ("Failed to preform SQL!");
 		return false;
 	}
 	sqlite3_free(errorMsg);
