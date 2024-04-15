@@ -1,5 +1,10 @@
 #include "LoginRequestHandler.h"
 
+LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& factory)
+    :_factoryHandler(factory)
+{
+}
+
 bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
 {
     return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
@@ -7,30 +12,90 @@ bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
 
 RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
 {
-    RequestResult result;
+
     if (LOGIN_REQUEST_ID == info.id)
     {
-        LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
-        LoginResponse response;
-
-        //OK reponse to login
-        response.status = LOGIN_RESPONSE_ID;
-
-        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+        return this->login(info);
     }
 
-    else if(SIGN_UP_REQUEST_ID == info.id)
+    else
     {
-        SignupRequest request = JsonRequestPacketDeserializer::deserializeSignUpRequest(info.buffer);
-        SignupResponse response;
+        return this->signup(info);
+    }
 
-        //OK reponse to sign up
-        response.status = SIGN_UP_RESPONSE_ID;
+}
 
+RequestResult LoginRequestHandler::login(RequestInfo& info)
+{
+    LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+
+    RequestResult result;
+
+    LoginManager& manager = _factoryHandler.getLoginManager();
+
+    try
+    {
+        LoginResponse response;
+        manager.login(request.username, request.password);
+
+        //SUCCESS reponse to login
+        response.status = SUCCESS;
+
+        //assign to MenuHandler 
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+        
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to login
+        response.message = e.what();
+        response.id = LOGIN_RESPONSE_ID;
+
+        //assign to LoginHandler
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
-    result.newHandler = this;
+    return result;
+}
+
+RequestResult LoginRequestHandler::signup(RequestInfo& info)
+{
+    SignupRequest request = JsonRequestPacketDeserializer::deserializeSignUpRequest(info.buffer);
+
+    RequestResult result;
+
+    LoginManager& manager = _factoryHandler.getLoginManager();
+
+    try
+    {
+        LoginResponse response;
+        manager.signup(request.username, request.password, request.email);
+
+        //SUCCESS reponse to signup
+        response.status = SUCCESS;
+
+        //assign to MenuHandler 
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to login
+        response.message = e.what();
+        response.id = SIGN_UP_RESPONSE_ID;
+
+        //assign to LoginHandler 
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
     return result;
 }
 

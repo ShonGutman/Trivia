@@ -6,10 +6,10 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse response)
     json jsonErr;
 
     // Add data to the json object.
-    jsonErr[STATUS] = ERROR_RESPONSE_ID;
-    jsonErr[MESSAGE] = response.message;
+    jsonErr[STATUS_KEY] = FAILED;
+    jsonErr[MESSAGE_KEY] = response.message;
 
-    errBuffer = fitBuffToProtocol(jsonErr.dump(), ERROR_RESPONSE_ID);
+    errBuffer = fitBuffToProtocol(jsonErr.dump(), response.id);
 
     return errBuffer;
 
@@ -21,7 +21,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse response)
     json jsonLogin;
 
     // Add data to the json object.
-    jsonLogin[STATUS] = LOGIN_RESPONSE_ID;
+    jsonLogin[STATUS_KEY] = response.status;
 
     loginBuffer = fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
 
@@ -34,7 +34,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
     json jsonSignup;
 
     // Add data to the json object.
-    jsonSignup[STATUS] = SIGN_UP_RESPONSE_ID;
+    jsonSignup[STATUS_KEY] = response.status;
 
     SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 
@@ -73,7 +73,7 @@ Buffer JsonResponsePacketSerializer::strToBin(std::string str)
     return convertResult;
 }
 
-Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, unsigned int code)
+Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, ResponseId code)
 {
     // Protocol goes like this :
     // 1 byte - code
