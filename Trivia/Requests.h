@@ -47,4 +47,7 @@ struct SignupRequest
 	std::string username;
 	std::string password;
 	std::string email;
+	std::string address;
+	std::string phoneNumber;
+	std::string birthday;
 };

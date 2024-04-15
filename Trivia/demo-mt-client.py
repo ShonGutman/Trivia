@@ -75,10 +75,13 @@ def main():
                 username = input("Enter your username: ")
                 password = input("Enter your password: ")
                 mail = input("Enter your email: ")
+                address = input("Enter your address: ")
+                phoneNumber = input("Enter your phone number: ")
+                birthday = input("Enter your birthday: ")
                 
                 message_type = SIGN_UP_CODE
                 
-                message_data = {"username": username, "password": password, "email": mail}
+                message_data = {"username": username, "password": password, "email": mail, "address": address, "phoneNumber": phoneNumber, "birthday": birthday}
             else:
                 message_type = ERROR_CODE
 

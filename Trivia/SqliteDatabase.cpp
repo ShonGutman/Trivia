@@ -77,7 +77,10 @@ bool SqliteDatabase::create_users_table()
 	const string sqlStatement = R"(create table users (
 		username text primary key not null,
 		password text not null,
-		email text not null);)";
+		email text not null,
+		address text not null,
+		phoneNumber text not null,
+		birthday text not null);)";
 
 	return preformSqlRequest(sqlStatement);
 }
