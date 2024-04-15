@@ -72,7 +72,7 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
 
     try
     {
-        LoginResponse response;
+        SignupResponse response;
         manager.signup(request.username, request.password, request.email);
 
         //SUCCESS reponse to signup
