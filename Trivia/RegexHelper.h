@@ -48,4 +48,8 @@ public:
 	 * @return true if the address is in a valid format, false otherwise.
 	 */
 	static bool isAddressLegal(const std::string& address);
+
+	static bool isPhoneNumberLegal(const std::string& phoneNumber);
+
+	static bool isBirthdayLegal(const std::string& birthday);
 };
