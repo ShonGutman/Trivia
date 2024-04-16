@@ -9,5 +9,5 @@ class MenuRequestHandler : public IRequestHandler
 public:
 
 	bool isRequestRelevant(RequestInfo& info);
-	RequestResult handleRequest(RequestInfo& info);
+	RequestResult handleRequest(RequestInfo& info, LoggedUser& user);
 };

@@ -7,6 +7,7 @@ class LoggedUser
 public:
 
 	// CTOR //
+	LoggedUser() = default;
 	LoggedUser(const std::string& username);
 
 

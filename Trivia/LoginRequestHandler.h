@@ -17,7 +17,7 @@ public:
 	LoginRequestHandler(RequestHandlerFactory& factory);
 
 	bool isRequestRelevant(RequestInfo& info);
-	RequestResult handleRequest(RequestInfo& info);
+	RequestResult handleRequest(RequestInfo& info, LoggedUser& user);
 
 private:
 
@@ -31,9 +31,10 @@ private:
 	 * it returns an error response and remains in the login state.
 	 *
 	 * @param info The request information containing the login details.
+	 * @param user The user the will be logged
 	 * @return The result of handling the login request, including the response and the new handler.
 	 */
-	RequestResult login(RequestInfo& info);
+	RequestResult login(RequestInfo& info, LoggedUser& user);
 
 	/**
 	 * Handles a signup request.
@@ -45,9 +46,10 @@ private:
 	 * error response and remains in the login state.
 	 *
 	 * @param info The request information containing the signup details.
+	 * @param user The user the will be signed
 	 * @return The result of handling the signup request, including the response and the new handler.
 	 */
-	RequestResult signup(RequestInfo& info);
+	RequestResult signup(RequestInfo& info, LoggedUser& user);
 
 	RequestHandlerFactory& _factoryHandler;
 };
