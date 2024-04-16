@@ -28,3 +28,21 @@ bool RegexHelper::isAddressLegal(const std::string& address)
 
 	return std::regex_match(address, expression);
 }
+
+bool RegexHelper::isPhoneNumberLegal(const std::string& phoneNumber)
+{
+	//phone number looks like this:
+	//0XY-XXXXXXX (Y is optional)
+	const std::regex expression("^0\d{1,2}-\d{7}$");
+
+	return std::regex_match(phoneNumber, expression);
+}
+
+bool RegexHelper::isBirthdayLegal(const std::string& birthday)
+{
+	//birthday looks like this:
+	//DD.MM.YYYY or DD/MM/YYYY
+	const std::regex expression("^\d{2}([\. | \/])\d{2}\1\d{4}$");
+
+	return std::regex_match(birthday, expression);
+}
