@@ -48,7 +48,7 @@ public:
 	 * @param password The password of the new user.
 	 * @param email The email address of the new user.
 	 */
-	void signUp(const string& username, const string& password, const string& email) override;
+	void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) override;
 
 private:
 

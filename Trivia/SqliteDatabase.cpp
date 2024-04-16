@@ -33,10 +33,10 @@ bool SqliteDatabase::doesPasswordMatch(const string& username, const string& pas
 	return count != 0;
 }
 
-void SqliteDatabase::signUp(const string& username, const string& password, const string& email)
+void SqliteDatabase::signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday)
 {
-	string sqlStatement = R"(insert into users values ("{}", "{}", "{}");)";
-	sqlStatement = format(sqlStatement, { username, password, email });
+	string sqlStatement = R"(insert into users values ("{}", "{}", "{}", "{}", "{}", "{}");)";
+	sqlStatement = format(sqlStatement, { username, password, email, address, phoneNumber, birthday });
 
 	preformSqlRequest(sqlStatement);
 }

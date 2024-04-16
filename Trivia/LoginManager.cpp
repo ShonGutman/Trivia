@@ -18,7 +18,7 @@ void LoginManager::signup(const string& username, const string& password, const 
 	std::unique_lock<std::mutex> locker(_signupMutex);
 	if (!_database->doesUserExists(username))
 	{
-		_database->signUp(username, password, email);
+		_database->signup(username, password, email, address, phoneNumber, birthday);
 		locker.unlock();
 
 		//lock the mutex - to protect _loggedUsers (shared variable)
