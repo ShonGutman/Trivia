@@ -5,6 +5,7 @@
 
 #include "JsonRequestPacketDeserializer.h"
 #include "JsonResponsePacketSerializer.h"
+#include "LoggedUser.h"
 
 // to avoid circular definition
 struct RequestResult;
@@ -28,7 +29,8 @@ public:
 	 * Handles the incoming request and produces a result based on the provided information.
 	 *
 	 * @param info The information related to the request.
+	 * @param user The user the is logged
 	 * @return The result of handling the request.
 	 */
-	virtual RequestResult handleRequest(RequestInfo& info) = 0;
+	virtual RequestResult handleRequest(RequestInfo& info, LoggedUser& user) = 0;
 };

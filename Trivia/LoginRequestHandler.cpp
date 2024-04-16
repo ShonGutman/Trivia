@@ -10,22 +10,22 @@ bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
     return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
 }
 
-RequestResult LoginRequestHandler::handleRequest(RequestInfo& info)
+RequestResult LoginRequestHandler::handleRequest(RequestInfo& info, LoggedUser& user)
 {
 
     if (LOGIN_REQUEST_ID == info.id)
     {
-        return this->login(info);
+        return this->login(info, user);
     }
 
     else
     {
-        return this->signup(info);
+        return this->signup(info, user);
     }
 
 }
 
-RequestResult LoginRequestHandler::login(RequestInfo& info)
+RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
 {
     LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
 
@@ -44,6 +44,9 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
         //assign to MenuHandler 
         result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+        //insert the username into loggedUser object
+        user.setName(request.username);
         
     }
     catch (const std::exception& e)
@@ -62,7 +65,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info)
     return result;
 }
 
-RequestResult LoginRequestHandler::signup(RequestInfo& info)
+RequestResult LoginRequestHandler::signup(RequestInfo& info, LoggedUser& user)
 {
     SignupRequest request = JsonRequestPacketDeserializer::deserializeSignUpRequest(info.buffer);
 
@@ -72,8 +75,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
 
     try
     {
-        LoginResponse response;
-        manager.signup(request.username, request.password, request.email);
+        SignupResponse response;
+        manager.signup(request.username, request.password, request.email, request.address, request.phoneNumber, request.birthday);
 
         //SUCCESS reponse to signup
         response.status = SUCCESS;
@@ -81,6 +84,9 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info)
         //assign to MenuHandler 
         result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+        //insert the username into loggedUser object
+        user.setName(request.username);
 
     }
     catch (const std::exception& e)
