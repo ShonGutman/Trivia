@@ -10,7 +10,7 @@ using json = nlohmann::json;
 #define EMAIL_KEY "email"
 #define ADDRESS_KEY "address"
 #define PHONE_NUMBER_KEY "phoneNumber"
-#define BIRTHDAY "birthday"
+#define BIRTHDAY_KEY "birthday"
 
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4

@@ -25,7 +25,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     request.email = jsonMsg[EMAIL_KEY].get<std::string>();
     request.address = jsonMsg[ADDRESS_KEY].get<std::string>();
     request.phoneNumber = jsonMsg[PHONE_NUMBER_KEY].get<std::string>();
-    request.birthday = jsonMsg[BIRTHDAY].get<std::string>();
+    request.birthday = jsonMsg[BIRTHDAY_KEY].get<std::string>();
 
     return request;
 }
