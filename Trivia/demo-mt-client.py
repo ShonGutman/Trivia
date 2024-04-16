@@ -94,7 +94,7 @@ def main():
             server_sock.sendall(data_bytes)
 
             # Receive response from server as json
-            response = server_sock.recv(1024).decode("latin-1")
+            response = server_sock.recv(1024).decode()
 
             # first byte is the code that helps us determine the type of response
             server_data_code = response[0]
