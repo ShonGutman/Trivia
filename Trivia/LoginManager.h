@@ -12,8 +12,16 @@ class LoginManager
 {
 public:
 	// CTOR //
-	LoginManager() = default;
-	LoginManager(IDatabase* database);
+	// Function to get the singleton instance
+	static LoginManager& get(IDatabase* database = nullptr)
+	{
+		static LoginManager instance(database);
+		return instance;
+	}
+
+	// Delete copy constructor and assignment operator to prevent copies
+	LoginManager(const LoginManager&) = delete;
+	LoginManager& operator=(const LoginManager&) = delete;
 
 	/**
 	 * Signs up a new user.
@@ -55,6 +63,8 @@ public:
 
 
 private:
+	// Private constructor to prevent external instantiation
+	LoginManager(IDatabase* database);
 
 	/**
 	 * Checks if the sign-up input is valid.
