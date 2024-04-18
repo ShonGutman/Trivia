@@ -11,13 +11,8 @@ using std::string;
 class LoginManager
 {
 public:
-	// CTOR //
 	// Function to get the singleton instance
-	static LoginManager& get(IDatabase* database = nullptr)
-	{
-		static LoginManager instance(database);
-		return instance;
-	}
+	static LoginManager& get(IDatabase* database = nullptr);
 
 	// Delete copy constructor and assignment operator to prevent copies
 	LoginManager(const LoginManager&) = delete;
@@ -64,6 +59,7 @@ public:
 
 private:
 	// Private constructor to prevent external instantiation
+	// CTOR //
 	LoginManager(IDatabase* database);
 
 	/**
