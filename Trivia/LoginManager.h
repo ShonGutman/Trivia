@@ -11,9 +11,17 @@ using std::string;
 class LoginManager
 {
 public:
-	// CTOR //
-	LoginManager() = default;
-	LoginManager(IDatabase* database);
+	/*
+	* Function to get the singleton instance
+	* 
+	* @param database the database needed, not a must
+	* @return the instance of LoginManager
+	*/
+	static LoginManager& get(IDatabase* database = nullptr);
+
+	// Delete copy constructor and assignment operator to prevent copies
+	LoginManager(const LoginManager&) = delete;
+	LoginManager& operator=(const LoginManager&) = delete;
 
 	/**
 	 * Signs up a new user.
@@ -55,6 +63,9 @@ public:
 
 
 private:
+	// Private constructor to prevent external instantiation
+	// CTOR //
+	LoginManager(IDatabase* database);
 
 	/**
 	 * Checks if the sign-up input is valid.

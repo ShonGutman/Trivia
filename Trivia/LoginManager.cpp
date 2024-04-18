@@ -10,6 +10,12 @@ LoginManager::LoginManager(IDatabase* database)
 {
 }
 
+LoginManager& LoginManager::get(IDatabase* database)
+{
+	static LoginManager instance(database);
+	return instance;
+}
+
 void LoginManager::signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday)
 {
 	isSignupInputValid(password, email, address, phoneNumber, birthday);
