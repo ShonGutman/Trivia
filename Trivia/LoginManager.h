@@ -11,7 +11,12 @@ using std::string;
 class LoginManager
 {
 public:
-	// Function to get the singleton instance
+	/*
+	* Function to get the singleton instance
+	* 
+	* @param database the database needed, not a must
+	* @return the instance of LoginManager
+	*/
 	static LoginManager& get(IDatabase* database = nullptr);
 
 	// Delete copy constructor and assignment operator to prevent copies
