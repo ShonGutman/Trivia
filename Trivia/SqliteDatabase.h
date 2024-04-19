@@ -73,6 +73,12 @@ private:
 	bool create_users_table();
 
 	/*
+	* function creates table of questions inisde a given data base
+	* @return true if table created succesfully. false if not
+	*/
+	bool create_questions_table();
+
+	/*
 	* function cinitalizes all tables in data base
 	* @return true if all tables created succesfully. false if not
 	*/

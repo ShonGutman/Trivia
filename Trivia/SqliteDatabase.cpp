@@ -85,9 +85,22 @@ bool SqliteDatabase::create_users_table()
 	return preformSqlRequest(sqlStatement);
 }
 
+bool SqliteDatabase::create_questions_table()
+{
+	const string sqlStatement = R"(create table questions (
+		questionId integer primary key not null,
+		question text not null,
+		correct text not null,
+		incorrect1 text not null,
+		incorrect2 text not null,
+		incorrect3 text not null);)";
+
+	return preformSqlRequest(sqlStatement);
+}
+
 bool SqliteDatabase::initTables()
 {
-	return create_users_table();
+	return create_users_table() && create_questions_table();
 }
 
 bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, char**, char**), void* data)
