@@ -33,10 +33,10 @@ bool SqliteDatabase::doesPasswordMatch(const string& username, const string& pas
 	return count != 0;
 }
 
-void SqliteDatabase::signUp(const string& username, const string& password, const string& email)
+void SqliteDatabase::signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday)
 {
-	string sqlStatement = R"(insert into users values ("{}", "{}", "{}");)";
-	sqlStatement = format(sqlStatement, { username, password, email });
+	string sqlStatement = R"(insert into users values ("{}", "{}", "{}", "{}", "{}", "{}");)";
+	sqlStatement = format(sqlStatement, { username, password, email, address, phoneNumber, birthday });
 
 	preformSqlRequest(sqlStatement);
 }
@@ -77,7 +77,10 @@ bool SqliteDatabase::create_users_table()
 	const string sqlStatement = R"(create table users (
 		username text primary key not null,
 		password text not null,
-		email text not null);)";
+		email text not null,
+		address text not null,
+		phoneNumber text not null,
+		birthday text not null);)";
 
 	return preformSqlRequest(sqlStatement);
 }

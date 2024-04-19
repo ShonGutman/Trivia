@@ -5,7 +5,7 @@ bool MenuRequestHandler::isRequestRelevant(RequestInfo& info)
     return false;
 }
 
-RequestResult MenuRequestHandler::handleRequest(RequestInfo& info)
+RequestResult MenuRequestHandler::handleRequest(RequestInfo& info, LoggedUser& user)
 {
     return RequestResult();
 }

@@ -49,6 +49,6 @@ public:
 	LoginManager& getLoginManager();
 
 private:
-	LoginManager _loginManager;
+	LoginManager& _loginManager;
 	IDatabase* _database;
 };

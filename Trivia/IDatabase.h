@@ -15,7 +15,7 @@ public:
 
 	virtual bool doesPasswordMatch(const string& username, const string& password) = 0;
 
-	virtual void signUp(const string& username, const string& password, const string& email) = 0;
+	virtual void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) = 0;
 
 protected:
 

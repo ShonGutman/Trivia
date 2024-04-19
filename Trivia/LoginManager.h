@@ -4,18 +4,24 @@
 #include <mutex>
 #include "LoggedUser.h"
 #include "IDatabase.h"
-
-static std::mutex _signupMutex;
-static std::mutex _loggedMutex;
+#include "RegexHelper.h"
 
 using std::string;
 
 class LoginManager
 {
 public:
-	// CTOR //
-	LoginManager() = default;
-	LoginManager(IDatabase* database);
+	/*
+	* Function to get the singleton instance
+	* 
+	* @param database the database needed, not a must
+	* @return the instance of LoginManager
+	*/
+	static LoginManager& get(IDatabase* database = nullptr);
+
+	// Delete copy constructor and assignment operator to prevent copies
+	LoginManager(const LoginManager&) = delete;
+	LoginManager& operator=(const LoginManager&) = delete;
 
 	/**
 	 * Signs up a new user.
@@ -27,8 +33,11 @@ public:
 	 * @param username The username of the new user.
 	 * @param password The password of the new user.
 	 * @param email The email address of the new user.
+	 * @param address The address of the new user.
+	 * @param phoneNumber The phone number of the new user.
+	 * @param birthday The phone birthday of the new user.
 	 */
-	void signup(const string& username, const string& password, const string& email);
+	void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday);
 
 	/**
 	 * Logs in a user.
@@ -54,6 +63,25 @@ public:
 
 
 private:
+	// Private constructor to prevent external instantiation
+	// CTOR //
+	LoginManager(IDatabase* database);
+
+	/**
+	 * Checks if the sign-up input is valid.
+	 *
+	 * This function checks if the provided sign-up input (password, email, address,
+	 * phone number, and birthday) meets the required structure and format.
+	 *
+	 * @param password The password to be validated.
+	 * @param email The email address to be validated.
+	 * @param address The address to be validated.
+	 * @param phoneNumber The phone number to be validated.
+	 * @param birthday The birthday to be validated.
+	 * @throws std::runtime_error if any of the input parameters does not match the required structure.
+	 */
+	static void isSignupInputValid(const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday);
+
 	IDatabase* _database;
 	std::set<LoggedUser> _loggedUsers;
 };
