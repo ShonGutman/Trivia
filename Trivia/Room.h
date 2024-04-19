@@ -44,6 +44,13 @@ public:
 	 */
 	const std::set<LoggedUser>& getAllUsers() const;
 
+	/**
+	 * Retrieves data about the room.
+	 *
+	 * @return Roomdata with all data to know about the room.
+	 */
+	const RoomData& getRoomData() const;
+
 private:
 	RoomData _metaData;
 	std::set<LoggedUser> _users;

@@ -39,3 +39,8 @@ const std::set<LoggedUser>& Room::getAllUsers() const
 {
 	return _users;
 }
+
+const RoomData& Room::getRoomData() const
+{
+	return _metaData;
+}
