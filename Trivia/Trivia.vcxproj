@@ -160,6 +160,7 @@
     <ClCompile Include="MenuRequestHandler.cpp" />
     <ClCompile Include="RegexHelper.cpp" />
     <ClCompile Include="RequestHandlerFactory.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="SqliteDatabase.cpp" />
