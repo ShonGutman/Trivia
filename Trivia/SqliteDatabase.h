@@ -8,6 +8,9 @@
 
 #define DB_FILENAME "myTrivia.sqlite"
 
+#define NUM_OF_INCORRECT 3
+#define NUM_QUESTIONS 10
+
 class SqliteDatabase : public IDatabase
 {
 public:
@@ -77,6 +80,21 @@ private:
 	* @return true if table created succesfully. false if not
 	*/
 	bool create_questions_table();
+
+	/*
+	* adds 10 default questions to the question table
+	* @return true if inserted with no errors. false if there were errors
+	*/
+	bool addQuestions();
+
+	/*
+	* adds a question to questions table based on the param
+	* @param question the question
+	* @param correct the correct ans
+	* @param incorecct a string array holding 3 incorrect answers
+	* @return true if inserted with no errors. false if there were errors
+	*/
+	bool addQuestion(string question, string correct, string incorecct[NUM_OF_INCORRECT]);
 
 	/*
 	* function cinitalizes all tables in data base

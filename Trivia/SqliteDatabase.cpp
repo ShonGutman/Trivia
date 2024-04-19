@@ -98,6 +98,79 @@ bool SqliteDatabase::create_questions_table()
 	return preformSqlRequest(sqlStatement);
 }
 
+bool SqliteDatabase::addQuestions()
+{
+	bool isSuccessful = true;
+
+	// Write all the questions
+	string questions[NUM_QUESTIONS] =
+	{
+		"What is the capital of France?",
+		"Who wrote 'To Kill a Mockingbird'?",
+		"What is the chemical symbol for water?",
+		"In which year did World War I begin?",
+		"Who painted the Mona Lisa?",
+		"What is the largest planet in our solar system?",
+		"What is the square root of 144?",
+		"Who discovered penicillin?",
+		"What is the currency of Japan?",
+		"Who is the author of 'The Great Gatsby'?"
+	};
+
+	// Write all the correct answers to each question accordingly
+	string corrects[NUM_QUESTIONS] =
+	{
+		"Paris",
+		"Harper Lee",
+		"H2O",
+		"1914",
+		"Leonardo da Vinci",
+		"Jupiter",
+		"12",
+		"Alexander Fleming",
+		"Yen",
+		"F. Scott Fitzgerald"
+	};
+
+	// Write a 2D array of the incorrect answers
+	string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
+	{
+		{"London", "Berlin", "Rome"},
+		{"Ernest Hemingway", "F. Scott Fitzgerald", "Harper Lee"},
+		{"CO2", "NaCl", "NH3"},
+		{"1918", "1939", "1945"},
+		{"Michelangelo", "Vincent van Gogh", "Pablo Picasso"},
+		{"Mars", "Saturn", "Neptune"},
+		{"10", "14", "16"},
+		{"Albert Einstein", "Isaac Newton", "Marie Curie"},
+		{"Dollar", "Euro", "Pound"},
+		{"John Steinbeck", "Mark Twain", "Ernest Hemingway"}
+	};
+
+	for (int i = 0; i < NUM_QUESTIONS; i++)
+	{
+		isSuccessful = addQuestion(questions[i], corrects[i], incorrects[i]);
+		if (!isSuccessful)
+		{
+			throw std::runtime_error("Failed to add question!");
+			break;
+		}
+	}
+
+	return isSuccessful;
+}
+
+
+bool SqliteDatabase::addQuestion(string question, string correct, string incorecct[NUM_OF_INCORRECT])
+{
+	string sqlStatement = R"(insert into questions values ("{}", "{}", "{}", "{}", "{}"");)";
+
+	// The array includes only 3 answers numbered with index - 1
+	sqlStatement = format(sqlStatement, { question, correct, incorecct[0], incorecct[1], incorecct[2]});
+
+	return preformSqlRequest(sqlStatement);
+}
+
 bool SqliteDatabase::initTables()
 {
 	return create_users_table() && create_questions_table();
