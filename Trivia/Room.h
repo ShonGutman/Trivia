@@ -12,6 +12,17 @@ struct RoomData
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
 	bool isActive;
+	
+	//CTOR
+	RoomData(unsigned int id, std::string name, unsigned int maxPlayers, unsigned int numOfQuestions, unsigned int timePerQuestion, bool isActive)
+	{
+		this->id = id;
+		this->name = name;
+		this->maxPlayers = maxPlayers;
+		this->numOfQuestionsInGame = numOfQuestions;
+		this->timePerQuestion = timePerQuestion;
+		this->isActive = isActive;
+	}
 };
 
 class Room
