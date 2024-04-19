@@ -21,8 +21,20 @@ public:
 	//CTOR//
 	Room(const RoomData& data);
 
+	/**
+	 * Adds a user to the room.
+	 *
+	 * @param user The user to be added to the room.
+	 * @throws std::runtime_error if the user is already logged in the room.
+	 */
 	void addUser(const LoggedUser& user);
 
+	/**
+	 * Removes a user from the room.
+	 *
+	 * @param user The user to be removed from the room.
+	 * @throws std::runtime_error if the user does not exist in the room.
+	 */
 	void removeUser(const LoggedUser& user);
 
 	/**
