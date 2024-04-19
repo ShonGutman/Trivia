@@ -87,7 +87,7 @@ bool SqliteDatabase::create_users_table()
 
 bool SqliteDatabase::create_questions_table()
 {
-	const string sqlStatement = R"(create table questions (
+	const string sqlStatementCreateTable = R"(create table questions (
 		questionId integer primary key not null,
 		question text not null,
 		correct text not null,
@@ -95,7 +95,7 @@ bool SqliteDatabase::create_questions_table()
 		incorrect2 text not null,
 		incorrect3 text not null);)";
 
-	return preformSqlRequest(sqlStatement);
+	return preformSqlRequest(sqlStatementCreateTable) && addQuestions();
 }
 
 bool SqliteDatabase::addQuestions()
