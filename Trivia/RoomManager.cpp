@@ -35,9 +35,9 @@ bool RoomManager::getRoomState(const unsigned int roomID) const
 	return _rooms.at(roomID).getRoomData().isActive;
 }
 
-std::vector<const RoomData&> RoomManager::getRooms() const
+std::vector<RoomData> RoomManager::getRooms() const
 {
-	std::vector<const RoomData&> roomsData;
+	std::vector<RoomData> roomsData;
 
 	for (auto& it : _rooms)
 	{

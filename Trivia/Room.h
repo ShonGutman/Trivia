@@ -60,7 +60,7 @@ public:
 	 *
 	 * @return Roomdata with all data to know about the room.
 	 */
-	const RoomData& getRoomData() const;
+	const RoomData getRoomData() const;
 
 private:
 	RoomData _metaData;

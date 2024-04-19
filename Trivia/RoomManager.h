@@ -48,11 +48,11 @@ public:
 	bool getRoomState(const unsigned int roomID) const;
 
 	/**
-	 * Retrieves a vector containing references to the data of all rooms.
+	 * Retrieves a vector containing the data of all rooms.
 	 *
-	 * @return A vector of constant references to RoomData objects representing the data of all rooms.
+	 * @return A vector of RoomData objects representing the data of all rooms.
 	 */
-	std::vector<const RoomData&> getRooms() const;
+	std::vector<RoomData> getRooms() const;
 
 	/**
 	 * Retrieves a constant reference to the room with the specified ID.
