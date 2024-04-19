@@ -5,6 +5,21 @@
 
 class RoomManager
 {
+
+public:
+
+	/*
+	* Function to get the singleton instance
+	*
+	* @return the instance of RoomManager
+	*/
+	static RoomManager& get();
+
+	// Delete copy constructor and assignment operator to prevent copies
+	RoomManager(const RoomManager& other) = delete;
+	RoomManager& operator=(const RoomManager& other) = delete;
+
+
 	/**
 	 * Creates a new room and adds the author to it.
 	 *
@@ -23,5 +38,8 @@ class RoomManager
 	void deleteRoom(const unsigned int roomID);
 
 private:
+
+	RoomManager() = default;
+
 	std::map<unsigned int, Room> _rooms;
 };

@@ -1,5 +1,11 @@
 #include "RoomManager.h"
 
+RoomManager& RoomManager::get()
+{
+	static RoomManager instance;
+	return instance;
+}
+
 void RoomManager::createRoom(const LoggedUser auther, const RoomData data)
 {
 	//create new room
