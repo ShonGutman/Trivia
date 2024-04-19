@@ -29,3 +29,24 @@ void RoomManager::deleteRoom(const unsigned int roomID)
 		throw std::runtime_error("room doesn't exist, can't erase ...");
 	}
 }
+
+bool RoomManager::getRoomState(const unsigned int roomID) const
+{
+	return _rooms.at(roomID).getRoomData().isActive;
+}
+
+std::vector<const RoomData&> RoomManager::getRooms() const
+{
+	std::vector<const RoomData&> roomsData;
+
+	for (auto& it : _rooms)
+	{
+		roomsData.push_back(it.second.getRoomData());
+	}
+	return roomsData;
+}
+
+const Room& RoomManager::getRoom(const unsigned int roomID) const
+{
+	return _rooms.at(roomID);
+}

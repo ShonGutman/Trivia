@@ -2,6 +2,7 @@
 
 #include "Room.h"
 #include <map>
+#include <vector>
 
 class RoomManager
 {
@@ -36,6 +37,31 @@ public:
 	 * @throws std::runtime_error if the room does not exist.
 	 */
 	void deleteRoom(const unsigned int roomID);
+
+	/**
+	 * Retrieves the state of the room with the specified ID.
+	 *
+	 * @param roomID The ID of the room to retrieve the state for.
+	 * @return true if the room is active, false otherwise.
+	 * @throws std::out_of_range if the room with the specified ID does not exist.
+	 */
+	bool getRoomState(const unsigned int roomID) const;
+
+	/**
+	 * Retrieves a vector containing references to the data of all rooms.
+	 *
+	 * @return A vector of constant references to RoomData objects representing the data of all rooms.
+	 */
+	std::vector<const RoomData&> getRooms() const;
+
+	/**
+	 * Retrieves a constant reference to the room with the specified ID.
+	 *
+	 * @param roomID The ID of the room to retrieve.
+	 * @return A constant reference to the Room object corresponding to the specified ID.
+	 * @throws std::out_of_range if the room with the specified ID does not exist.
+	 */
+	const Room& getRoom(const unsigned int roomID) const;
 
 private:
 
