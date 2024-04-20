@@ -30,6 +30,30 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(const Buff
     return request;
 }
 
+GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersInRoomRequest(const Buffer& buffer)
+{
+    GetPlayersInRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomID = jsonMsg[ROOM_ID_KEY].get<unsigned int>();
+
+    return request;
+}
+
+JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const Buffer& buffer)
+{
+    JoinRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomID = jsonMsg[ROOM_ID_KEY].get<unsigned int>();
+
+    return request;
+}
+
 nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string
