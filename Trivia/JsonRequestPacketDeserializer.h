@@ -12,6 +12,10 @@ using json = nlohmann::json;
 #define PHONE_NUMBER_KEY "phoneNumber"
 #define BIRTHDAY_KEY "birthday"
 #define ROOM_ID_KEY "roomID"
+#define ROOM_NAME_KEY "roomName"
+#define MAX_PLAYERS_IN_ROOM_KEY "maxPlayers"
+#define NUM_OF_QUESTIONS_IN_GAME_KEY "numOfQuestionsInGame"
+#define TINE_PER_QUESTION_KEY "timePerQuestion"
 
 
 #define SIZE_BYTE 8
@@ -65,6 +69,15 @@ public:
 	 */
 	static JoinRoomRequest deserializeJoinRoomRequest(const Buffer& buffer);
 
+	/**
+	 * Deserialize a buffer into a CreateRoomRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a CreateRoomRequest object
+	 * based on the information found in the buffer.
+	 * 
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A CreateRoomRequest object deserialized from the buffer.
+	 */
 	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
 
 private:

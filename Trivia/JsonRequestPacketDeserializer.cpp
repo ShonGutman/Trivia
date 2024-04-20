@@ -54,6 +54,21 @@ JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const 
     return request;
 }
 
+CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const Buffer& buffer)
+{
+    CreateRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomName = jsonMsg[ROOM_NAME_KEY].get<std::string>();
+    request.maxPlayers = jsonMsg[MAX_PLAYERS_IN_ROOM_KEY].get<unsigned int>();
+    request.numOfQuestionsInGame = jsonMsg[NUM_OF_QUESTIONS_IN_GAME_KEY].get<unsigned int>();
+    request.timePerQuestion = jsonMsg[TINE_PER_QUESTION_KEY].get<unsigned int>();
+
+    return request;
+}
+
 nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string
