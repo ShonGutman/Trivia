@@ -51,3 +51,21 @@ struct SignupRequest
 	std::string phoneNumber;
 	std::string birthday;
 };
+
+struct GetPlayersInRoomRequest
+{
+	unsigned int roomID;
+};
+
+struct JoinRoomRequest
+{
+	unsigned int roomID;
+};
+
+struct CreateRoomRequest
+{
+	std::string roomName;
+	unsigned int maxPlayers;
+	unsigned int numOfQuestionsInGame;
+	unsigned int timePerQuestion;
+};
