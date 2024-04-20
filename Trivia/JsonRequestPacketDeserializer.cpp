@@ -1,6 +1,6 @@
 #include "JsonRequestPacketDeserializer.h"
 
-LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer& buffer)
+LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer& buffer)
 {
     LoginRequest request;
 
@@ -13,7 +13,7 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer& buff
     return request;
 }
 
-SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& buffer)
+SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(const Buffer& buffer)
 {
     SignupRequest request;
 
@@ -30,7 +30,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     return request;
 }
 
-nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(Buffer& buffer)
+nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string
     std::string stringBuffer(buffer.begin(), buffer.end());

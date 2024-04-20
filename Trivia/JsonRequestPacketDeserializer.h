@@ -28,7 +28,7 @@ public:
 	 * @param buffer The buffer containing the serialized login request data.
 	 * @return The deserialized LoginRequest object.
 	 */
-	static LoginRequest deserializeLoginRequest(Buffer& buffer);
+	static LoginRequest deserializeLoginRequest(const Buffer& buffer);
 
 	/**
 	 * Deserializes a buffer into a SignupRequest object.
@@ -39,7 +39,13 @@ public:
 	 * @param buffer The buffer containing the serialized signup request data.
 	 * @return The deserialized SignupRequest object.
 	 */
-	static SignupRequest deserializeSignUpRequest(Buffer& buffer);
+	static SignupRequest deserializeSignUpRequest(const Buffer& buffer);
+
+	static GetPlayersInRoomRequest deserializeGetPlayersInRoomRequest(const Buffer& buffer);
+
+	static JoinRoomRequest deserializeJoinRoomRequest(const Buffer& buffer);
+
+	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
 
 private:
 
@@ -51,5 +57,5 @@ private:
 	 * @param buffer The buffer containing the data to be converted to JSON.
 	 * @return A JSON object representing the content of the buffer.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertBufferToJson(Buffer& buffer);
+	static nlohmann::json_abi_v3_11_3::json convertBufferToJson(const Buffer& buffer);
 };
