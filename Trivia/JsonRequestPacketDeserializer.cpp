@@ -1,6 +1,6 @@
 #include "JsonRequestPacketDeserializer.h"
 
-LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer& buffer)
+LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer& buffer)
 {
     LoginRequest request;
 
@@ -13,7 +13,7 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer& buff
     return request;
 }
 
-SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& buffer)
+SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(const Buffer& buffer)
 {
     SignupRequest request;
 
@@ -30,7 +30,46 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignUpRequest(Buffer& bu
     return request;
 }
 
-nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(Buffer& buffer)
+GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersInRoomRequest(const Buffer& buffer)
+{
+    GetPlayersInRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomID = jsonMsg[ROOM_ID_KEY].get<unsigned int>();
+
+    return request;
+}
+
+JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const Buffer& buffer)
+{
+    JoinRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomID = jsonMsg[ROOM_ID_KEY].get<unsigned int>();
+
+    return request;
+}
+
+CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const Buffer& buffer)
+{
+    CreateRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomName = jsonMsg[ROOM_NAME_KEY].get<std::string>();
+    request.maxPlayers = jsonMsg[MAX_PLAYERS_IN_ROOM_KEY].get<unsigned int>();
+    request.numOfQuestionsInGame = jsonMsg[NUM_OF_QUESTIONS_IN_GAME_KEY].get<unsigned int>();
+    request.timePerQuestion = jsonMsg[TINE_PER_QUESTION_KEY].get<unsigned int>();
+
+    return request;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string
     std::string stringBuffer(buffer.begin(), buffer.end());
