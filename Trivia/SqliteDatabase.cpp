@@ -45,7 +45,6 @@ bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
 	int doesExist = _access(dbName.c_str(), 0);
-
 	//check if there is error in opening the DB
 	if (sqlite3_open(dbName.c_str(), &_db) != SQLITE_OK)
 	{
@@ -88,7 +87,6 @@ bool SqliteDatabase::create_users_table()
 bool SqliteDatabase::create_questions_table()
 {
 	const string sqlStatementCreateTable = R"(create table questions (
-		questionId integer primary key not null,
 		question text not null,
 		correct text not null,
 		incorrect1 text not null,
@@ -163,7 +161,8 @@ bool SqliteDatabase::addQuestions()
 
 bool SqliteDatabase::addQuestion(string question, string correct, string incorecct[NUM_OF_INCORRECT])
 {
-	string sqlStatement = R"(insert into questions values ("{}", "{}", "{}", "{}", "{}"");)";
+	string sqlStatement = R"(insert into questions (question, correct, incorrect1, incorrect2, incorrect3)
+							 values ("{}", "{}", "{}", "{}", "{}");)";
 
 	// The array includes only 3 answers numbered with index - 1
 	sqlStatement = format(sqlStatement, { question, correct, incorecct[0], incorecct[1], incorecct[2]});
