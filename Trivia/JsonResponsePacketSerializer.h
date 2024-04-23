@@ -35,6 +35,15 @@ public:
 	*/
 	static Buffer serializerResponse(SignupResponse response);
 
+	static Buffer serializeLogoutResponse(LogoutResponse response);
+	static Buffer serializeGetRoomResponse(GetRoomResponse response);
+	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse response);
+	static Buffer serializeJoinRoomResponse(JoinRoomResponse response);
+	static Buffer serializeCreateRoomResponse(CreateRoomResponse response);
+	static Buffer serializeHighScoreResponse(GetHighscoreResponse highscoreResponse, 
+		GetPersonalStatsResponse personalStatsResponse);
+
+
 private:
 	/*
 	* Converts a decimal number to its binary representation.
