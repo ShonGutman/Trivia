@@ -45,7 +45,6 @@ bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
 	int doesExist = _access(dbName.c_str(), 0);
-
 	//check if there is error in opening the DB
 	if (sqlite3_open(dbName.c_str(), &_db) != SQLITE_OK)
 	{
@@ -85,9 +84,94 @@ bool SqliteDatabase::create_users_table()
 	return preformSqlRequest(sqlStatement);
 }
 
+bool SqliteDatabase::create_questions_table()
+{
+	const string sqlStatementCreateTable = R"(create table questions (
+		question text not null,
+		correct text not null,
+		incorrect1 text not null,
+		incorrect2 text not null,
+		incorrect3 text not null);)";
+
+	return preformSqlRequest(sqlStatementCreateTable) && addQuestions();
+}
+
+bool SqliteDatabase::addQuestions()
+{
+	bool isSuccessful = true;
+
+	// Write all the questions
+	const string questions[NUM_QUESTIONS] =
+	{
+		"What is the capital of France?",
+		"Who wrote 'To Kill a Mockingbird'?",
+		"What is the chemical symbol for water?",
+		"In which year did World War I begin?",
+		"Who painted the Mona Lisa?",
+		"What is the largest planet in our solar system?",
+		"What is the square root of 144?",
+		"Who discovered penicillin?",
+		"What is the currency of Japan?",
+		"Who is the author of 'The Great Gatsby'?"
+	};
+
+	// Write all the correct answers to each question accordingly
+	const string corrects[NUM_QUESTIONS] =
+	{
+		"Paris",
+		"Harper Lee",
+		"H2O",
+		"1914",
+		"Leonardo da Vinci",
+		"Jupiter",
+		"12",
+		"Alexander Fleming",
+		"Yen",
+		"F. Scott Fitzgerald"
+	};
+
+	// Write a 2D array of the incorrect answers
+	const string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
+	{
+		{"London", "Berlin", "Rome"},
+		{"Ernest Hemingway", "F. Scott Fitzgerald", "Harper Lee"},
+		{"CO2", "NaCl", "NH3"},
+		{"1918", "1939", "1945"},
+		{"Michelangelo", "Vincent van Gogh", "Pablo Picasso"},
+		{"Mars", "Saturn", "Neptune"},
+		{"10", "14", "16"},
+		{"Albert Einstein", "Isaac Newton", "Marie Curie"},
+		{"Dollar", "Euro", "Pound"},
+		{"John Steinbeck", "Mark Twain", "Ernest Hemingway"}
+	};
+
+	for (int i = 0; i < NUM_QUESTIONS; i++)
+	{
+		if (!addQuestion(questions[i], corrects[i], incorrects[i]))
+		{
+			throw std::runtime_error("Failed to add question!");
+			break;
+		}
+	}
+
+	return true;
+}
+
+
+bool SqliteDatabase::addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT])
+{
+	string sqlStatement = R"(insert into questions (question, correct, incorrect1, incorrect2, incorrect3)
+							 values ("{}", "{}", "{}", "{}", "{}");)";
+
+	// The array includes only 3 answers numbered with index - 1
+	sqlStatement = format(sqlStatement, { question, correct, incorecct[0], incorecct[1], incorecct[2]});
+
+	return preformSqlRequest(sqlStatement);
+}
+
 bool SqliteDatabase::initTables()
 {
-	return create_users_table();
+	return create_users_table() && create_questions_table();
 }
 
 bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, char**, char**), void* data)
