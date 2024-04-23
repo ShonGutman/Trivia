@@ -101,7 +101,7 @@ bool SqliteDatabase::addQuestions()
 	bool isSuccessful = true;
 
 	// Write all the questions
-	string questions[NUM_QUESTIONS] =
+	const string questions[NUM_QUESTIONS] =
 	{
 		"What is the capital of France?",
 		"Who wrote 'To Kill a Mockingbird'?",
@@ -116,7 +116,7 @@ bool SqliteDatabase::addQuestions()
 	};
 
 	// Write all the correct answers to each question accordingly
-	string corrects[NUM_QUESTIONS] =
+	const string corrects[NUM_QUESTIONS] =
 	{
 		"Paris",
 		"Harper Lee",
@@ -131,7 +131,7 @@ bool SqliteDatabase::addQuestions()
 	};
 
 	// Write a 2D array of the incorrect answers
-	string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
+	const string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
 	{
 		{"London", "Berlin", "Rome"},
 		{"Ernest Hemingway", "F. Scott Fitzgerald", "Harper Lee"},
@@ -147,19 +147,18 @@ bool SqliteDatabase::addQuestions()
 
 	for (int i = 0; i < NUM_QUESTIONS; i++)
 	{
-		isSuccessful = addQuestion(questions[i], corrects[i], incorrects[i]);
-		if (!isSuccessful)
+		if (!addQuestion(questions[i], corrects[i], incorrects[i]))
 		{
 			throw std::runtime_error("Failed to add question!");
 			break;
 		}
 	}
 
-	return isSuccessful;
+	return true;
 }
 
 
-bool SqliteDatabase::addQuestion(string question, string correct, string incorecct[NUM_OF_INCORRECT])
+bool SqliteDatabase::addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT])
 {
 	string sqlStatement = R"(insert into questions (question, correct, incorrect1, incorrect2, incorrect3)
 							 values ("{}", "{}", "{}", "{}", "{}");)";
