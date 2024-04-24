@@ -49,7 +49,7 @@ public:
 	 * @param response The GetRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetRoomResponse(GetRoomResponse response);
+	static Buffer serializeGetRoomResponse(GetRoomsResponse response);
 
 	/**
 	 * Serializes a GetPlayersInRoomResponse into a Buffer.
@@ -109,5 +109,22 @@ private:
 	* @return: The binary buffer containing the message and code formatted according to the protocol.
 	*/
 	static Buffer fitBuffToProtocol(std::string msg, ResponseId code);
+
+	/**
+	 * Converts a vector of RoomData objects into a JSON object.
+	 *
+	 * @param roomVec The vector containing RoomData objects to be converted.
+	 * @return A JSON object representing the converted RoomData objects.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<const RoomData>& roomVec);
+
+	/**
+	 * Converts a vector of strings into a JSON array.
+	 *
+	 * @param stringVec The vector containing strings to be converted.
+	 * @return A JSON array representing the converted strings.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<const std::string>& stringVec);
+
 
 };

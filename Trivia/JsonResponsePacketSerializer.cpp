@@ -54,6 +54,17 @@ Buffer JsonResponsePacketSerializer::serializeLogoutResponse(LogoutResponse resp
     return logoutBuffer;
 }
 
+Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetRoomsResponse response)
+{
+    Buffer roomBuffer;
+    json jsonRoom;
+
+    // Add data to the json object.
+    jsonRoom[STATUS_KEY] = response.status;
+    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms);
+
+}
+
 Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse response)
 {
     Buffer joinRoomBuffer;
@@ -143,4 +154,38 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, Response
 
 
     return protocolBuffer;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<const RoomData>& roomVec)
+{
+    json convortedJson, currentRoom;
+
+    for (int i = 0; i < roomVec.size(); i++)
+    {
+        // Adds the data to the currentRoom to the json
+        currentRoom[ID] = roomVec[i].id;
+        currentRoom[NAME] = roomVec[i].name;
+        currentRoom[MAX_PLAYERS] = roomVec[i].maxPlayers;
+        currentRoom[NUM_OF_QUESTION_IN_GAME] = roomVec[i].numOfQuestionsInGame;
+        currentRoom[TIME_PER_QUESTION] = roomVec[i].timePerQuestion;
+        currentRoom[IS_ACTIVE] = roomVec[i].isActive;
+
+        // Adds the currentRoom to the json of rooms.
+        convortedJson[i] = currentRoom.dump();
+    }
+
+    return convortedJson;
+}
+
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<const std::string>& stringVec)
+{
+    json convortedJson;
+
+    for (int i = 0; i < stringVec.size(); i++)
+    {
+        convortedJson[i] = stringVec[i];
+    }
+
+    return convortedJson;
 }

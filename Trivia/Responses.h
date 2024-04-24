@@ -10,6 +10,15 @@ typedef std::vector<BYTE> Buffer;
 
 #define STATUS_KEY "status"
 #define MESSAGE_KEY "message"
+#define ROOMS_KEY "Rooms"
+
+#define ID "id"
+#define NAME "name"
+#define MAX_PLAYERS "maxPlayers"
+#define NUM_OF_QUESTION_IN_GAME "numOfQuestionsInGame"
+#define TIME_PER_QUESTION "timePerQuestion"
+#define IS_ACTIVE "isActive"
+
 
 typedef enum : unsigned int {
 	LOGIN_RESPONSE_ID = 1,
@@ -51,11 +60,11 @@ typedef struct LogoutResponse
 	STATUS status;
 }LogoutResponse;
 
-typedef struct GetRoomResponse
+typedef struct GetRoomsResponse
 {
 	STATUS status;
 	std::vector<const RoomData> rooms;
-}GetRoomResponse;
+}GetRoomsResponse;
 
 typedef struct GetPlayersInRoomResponse
 {
