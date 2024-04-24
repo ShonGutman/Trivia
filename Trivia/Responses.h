@@ -8,21 +8,6 @@
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
-#define STATUS_KEY "status"
-#define MESSAGE_KEY "message"
-#define ROOMS_KEY "Rooms"
-#define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
-#define USER_STATISTICS_KEY "UserStatistics"
-#define HIGHSCORES_KEY "HighScores"
-
-#define ID "id"
-#define NAME "name"
-#define MAX_PLAYERS "maxPlayers"
-#define NUM_OF_QUESTION_IN_GAME "numOfQuestionsInGame"
-#define TIME_PER_QUESTION "timePerQuestion"
-#define IS_ACTIVE "isActive"
-
-
 typedef enum : unsigned int {
 	LOGIN_RESPONSE_ID = 1,
 	SIGN_UP_RESPONSE_ID = 2,
@@ -58,19 +43,20 @@ struct ErrorResponse
 	std::string message;
 }typedef ErrorResponse;
 
-typedef struct LogoutResponse
+typedef struct LeaveRoomResponse
 {
 	STATUS status;
-}LogoutResponse;
+}LeaveRoomResponse;
 
-typedef struct GetRoomsResponse
+typedef struct GetAllRoomsResponse
 {
 	STATUS status;
 	std::vector<const RoomData> rooms;
-}GetRoomsResponse;
+}GetAllRoomsResponse;
 
 typedef struct GetPlayersInRoomResponse
 {
+	STATUS status;
 	std::vector<const std::string> playersInRoom;
 }GetPlayersInRoomResponse;
 

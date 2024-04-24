@@ -51,7 +51,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
     }
     catch (const std::exception& e)
     {
-        ErrorResponse response;
+        ErrorResponse& response;
 
         //FAILED reponse to login
         response.message = e.what();
@@ -91,7 +91,7 @@ RequestResult LoginRequestHandler::signup(RequestInfo& info, LoggedUser& user)
     }
     catch (const std::exception& e)
     {
-        ErrorResponse response;
+        ErrorResponse& response;
 
         //FAILED reponse to login
         response.message = e.what();

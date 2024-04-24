@@ -11,37 +11,51 @@ using json = nlohmann::json;
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4
 
+#define STATUS_KEY "status"
+#define MESSAGE_KEY "message"
+#define ROOMS_KEY "Rooms"
+#define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
+#define USER_STATISTICS_KEY "UserStatistics"
+#define HIGHSCORES_KEY "HighScores"
+
+#define ID "id"
+#define NAME "name"
+#define MAX_PLAYERS "maxPlayers"
+#define NUM_OF_QUESTION_IN_GAME "numOfQuestionsInGame"
+#define TIME_PER_QUESTION "timePerQuestion"
+#define IS_ACTIVE "isActive"
+
 class JsonResponsePacketSerializer
 {
 public:
 	/*
 	* Serializes an error response into a binary buffer.
-	* @param response: The ErrorResponse object to be serialized.
+	* @param response: The ErrorResponse& object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(ErrorResponse response);
+	static Buffer serializerResponse(ErrorResponse& response);
 
 	/*
 	* Serializes a login response into a binary buffer.
 	* @param response: The LoginResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(LoginResponse response);
+	static Buffer serializerResponse(LoginResponse& response);
 
 	/*
 	* Serializes a signup response into a binary buffer.
 	* @param response: The SignupResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(SignupResponse response);
+	static Buffer serializerResponse(SignupResponse& response);
 
 	/**
-	 * Serializes a LogoutResponse into a Buffer.
+	 * Serializes a LeaveRoomResponse into a Buffer.
 	 *
-	 * @param response The LogoutResponse to serialize.
+	 * @param response The LeaveRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeLogoutResponse(LogoutResponse response);
+	static Buffer serializeLeaveRoomResponse(LeaveRoomResponse& response);
 
 	/**
 	 * Serializes a GetRoomResponse into a Buffer.
@@ -49,7 +63,7 @@ public:
 	 * @param response The GetRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetRoomResponse(GetRoomsResponse response);
+	static Buffer serializeGetRoomResponse(GetAllRoomsResponse& response);
 
 	/**
 	 * Serializes a GetPlayersInRoomResponse into a Buffer.
@@ -57,7 +71,7 @@ public:
 	 * @param response The GetPlayersInRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse response);
+	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse& response);
 
 	/**
 	 * Serializes a JoinRoomResponse into a Buffer.
@@ -65,7 +79,7 @@ public:
 	 * @param response The JoinRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeJoinRoomResponse(JoinRoomResponse response);
+	static Buffer serializeJoinRoomResponse(JoinRoomResponse& response);
 
 	/**
 	 * Serializes a CreateRoomResponse into a Buffer.
@@ -73,7 +87,7 @@ public:
 	 * @param response The CreateRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeCreateRoomResponse(CreateRoomResponse response);
+	static Buffer serializeCreateRoomResponse(CreateRoomResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -82,8 +96,8 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeHighScoreResponse(GetHighscoreResponse highscoreResponse,
-		GetPersonalStatsResponse personalStatsResponse);
+	static Buffer serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse,
+		GetPersonalStatsResponse& personalStatsResponse);
 
 
 

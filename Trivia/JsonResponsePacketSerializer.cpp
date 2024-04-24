@@ -1,125 +1,96 @@
 #include "JsonResponsePacketSerializer.h"
 
-Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse& response)
 {
-    Buffer errBuffer;
     json jsonErr;
 
     // Add data to the json object.
     jsonErr[STATUS_KEY] = FAILED;
     jsonErr[MESSAGE_KEY] = response.message;
 
-    errBuffer = fitBuffToProtocol(jsonErr.dump(), response.id);
-
-    return errBuffer;
-
+    return fitBuffToProtocol(jsonErr.dump(), response.id);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse& response)
 {
-    Buffer loginBuffer;
     json jsonLogin;
 
     // Add data to the json object.
     jsonLogin[STATUS_KEY] = response.status;
 
-    loginBuffer = fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
-
-    return loginBuffer;
+    return fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response)
 {
-    Buffer SignupBuffer;
     json jsonSignup;
 
     // Add data to the json object.
     jsonSignup[STATUS_KEY] = response.status;
 
-    SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
-
-    return SignupBuffer;
+    return fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeLogoutResponse(LogoutResponse response)
+Buffer JsonResponsePacketSerializer::serializeLeaveRoomResponse(LeaveRoomResponse& response)
 {
-    Buffer logoutBuffer;
-    json jsonLogout;
+    json jsonLeaveRoom;
 
     // Add data to the json object.
-    jsonLogout[STATUS_KEY] = response.status;
+    jsonLeaveRoom[STATUS_KEY] = response.status;
 
-    logoutBuffer = fitBuffToProtocol(jsonLogout.dump(), LEAVE_ROOM_RESPONSE_ID);
-
-    return logoutBuffer;
+    return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetRoomsResponse response)
+Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetAllRoomsResponse& response)
 {
-    Buffer roomBuffer;
     json jsonRoom;
 
     // Add data to the json object.
-    // said not include but keeping it here, mayber neede later? 
-    // jsonRoom[STATUS_KEY] = response.status;
+    jsonRoom[STATUS_KEY] = response.status;
     jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms);
 
-    roomBuffer = fitBuffToProtocol(jsonRoom.dump(), JOIN_ROOM_RESPONSE_ID);
-
-    return roomBuffer;
+    return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse response)
+Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse& response)
 {
-    Buffer getPlayersInRoomBuffer;
     json jsonGetPlayersInRoom;
 
     // Add data to the json object.
     jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom);
 
-    getPlayersInRoomBuffer = fitBuffToProtocol(jsonGetPlayersInRoom.dump(), JOIN_ROOM_RESPONSE_ID);
-
-    return getPlayersInRoomBuffer;
+    return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse response)
+Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse& response)
 {
-    Buffer joinRoomBuffer;
     json jsonJoinRoom;
 
     // Add data to the json object.
     jsonJoinRoom[STATUS_KEY] = response.status;
 
-    joinRoomBuffer = fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
-
-    return joinRoomBuffer;
+    return fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomResponse response)
+Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomResponse& response)
 {
-    Buffer createRoomBuffer;
     json jsonCreateRoom;
 
     // Add data to the json object.
     jsonCreateRoom[STATUS_KEY] = response.status;
 
-    createRoomBuffer = fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
-
-    return createRoomBuffer;
+    return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse highscoreResponse, GetPersonalStatsResponse personalStatsResponse)
+Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse, GetPersonalStatsResponse& personalStatsResponse)
 {
-    Buffer highScoreBuffer;
     json jsonHighScore;
 
     // Add data to the json object.
     jsonHighScore[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse.userStatistics);
     jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores);
 
-    highScoreBuffer = fitBuffToProtocol(jsonHighScore.dump(), CREATE_ROOM_RESPONSE_ID);
-
-    return highScoreBuffer;
+    return fitBuffToProtocol(jsonHighScore.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
