@@ -60,9 +60,26 @@ Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetRoomsResponse r
     json jsonRoom;
 
     // Add data to the json object.
-    jsonRoom[STATUS_KEY] = response.status;
+    // said not include but keeping it here, mayber neede later? 
+    // jsonRoom[STATUS_KEY] = response.status;
     jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms);
 
+    roomBuffer = fitBuffToProtocol(jsonRoom.dump(), JOIN_ROOM_RESPONSE_ID);
+
+    return roomBuffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse response)
+{
+    Buffer getPlayersInRoomBuffer;
+    json jsonGetPlayersInRoom;
+
+    // Add data to the json object.
+    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom);
+
+    getPlayersInRoomBuffer = fitBuffToProtocol(jsonGetPlayersInRoom.dump(), JOIN_ROOM_RESPONSE_ID);
+
+    return getPlayersInRoomBuffer;
 }
 
 Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse response)
@@ -89,6 +106,20 @@ Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomRespo
     createRoomBuffer = fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 
     return createRoomBuffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse highscoreResponse, GetPersonalStatsResponse personalStatsResponse)
+{
+    Buffer highScoreBuffer;
+    json jsonHighScore;
+
+    // Add data to the json object.
+    jsonHighScore[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse.userStatistics);
+    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores);
+
+    highScoreBuffer = fitBuffToProtocol(jsonHighScore.dump(), CREATE_ROOM_RESPONSE_ID);
+
+    return highScoreBuffer;
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)

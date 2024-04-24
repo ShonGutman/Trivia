@@ -11,6 +11,9 @@ typedef std::vector<BYTE> Buffer;
 #define STATUS_KEY "status"
 #define MESSAGE_KEY "message"
 #define ROOMS_KEY "Rooms"
+#define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
+#define USER_STATISTICS_KEY "UserStatistics"
+#define HIGHSCORES_KEY "HighScores"
 
 #define ID "id"
 #define NAME "name"
