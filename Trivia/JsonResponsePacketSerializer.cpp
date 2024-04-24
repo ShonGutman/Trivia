@@ -41,6 +41,45 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
     return SignupBuffer;
 }
 
+Buffer JsonResponsePacketSerializer::serializeLogoutResponse(LogoutResponse response)
+{
+    Buffer logoutBuffer;
+    json jsonLogout;
+
+    // Add data to the json object.
+    jsonLogout[STATUS_KEY] = response.status;
+
+    logoutBuffer = fitBuffToProtocol(jsonLogout.dump(), LEAVE_ROOM_RESPONSE_ID);
+
+    return logoutBuffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse response)
+{
+    Buffer joinRoomBuffer;
+    json jsonJoinRoom;
+
+    // Add data to the json object.
+    jsonJoinRoom[STATUS_KEY] = response.status;
+
+    joinRoomBuffer = fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
+
+    return joinRoomBuffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomResponse response)
+{
+    Buffer createRoomBuffer;
+    json jsonCreateRoom;
+
+    // Add data to the json object.
+    jsonCreateRoom[STATUS_KEY] = response.status;
+
+    createRoomBuffer = fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
+
+    return createRoomBuffer;
+}
+
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 {
     //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
