@@ -2,10 +2,10 @@
 
 StatisticsManager::StatisticsManager()
 {
-	_sqlDatabase = new SqliteDatabase();
+	_database = new SqliteDatabase();
 }
 
 StatisticsManager::~StatisticsManager()
 {
-	delete _sqlDatabase;
+	delete _database;
 }
