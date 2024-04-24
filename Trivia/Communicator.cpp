@@ -116,7 +116,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 			else
 			{
 				//send error msg to client
-				ErrorResponse& err;
+				ErrorResponse err;
 				Helper::sendData(clientSocket, JsonResponsePacketSerializer::serializerResponse(err));
 			}
 
