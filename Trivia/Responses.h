@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-
 #include "Room.h"
 
 #define BYTE unsigned char
