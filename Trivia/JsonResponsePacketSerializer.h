@@ -35,13 +35,56 @@ public:
 	*/
 	static Buffer serializerResponse(SignupResponse response);
 
+	/**
+	 * Serializes a LogoutResponse into a Buffer.
+	 *
+	 * @param response The LogoutResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
 	static Buffer serializeLogoutResponse(LogoutResponse response);
+
+	/**
+	 * Serializes a GetRoomResponse into a Buffer.
+	 *
+	 * @param response The GetRoomResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
 	static Buffer serializeGetRoomResponse(GetRoomResponse response);
+
+	/**
+	 * Serializes a GetPlayersInRoomResponse into a Buffer.
+	 *
+	 * @param response The GetPlayersInRoomResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
 	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse response);
+
+	/**
+	 * Serializes a JoinRoomResponse into a Buffer.
+	 *
+	 * @param response The JoinRoomResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
 	static Buffer serializeJoinRoomResponse(JoinRoomResponse response);
+
+	/**
+	 * Serializes a CreateRoomResponse into a Buffer.
+	 *
+	 * @param response The CreateRoomResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
 	static Buffer serializeCreateRoomResponse(CreateRoomResponse response);
-	static Buffer serializeHighScoreResponse(GetHighscoreResponse highscoreResponse, 
+
+	/**
+	 * Serializes Highscore and PersonalStats responses into a Buffer.
+	 *
+	 * @param highscoreResponse The HighscoreResponse to serialize.
+	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
+	static Buffer serializeHighScoreResponse(GetHighscoreResponse highscoreResponse,
 		GetPersonalStatsResponse personalStatsResponse);
+
 
 
 private:
