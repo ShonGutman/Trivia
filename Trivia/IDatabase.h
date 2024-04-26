@@ -20,7 +20,7 @@ public:
 
 	virtual void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) = 0;
 
-	virtual std::list<Question> getQuestions(const int) = 0;
+	virtual std::vector<Question> getQuestions(const int numOfQuestions) = 0;
 
 	virtual float getPlayerAverageAnswerTime(const string& username) = 0;
 
