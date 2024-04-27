@@ -4,10 +4,6 @@
 #include <vector>
 #include <string>
 
-using std::string;
-
-#define NUM_OF_INCORRECT 3
-
 class Question
 {
 public:
@@ -23,7 +19,7 @@ public:
      * @param correct The correct answer.
      * @param incorecct An array containing incorrect answers.
      */
-    Question(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT]);
+    Question(const std::string question, const std::string correct, const std::vector<std::string> incorecct);
 
     /**
      * Destructor for the Question class.
@@ -35,14 +31,14 @@ public:
      *
      * @return The question text.
      */
-    string getQuestion() const;
+    std::string getQuestion() const;
 
     /**
      * Getter method to retrieve the possible answers.
      *
      * @return A vector containing the possible answers.
      */
-    std::vector<string> getPossibleAnswers() const;
+    std::vector<std::string> getPossibleAnswers() const;
 
     /**
      * Getter method to retrieve the correct answer.
@@ -52,7 +48,7 @@ public:
     std::string getCorrentAnswer() const;
 
 private:
-    string _question;               // The question text
-    std::vector<string> _possibleAnswers;  // Vector containing possible answers
+    std::string _question;               // The question text
+    std::vector<std::string> _incorrects;  // Vector containing incorrect answers
     std::string _correctAnswer;     // The correct answer
 };

@@ -4,29 +4,25 @@ Question::Question()
 {
 }
 
-Question::Question(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT])
+Question::Question(const std::string question, const std::string correct, const std::vector<std::string> incorrectAnswers)
 {
 	this->_question = question;
 	this->_correctAnswer = correct;
-
-	for (int i = 0; i < NUM_OF_INCORRECT; i++)
-	{
-		this->_possibleAnswers.push_back(incorecct[i]);
-	}
+	this->_incorrects = incorrectAnswers;
 }
 
 Question::~Question()
 {
 }
 
-string Question::getQuestion() const
+std::string Question::getQuestion() const
 {
 	return this->_question;
 }
 
-std::vector<string> Question::getPossibleAnswers() const
+std::vector<std::string> Question::getPossibleAnswers() const
 {
-	return this->_possibleAnswers;
+	return this->_incorrects;
 }
 
 std::string Question::getCorrentAnswer() const

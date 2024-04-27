@@ -63,7 +63,7 @@ public:
 	 */
 	void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) override;
 
-	virtual std::vector<Question> getQuestions(const int numOfQuestions) override;
+	virtual std::vector<Question> getQuestions(const int numOfQuestions = NUM_QUESTIONS) override;
 
 private:
 

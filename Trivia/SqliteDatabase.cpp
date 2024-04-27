@@ -44,7 +44,8 @@ void SqliteDatabase::signup(const string& username, const string& password, cons
 std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 {
 	std::vector<Question> questionsVector;
-	string sqlStatement = "select * from questions where ROWID <= " + std::to_string(numOfQuestions) + "; ";
+	string sqlStatement = "select * from questions where ROWID <= {};";
+	sqlStatement = format(sqlStatement, { std::to_string(numOfQuestions) });
 
 	preformSqlRequest(sqlStatement, callbackQuestion, &questionsVector);
 
@@ -219,7 +220,7 @@ int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** a
 
 	string question, incorrect1, incorrect2, incorrect3, correct;
 
-	for (int i = 0; i < argc; ++i)
+	for (int i = 0; i < argc; i++)
 	{
 		if (std::string(azColName[i]) == QUESTION_COL)
 		{
@@ -243,7 +244,7 @@ int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** a
 		}
 	}
 
-	string incorrects[NUM_OF_INCORRECT] = { incorrect1 ,incorrect2, incorrect3 };
+	std::vector<std::string> incorrects = { incorrect1 ,incorrect2, incorrect3 };
 	questions->push_back(Question(question, correct, incorrects));
 	return 0;
 }
