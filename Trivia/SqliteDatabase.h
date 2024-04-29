@@ -11,6 +11,13 @@
 #define NUM_OF_INCORRECT 3
 #define NUM_QUESTIONS 10
 
+#define QUESTION_COL "question"
+#define CORRECT_COL "correct"
+#define INCORRECT1_COL "incorrect1"
+#define INCORRECT2_COL "incorrect2"
+#define INCORRECT3_COL "incorrect3"
+
+
 class SqliteDatabase : public IDatabase
 {
 public:
@@ -55,6 +62,8 @@ public:
 	 * @param birthday The phone birthday of the new user.
 	 */
 	void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) override;
+
+	virtual std::vector<Question> getQuestions(const int numOfQuestions = NUM_QUESTIONS) override;
 
 private:
 
@@ -114,7 +123,7 @@ private:
 	//callBack functions:
 
 	static int callbackNumber(void* data, int argc, char** argv, char** azColName);
-
+	static int callbackQuestion(void* data, int argc, char** argv, char** azColName);
 
 	/*
 	* function preform string formating. given a string function will replace {} with value from args
@@ -132,8 +141,6 @@ private:
 	* @return formatted string
 	*/
 	static string format(string fmt, std::vector<string> args);
-
-
 
 	sqlite3* _db;
 };
