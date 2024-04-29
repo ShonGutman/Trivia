@@ -38,7 +38,7 @@ public:
 	 *
 	 * @return A pointer to the newly created MenuRequestHandler instance.
 	 */
-	MenuRequestHandler* createMenuRequestHandler(LoggedUser& user);
+	MenuRequestHandler* createMenuRequestHandler();
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.
