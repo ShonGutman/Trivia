@@ -8,6 +8,7 @@
 
 // to avoid circular definition
 class LoginRequestHandler;
+class MenuRequestHandler;
 
 class RequestHandlerFactory
 {

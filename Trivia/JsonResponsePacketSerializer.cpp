@@ -31,6 +31,16 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response
     return fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializeLogoutResponse(LogoutResponse& response)
+{
+    json jsonLogout;
+
+    // Add data to the json object.
+    jsonLogout[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
+}
+
 Buffer JsonResponsePacketSerializer::serializeLeaveRoomResponse(LeaveRoomResponse& response)
 {
     json jsonLeaveRoom;

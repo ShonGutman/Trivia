@@ -49,6 +49,13 @@ public:
 	*/
 	static Buffer serializerResponse(SignupResponse& response);
 
+	/*
+	* Serializes a logout response into a binary buffer.
+	* @param response: The LogoutResponse object to be serialized.
+	* @return: The binary buffer containing the serialized response.
+	*/
+	static Buffer serializeLogoutResponse(LogoutResponse& response);
+
 	/**
 	 * Serializes a LeaveRoomResponse into a Buffer.
 	 *

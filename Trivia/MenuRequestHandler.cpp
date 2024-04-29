@@ -15,3 +15,8 @@ RequestResult MenuRequestHandler::handleRequest(RequestInfo& info, LoggedUser& u
 {
     return RequestResult();
 }
+
+RequestResult MenuRequestHandler::logout(RequestInfo& info)
+{
+    return RequestResult();
+}
