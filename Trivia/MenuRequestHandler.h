@@ -19,6 +19,8 @@ public:
 
 private:
 
+	RequestResult logout(RequestInfo& info);
+
 	LoggedUser& _user;
 	RequestHandlerFactory& _factoryHandler;
 };
