@@ -13,10 +13,10 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
     return new LoginRequestHandler(*this);
 }
 
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(LoggedUser& user)
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
 {
     //memory must be deleted
-    return new MenuRequestHandler(user, *this);
+    return new MenuRequestHandler(*this);
 }
 
 LoginManager& RequestHandlerFactory::getLoginManager()

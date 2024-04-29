@@ -7,7 +7,7 @@ class LoggedUser
 public:
 
 	// CTOR //
-	LoggedUser() = default;
+	LoggedUser();
 	LoggedUser(const std::string& username);
 
 
@@ -28,6 +28,8 @@ public:
 	 * @param username The username to set.
 	 */
 	void setName(const std::string& username);
+
+	bool isLogged() const;
 
 	//add operator overloading of <, <=, ==, !=, >=, and > to support std::set
 
