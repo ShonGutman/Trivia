@@ -4,7 +4,6 @@
 #include <string>
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
-#include "LoginManager.h"
 
 // to avoid circular definition
 class RequestHandlerFactory;

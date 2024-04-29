@@ -60,7 +60,7 @@ public:
 	* @param response: The LogoutResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializeLogoutResponse(LogoutResponse& response);
+	static Buffer serializerResponse(LogoutResponse& response);
 
 	/**
 	 * Serializes a LeaveRoomResponse into a Buffer.
