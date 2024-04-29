@@ -29,7 +29,17 @@ public:
 	 */
 	void setName(const std::string& username);
 
-	bool isLogged() const;
+	/**
+	 * Sets user to be initialized
+	 */
+	void setToInitialized();
+
+	/**
+	 * Checks if user is initialized (username is not NONE_INITIALIZED_USERNAME)
+	 *
+	 * return: true if initialized false if not
+	 */
+	bool isInitialized() const;
 
 	//add operator overloading of <, <=, ==, !=, >=, and > to support std::set
 

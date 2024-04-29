@@ -5,12 +5,12 @@ LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& factory)
 {
 }
 
-bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
+bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
     return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
 }
 
-RequestResult LoginRequestHandler::handleRequest(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
 {
 
     if (LOGIN_REQUEST_ID == info.id)
@@ -25,7 +25,7 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo& info, LoggedUser& 
 
 }
 
-RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::login(const RequestInfo& info, LoggedUser& user)
 {
     LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
 
@@ -65,7 +65,7 @@ RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
     return result;
 }
 
-RequestResult LoginRequestHandler::signup(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& user)
 {
     SignupRequest request = JsonRequestPacketDeserializer::deserializeSignUpRequest(info.buffer);
 

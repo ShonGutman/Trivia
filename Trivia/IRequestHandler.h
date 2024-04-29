@@ -23,7 +23,7 @@ public:
 	 * @param info - The RequestInfo object containing information about the request.
 	 * @return true if the request is relevant to this handler, false otherwise.
 	 */
-	virtual bool isRequestRelevant(RequestInfo& info) = 0;
+	virtual bool isRequestRelevant(const RequestInfo& info) = 0;
 
 	/*
 	 * Handles the incoming request and produces a result based on the provided information.
@@ -32,5 +32,5 @@ public:
 	 * @param user The user the is logged
 	 * @return The result of handling the request.
 	 */
-	virtual RequestResult handleRequest(RequestInfo& info, LoggedUser& user) = 0;
+	virtual RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) = 0;
 };
