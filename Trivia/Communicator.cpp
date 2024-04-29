@@ -127,7 +127,7 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 			std::cerr << "reason: " << e.what() << std::endl;
 
 			//log out the user
-			if (!user.isLogged())
+			if (!user.isInitialized())
 			{
 				LoginManager& manager = _factory->getLoginManager();
 				manager.logout(user.getName());

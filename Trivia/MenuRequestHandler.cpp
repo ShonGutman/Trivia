@@ -5,17 +5,17 @@ MenuRequestHandler::MenuRequestHandler(RequestHandlerFactory& factory)
 {
 }
 
-bool MenuRequestHandler::isRequestRelevant(RequestInfo& info)
+bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
     return false;
 }
 
-RequestResult MenuRequestHandler::handleRequest(RequestInfo& info, LoggedUser& user)
+RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
 {
     return RequestResult();
 }
 
-RequestResult MenuRequestHandler::logout(RequestInfo& info)
+RequestResult MenuRequestHandler::logout(const RequestInfo& info)
 {
     return RequestResult();
 }

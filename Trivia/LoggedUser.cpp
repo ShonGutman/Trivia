@@ -1,9 +1,9 @@
 #include "LoggedUser.h"
 
-#define NOT_LOGGED_USERNAME ""
+#define NONE_INITIALIZED_USERNAME ""
 
 LoggedUser::LoggedUser()
-	:_username(NOT_LOGGED_USERNAME)
+	:_username(NONE_INITIALIZED_USERNAME)
 {
 }
 
@@ -22,9 +22,14 @@ void LoggedUser::setName(const std::string& username)
 	_username = username;
 }
 
-bool LoggedUser::isLogged() const
+void LoggedUser::setToInitialized()
 {
-	return _username != NOT_LOGGED_USERNAME;
+	_username = NONE_INITIALIZED_USERNAME;
+}
+
+bool LoggedUser::isInitialized() const
+{
+	return _username != NONE_INITIALIZED_USERNAME;
 }
 
 bool LoggedUser::operator<(const LoggedUser& other) const

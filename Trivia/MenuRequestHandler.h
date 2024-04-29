@@ -14,12 +14,12 @@ public:
 
 	MenuRequestHandler(RequestHandlerFactory& factory);
 
-	bool isRequestRelevant(RequestInfo& info);
-	RequestResult handleRequest(RequestInfo& info, LoggedUser& user);
+	bool isRequestRelevant(const RequestInfo& info) override;
+	RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
 
-	RequestResult logout(RequestInfo& info);
+	RequestResult logout(const RequestInfo& info);
 
 	RequestHandlerFactory& _factoryHandler;
 };
