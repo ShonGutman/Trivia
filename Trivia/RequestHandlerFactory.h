@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoginManager.h"
+#include "RoomManager.h"
 #include "IDatabase.h"
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
@@ -36,7 +37,7 @@ public:
 	 *
 	 * @return A pointer to the newly created MenuRequestHandler instance.
 	 */
-	MenuRequestHandler* createMenuRequestHandler();
+	MenuRequestHandler* createMenuRequestHandler(LoggedUser& user);
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.
@@ -48,7 +49,18 @@ public:
 	 */
 	LoginManager& getLoginManager();
 
+	/**
+	 * Retrieves the RoomManager instance associated with the RequestHandlerFactory.
+	 *
+	 * This function returns a reference to the RoomManager instance associated with
+	 * the RequestHandlerFactory.
+	 *
+	 * @return A reference to the RoomManager instance.
+	 */
+	RoomManager& getRoomManager();
+
 private:
 	LoginManager& _loginManager;
+	RoomManager& _roomManager;
 	IDatabase* _database;
 };
