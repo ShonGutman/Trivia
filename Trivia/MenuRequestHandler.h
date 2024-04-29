@@ -27,8 +27,8 @@ private:
 	* @param user The logged-in user to be logged out.
 	* @return RequestResult containing the response to the logout request and the next handler to be used.
 	*         If the logout is successful, a success response is returned along with a new handler for the
-	*         login request. If the logout fails, an error response is returned, and the current menu handler
-	*         is maintained.
+	*         login request. If the logout fails, an error response is returned, and the current assian nullptr
+	*         handler to remove that suspicious user.
 	*/
 	RequestResult logout(const RequestInfo& info, LoggedUser& user);
 
