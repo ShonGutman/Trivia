@@ -31,7 +31,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response
     return fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeLogoutResponse(LogoutResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response)
 {
     json jsonLogout;
 
