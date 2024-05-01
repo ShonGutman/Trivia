@@ -63,7 +63,7 @@ typedef struct GetPlayersInRoomResponse
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	std::map<std::string, int> highScores;
+	std::map<std::string, int> highScores; // std::string for the name, int for the high score
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
