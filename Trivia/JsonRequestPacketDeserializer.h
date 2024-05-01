@@ -80,6 +80,17 @@ public:
 	 */
 	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
 
+	/**
+	 * Deserialize a buffer into a LeaveRoomRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a LeaveRoomRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A LeaveRoomRequest object deserialized from the buffer.
+	 */
+	static LeaveRoomRequest deserializeLeaveRoomRequest(const Buffer& buffer);
+
 private:
 
 	/**
