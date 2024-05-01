@@ -10,7 +10,7 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
     return LOGOUT_REQUEST_ID == info.id 
         || JOIN_ROOM_REQUEST_ID == info.id
         || CREATE_ROOM_REQUEST_ID == info.id
-        || CREATE_ROOM_REQUEST_ID == info.id
+        || LEAVE_ROOM_REQUEST_ID == info.id
         || GET_ALL_ROOMS_REQUEST_ID == info.id
         || GET_PLAYERS_IN_ROOM_REQUEST_ID == info.id
         || GET_PERSONAL_SCORE_REQUEST_ID == info.id
@@ -135,4 +135,13 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
     }
 
     return result;
+}
+
+RequestResult MenuRequestHandler::leaveRoom(const RequestInfo& info, const LoggedUser& user)
+{
+    CreateRoomRequest request = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(info.buffer);
+
+    RequestResult result;
+
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
 }
