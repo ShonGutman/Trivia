@@ -14,7 +14,7 @@ struct RoomData
 	bool isActive;
 	
 	//CTOR
-	RoomData(unsigned int id, std::string name, unsigned int maxPlayers, unsigned int numOfQuestions, unsigned int timePerQuestion, bool isActive)
+	RoomData(unsigned int id, std::string name, unsigned int maxPlayers, unsigned int numOfQuestions, unsigned int timePerQuestion, bool isActive = false)
 	{
 		this->id = id;
 		this->name = name;

@@ -31,12 +31,12 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info, LoggedUser& us
 
     RequestResult result;
 
-    LoginManager& manager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
     try
     {
         LoginResponse response;
-        manager.login(request.username, request.password);
+        loginManager.login(request.username, request.password);
 
         //SUCCESS reponse to login
         response.status = SUCCESS;
@@ -71,12 +71,12 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& u
 
     RequestResult result;
 
-    LoginManager& manager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
     try
     {
         SignupResponse response;
-        manager.signup(request.username, request.password, request.email, request.address, request.phoneNumber, request.birthday);
+        loginManager.signup(request.username, request.password, request.email, request.address, request.phoneNumber, request.birthday);
 
         //SUCCESS reponse to signup
         response.status = SUCCESS;

@@ -26,12 +26,12 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& us
 {
     RequestResult result;
 
-    LoginManager& manager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
 	try
 	{
 		LogoutResponse response;
-		manager.logout(user.getName());
+		loginManager.logout(user.getName());
 
         //SUCCESS reponse to logout
         response.status = SUCCESS;
@@ -59,4 +59,11 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& us
 	}
 
     return result;
+}
+
+RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const LoggedUser& user)
+{
+    RequestResult result;
+
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
 }
