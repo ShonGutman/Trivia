@@ -47,7 +47,7 @@ Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetAllRoomsRespons
 
     // Add data to the json object.
     jsonRoom[STATUS_KEY] = response.status;
-    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms);
+    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms).dump();
 
     return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
 }
@@ -57,7 +57,7 @@ Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayer
     json jsonGetPlayersInRoom;
 
     // Add data to the json object.
-    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom);
+    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom).dump();;
 
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
 }
@@ -88,7 +88,7 @@ Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResp
 
     // Add data to the json object.
     jsonHighScore[STATUS_KEY] = highscoreResponse.status;
-    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores);
+    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores).dump();
 
     return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
 }
@@ -99,7 +99,7 @@ Buffer JsonResponsePacketSerializer::serializePersonalStatsResponse(GetPersonalS
 
     // Add data to the json object.
     jsonStats[STATUS_KEY] = personalStatsResponse.status;
-    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(personalStatsResponse);
+    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(personalStatsResponse).dump();
 
     return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }
@@ -210,7 +210,7 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 
     for (auto const &object : scoresMap)
     {
-        convortedJson[object.first] = convortedJson[object.second];
+        convortedJson[object.first] = convortedJson[object.second]; // first = name, sec = high score
     }
 
     return convortedJson;
