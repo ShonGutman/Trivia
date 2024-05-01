@@ -20,10 +20,16 @@ using json = nlohmann::json;
 
 #define ID "id"
 #define NAME "name"
-#define MAX_PLAYERS "maxPlayers"
-#define NUM_OF_QUESTION_IN_GAME "numOfQuestionsInGame"
-#define TIME_PER_QUESTION "timePerQuestion"
-#define IS_ACTIVE "isActive"
+#define MAX_PLAYERS "max players"
+#define NUM_OF_QUESTION_IN_GAME "num of questions in game"
+#define TIME_PER_QUESTION "time per question"
+#define IS_ACTIVE "is active"
+
+#define NUMBER_OF_GAMES "number of games"
+#define NUMBER_OF_RIGHT_ANS "number of right answers"
+#define NUMBER_OF_WRONG_ANS "number of wrong answers"
+#define AVG_TIME_FOR_ANS "average time for answer"
+
 
 class JsonResponsePacketSerializer
 {
@@ -100,11 +106,17 @@ public:
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
 	 *
 	 * @param highscoreResponse The HighscoreResponse to serialize.
+	 * @return A Buffer containing the serialized data.
+	 */
+	static Buffer serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse);
+
+	/**
+	 * Serializes Highscore and PersonalStats responses into a Buffer.
+	 *
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse,
-		GetPersonalStatsResponse& personalStatsResponse);
+	static Buffer serializePersonalStatsResponse(GetPersonalStatsResponse& personalStatsResponse);
 
 
 
@@ -147,5 +159,20 @@ private:
 	 */
 	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<std::string>& stringVec);
 
+	/**
+	 * Converts a map of strings and int into a JSON array.
+	 *
+	 * @param scoresMap The map containing strings to be converted.
+	 * @return A JSON array representing the converted strings.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::map<std::string, int>& scoresMap);
+
+	/**
+	 * Converts a struct of GetPersonalStatsResponse into a JSON array.
+	 *
+	 * @param presonalStatsStruct The struct containing strings to be converted.
+	 * @return A JSON array representing the converted struct.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct);
 
 };
