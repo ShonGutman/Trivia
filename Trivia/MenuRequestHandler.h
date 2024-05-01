@@ -58,5 +58,7 @@ private:
 	*/
 	RequestResult createRoom(const RequestInfo& info, const LoggedUser& user);
 
+	RequestResult leaveRoom(const RequestInfo& info, const LoggedUser& user);
+
 	RequestHandlerFactory& _factoryHandler;
 };
