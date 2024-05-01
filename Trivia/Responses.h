@@ -63,16 +63,16 @@ typedef struct GetPlayersInRoomResponse
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	int numberOfGames;
-	int numRightAns;
-	int numWrongAns;
-	double avgTimeForAns;
+	std::map<std::string, int> highScores;
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	std::map<std::string, int> userStatistics;
+	int numberOfGames;
+	int numRightAns;
+	int numWrongAns;
+	double avgTimeForAns;
 }GetPersonalStatsResponse;
 
 typedef struct JoinRoomResponse

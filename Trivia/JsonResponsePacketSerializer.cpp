@@ -82,15 +82,26 @@ Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomRespo
     return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse, GetPersonalStatsResponse& personalStatsResponse)
+Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse)
 {
     json jsonHighScore;
 
     // Add data to the json object.
-    jsonHighScore[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse.userStatistics);
+    jsonHighScore[STATUS_KEY] = highscoreResponse.status;
     jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores);
 
-    return fitBuffToProtocol(jsonHighScore.dump(), CREATE_ROOM_RESPONSE_ID);
+    return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializePersonalStatsResponse(GetPersonalStatsResponse& personalStatsResponse)
+{
+    json jsonStats;
+
+    // Add data to the json object.
+    jsonStats[STATUS_KEY] = personalStatsResponse.status;
+    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(personalStatsResponse);
+
+    return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
@@ -188,6 +199,31 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
     {
         convortedJson[i] = stringVec[i];
     }
+
+    return convortedJson;
+}
+
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, int>& scoresMap)
+{
+    json convortedJson;
+
+    for (auto const &object : scoresMap)
+    {
+        convortedJson[object.first] = convortedJson[object.second];
+    }
+
+    return convortedJson;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)
+{
+    json convortedJson;
+
+    convortedJson[NUMBER_OF_GAMES] = presonalStatsStruct.numberOfGames;
+    convortedJson[NUMBER_OF_RIGHT_ANS] = presonalStatsStruct.numRightAns;
+    convortedJson[NUMBER_OF_WRONG_ANS] = presonalStatsStruct.numWrongAns;
+    convortedJson[AVG_TIME_FOR_ANS] = presonalStatsStruct.avgTimeForAns;
 
     return convortedJson;
 }
