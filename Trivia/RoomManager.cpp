@@ -1,5 +1,8 @@
 #include "RoomManager.h"
 
+//init num of rooms joined to be zero at the start
+int RoomManager::_amountOfRoomsEverJoined = 0;
+
 RoomManager& RoomManager::get()
 {
 	static RoomManager instance;
@@ -16,6 +19,9 @@ void RoomManager::createRoom(const LoggedUser auther, const RoomData data)
 	{
 		throw std::runtime_error("room with that ID already exists!");
 	}
+
+	RoomManager::_amountOfRoomsEverJoined++;
+
 	//add auther to the room
 	_rooms.at(data.id).addUser(auther);
 }
@@ -49,4 +55,9 @@ std::vector<RoomData> RoomManager::getRooms() const
 const Room& RoomManager::getRoom(const unsigned int roomID) const
 {
 	return _rooms.at(roomID);
+}
+
+const int RoomManager::getNextRoomId() const
+{
+	return RoomManager::_amountOfRoomsEverJoined + 1;
 }
