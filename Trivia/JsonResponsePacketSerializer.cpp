@@ -41,7 +41,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response
     return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeLeaveRoomResponse(LeaveRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
 {
     json jsonLeaveRoom;
 
@@ -51,7 +51,7 @@ Buffer JsonResponsePacketSerializer::serializeLeaveRoomResponse(LeaveRoomRespons
     return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetAllRoomsResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& response)
 {
     json jsonRoom;
 
@@ -62,7 +62,7 @@ Buffer JsonResponsePacketSerializer::serializeGetRoomResponse(GetAllRoomsRespons
     return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse& response)
 {
     json jsonGetPlayersInRoom;
 
@@ -72,7 +72,7 @@ Buffer JsonResponsePacketSerializer::serializeGetPlayersInRoomResponse(GetPlayer
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(JoinRoomResponse& response)
 {
     json jsonJoinRoom;
 
@@ -82,7 +82,7 @@ Buffer JsonResponsePacketSerializer::serializeJoinRoomResponse(JoinRoomResponse&
     return fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(CreateRoomResponse& response)
 {
     json jsonCreateRoom;
 
@@ -92,7 +92,7 @@ Buffer JsonResponsePacketSerializer::serializeCreateRoomResponse(CreateRoomRespo
     return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& highscoreResponse)
 {
     json jsonHighScore;
 
@@ -103,7 +103,7 @@ Buffer JsonResponsePacketSerializer::serializeHighScoreResponse(GetHighscoreResp
     return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializePersonalStatsResponse(GetPersonalStatsResponse& personalStatsResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse& personalStatsResponse)
 {
     json jsonStats;
 

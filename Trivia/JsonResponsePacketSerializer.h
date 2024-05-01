@@ -68,7 +68,7 @@ public:
 	 * @param response The LeaveRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeLeaveRoomResponse(LeaveRoomResponse& response);
+	static Buffer serializerResponse(LeaveRoomResponse& response);
 
 	/**
 	 * Serializes a GetRoomResponse into a Buffer.
@@ -76,7 +76,7 @@ public:
 	 * @param response The GetRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetRoomResponse(GetAllRoomsResponse& response);
+	static Buffer serializerResponse(GetAllRoomsResponse& response);
 
 	/**
 	 * Serializes a GetPlayersInRoomResponse into a Buffer.
@@ -84,7 +84,7 @@ public:
 	 * @param response The GetPlayersInRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse& response);
+	static Buffer serializerResponse(GetPlayersInRoomResponse& response);
 
 	/**
 	 * Serializes a JoinRoomResponse into a Buffer.
@@ -92,7 +92,7 @@ public:
 	 * @param response The JoinRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeJoinRoomResponse(JoinRoomResponse& response);
+	static Buffer serializerResponse(JoinRoomResponse& response);
 
 	/**
 	 * Serializes a CreateRoomResponse into a Buffer.
@@ -100,7 +100,7 @@ public:
 	 * @param response The CreateRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeCreateRoomResponse(CreateRoomResponse& response);
+	static Buffer serializerResponse(CreateRoomResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -108,7 +108,7 @@ public:
 	 * @param highscoreResponse The HighscoreResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse);
+	static Buffer serializerResponse(GetHighscoreResponse& highscoreResponse);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -116,7 +116,7 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializePersonalStatsResponse(GetPersonalStatsResponse& personalStatsResponse);
+	static Buffer serializerResponse(GetPersonalStatsResponse& personalStatsResponse);
 
 
 
