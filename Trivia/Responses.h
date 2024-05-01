@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include "Room.h"
 
 #define BYTE unsigned char
@@ -62,13 +63,16 @@ typedef struct GetPlayersInRoomResponse
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	std::vector<std::string> highScores;
+	int numberOfGames;
+	int numRightAns;
+	int numWrongAns;
+	double avgTimeForAns;
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	std::vector<std::string> userStatistics;
+	std::map<std::string, int> userStatistics;
 }GetPersonalStatsResponse;
 
 typedef struct JoinRoomResponse
