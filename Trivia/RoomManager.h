@@ -55,13 +55,13 @@ public:
 	std::vector<RoomData> getRooms() const;
 
 	/**
-	 * Retrieves a constant reference to the room with the specified ID.
+	 * Retrieves a reference to the room with the specified ID.
 	 *
 	 * @param roomID The ID of the room to retrieve.
-	 * @return A constant reference to the Room object corresponding to the specified ID.
+	 * @return A reference to the Room object corresponding to the specified ID.
 	 * @throws std::out_of_range if the room with the specified ID does not exist.
 	 */
-	const Room& getRoom(const unsigned int roomID) const;
+	Room& getRoom(const unsigned int roomID) const;
 
 	/*
 	* Gets ID of the next room (in order to maintaine unique id)

@@ -63,7 +63,76 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& us
 
 RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const LoggedUser& user)
 {
+    JoinRoomRequest request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(info.buffer);
+
     RequestResult result;
 
     RoomManager& roomManger = _factoryHandler.getRoomManager();
+
+    try
+    {
+        JoinRoomResponse response;
+        roomManger.getRoom(request.roomID).addUser(user);
+
+        //SUCCESS reponse to logout
+        response.status = SUCCESS;
+
+        //assign to MenuHandler (for the time being) 
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to logout
+        response.message = e.what();
+        response.id = JOIN_ROOM_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
+
+RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const LoggedUser& user)
+{
+    CreateRoomRequest request = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(info.buffer);
+
+    RequestResult result;
+
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
+
+    try
+    {
+        CreateRoomResponse response;
+
+        roomManger.createRoom(user, RoomData(roomManger.getNextRoomId(), request.roomName, request.maxPlayers,
+        request.numOfQuestionsInGame, request.timePerQuestion));
+
+        //SUCCESS reponse to logout
+        response.status = SUCCESS;
+
+        //assign to MenuHandler (for the time being) 
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to logout
+        response.message = e.what();
+        response.id = CREATE_ROOM_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
 }
