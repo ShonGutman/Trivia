@@ -130,7 +130,7 @@ private:
 	 * @param roomVec The vector containing RoomData objects to be converted.
 	 * @return A JSON object representing the converted RoomData objects.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<const RoomData>& roomVec);
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<RoomData>& roomVec);
 
 	/**
 	 * Converts a vector of strings into a JSON array.
@@ -138,7 +138,7 @@ private:
 	 * @param stringVec The vector containing strings to be converted.
 	 * @return A JSON array representing the converted strings.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<const std::string>& stringVec);
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<std::string>& stringVec);
 
 
 };

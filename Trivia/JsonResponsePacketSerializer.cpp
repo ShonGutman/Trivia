@@ -158,7 +158,7 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, Response
     return protocolBuffer;
 }
 
-nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<const RoomData>& roomVec)
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<RoomData>& roomVec)
 {
     json convortedJson, currentRoom;
 
@@ -180,7 +180,7 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 }
 
 
-nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<const std::string>& stringVec)
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<std::string>& stringVec)
 {
     json convortedJson;
 

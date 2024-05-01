@@ -41,6 +41,17 @@ void SqliteDatabase::signup(const string& username, const string& password, cons
 	preformSqlRequest(sqlStatement);
 }
 
+std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
+{
+	std::vector<Question> questionsVector;
+	string sqlStatement = "select * from questions where ROWID <= {};";
+	sqlStatement = format(sqlStatement, { std::to_string(numOfQuestions) });
+
+	preformSqlRequest(sqlStatement, callbackQuestion, &questionsVector);
+
+	return questionsVector;
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
@@ -200,6 +211,41 @@ int SqliteDatabase::callbackNumber(void* data, int argc, char** argv, char** azC
 
 	*count = atoi(argv[0]);
 
+	return 0;
+}
+
+int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** azColName)
+{
+	auto questions = static_cast<std::vector<Question>*>(data); // Revert back to question list from void
+
+	string question, incorrect1, incorrect2, incorrect3, correct;
+
+	for (int i = 0; i < argc; i++)
+	{
+		if (std::string(azColName[i]) == QUESTION_COL)
+		{
+			question = argv[i];
+		}
+		else if (std::string(azColName[i]) == INCORRECT1_COL)
+		{
+			incorrect1 = argv[i];
+		}
+		else if (std::string(azColName[i]) == INCORRECT2_COL)
+		{
+			incorrect2 = argv[i];
+		}
+		else if (std::string(azColName[i]) == INCORRECT3_COL)
+		{
+			incorrect3 = argv[i];
+		}
+		else if (std::string(azColName[i]) == CORRECT_COL)
+		{
+			correct = argv[i];
+		}
+	}
+
+	std::vector<std::string> incorrects = { incorrect1 ,incorrect2, incorrect3 };
+	questions->push_back(Question(question, correct, incorrects));
 	return 0;
 }
 

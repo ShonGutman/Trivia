@@ -50,25 +50,25 @@ typedef struct LeaveRoomResponse
 typedef struct GetAllRoomsResponse
 {
 	STATUS status;
-	std::vector<const RoomData> rooms;
+	std::vector<RoomData> rooms;
 }GetAllRoomsResponse;
 
 typedef struct GetPlayersInRoomResponse
 {
 	STATUS status;
-	std::vector<const std::string> playersInRoom;
+	std::vector<std::string> playersInRoom;
 }GetPlayersInRoomResponse;
 
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	std::vector<const std::string> highScores;
+	std::vector<std::string> highScores;
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	std::vector<const std::string> userStatistics;
+	std::vector<std::string> userStatistics;
 }GetPersonalStatsResponse;
 
 typedef struct JoinRoomResponse
