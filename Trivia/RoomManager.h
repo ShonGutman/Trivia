@@ -63,9 +63,18 @@ public:
 	 */
 	const Room& getRoom(const unsigned int roomID) const;
 
+	/*
+	* Gets ID of the next room (in order to maintaine unique id)
+	* 
+	* @return: a number of the next room id to be added
+	*/
+	const int getNextRoomId() const;
+
 private:
 
 	RoomManager() = default;
 
 	std::map<unsigned int, Room> _rooms;
+
+	static int _amountOfRoomsEverJoined;
 };
