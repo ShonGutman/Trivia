@@ -32,5 +32,7 @@ private:
 	*/
 	RequestResult logout(const RequestInfo& info, LoggedUser& user);
 
+	RequestResult joinRoom(const RequestInfo& info, const LoggedUser& user);
+
 	RequestHandlerFactory& _factoryHandler;
 };
