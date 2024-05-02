@@ -154,10 +154,10 @@ private:
 	/**
 	 * Converts a vector of strings into a JSON array.
 	 *
-	 * @param stringVec The vector containing strings to be converted.
+	 * @param LoggedSet The vector containing strings to be converted.
 	 * @return A JSON array representing the converted strings.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<std::string>& stringVec);
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::set<LoggedUser>& LoggedSet);
 
 	/**
 	 * Converts a map of strings and int into a JSON array.

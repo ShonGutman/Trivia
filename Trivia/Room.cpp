@@ -35,7 +35,7 @@ void Room::removeUser(const LoggedUser& user)
 	}
 }
 
-const std::set<LoggedUser>& Room::getAllUsers() const
+std::set<LoggedUser> Room::getAllUsers() const
 {
 	return _users;
 }

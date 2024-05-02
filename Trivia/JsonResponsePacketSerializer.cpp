@@ -201,13 +201,14 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 }
 
 
-nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<std::string>& stringVec)
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::set<LoggedUser>& LoggedSet)
 {
     json convortedJson;
 
-    for (int i = 0; i < stringVec.size(); i++)
+    int i = 0;
+    for (auto& it : LoggedSet)
     {
-        convortedJson[i] = stringVec[i];
+        convortedJson[i++] = it.getName();
     }
 
     return convortedJson;
