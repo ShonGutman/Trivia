@@ -69,6 +69,18 @@ CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(co
     return request;
 }
 
+LeaveRoomRequest JsonRequestPacketDeserializer::deserializeLeaveRoomRequest(const Buffer& buffer)
+{
+    LeaveRoomRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.roomID = jsonMsg[ROOM_ID_KEY].get<unsigned int>();
+
+    return request;
+}
+
 nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string
