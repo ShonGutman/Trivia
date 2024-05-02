@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <set>
 #include <string>
 #include <map>
 #include "Room.h"
@@ -63,7 +64,7 @@ typedef struct GetAllRoomsResponse
 typedef struct GetPlayersInRoomResponse
 {
 	STATUS status;
-	std::vector<std::string> playersInRoom;
+	std::set<LoggedUser> playersInRoom;
 }GetPlayersInRoomResponse;
 
 typedef struct GetHighscoreResponse

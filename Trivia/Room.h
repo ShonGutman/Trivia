@@ -51,9 +51,9 @@ public:
 	/**
 	 * Retrieves all users currently in the room.
 	 *
-	 * @return A constant reference to a set containing all logged users in the room.
+	 * @return A set containing all logged users in the room.
 	 */
-	const std::set<LoggedUser>& getAllUsers() const;
+	std::set<LoggedUser> getAllUsers() const;
 
 	/**
 	 * Retrieves data about the room.

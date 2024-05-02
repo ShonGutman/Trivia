@@ -52,7 +52,7 @@ std::vector<RoomData> RoomManager::getRooms() const
 	return roomsData;
 }
 
-const Room& RoomManager::getRoom(const unsigned int roomID) const
+Room& RoomManager::getRoom(const unsigned int roomID)
 {
 	return _rooms.at(roomID);
 }

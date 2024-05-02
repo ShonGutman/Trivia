@@ -48,9 +48,9 @@ public:
 	bool getRoomState(const unsigned int roomID) const;
 
 	/**
-	 * Retrieves a vector containing the data of all rooms.
+	 * Retrieves a reference to the vector containing the data of all rooms.
 	 *
-	 * @return A vector of RoomData objects representing the data of all rooms.
+	 * @return A reference to the vector of RoomData objects representing the data of all rooms.
 	 */
 	std::vector<RoomData> getRooms() const;
 
@@ -61,7 +61,7 @@ public:
 	 * @return A reference to the Room object corresponding to the specified ID.
 	 * @throws std::out_of_range if the room with the specified ID does not exist.
 	 */
-	Room& getRoom(const unsigned int roomID) const;
+	Room& getRoom(const unsigned int roomID);
 
 	/*
 	* Gets ID of the next room (in order to maintaine unique id)

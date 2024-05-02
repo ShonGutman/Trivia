@@ -69,5 +69,17 @@ private:
 	*/
 	RequestResult getAllRooms(const RequestInfo& info);
 
+	/*
+	* Processes a request to retrieve information about all players in a specific room. It deserializes
+	* the request information to extract the room ID, then queries the RoomManager for the list of players
+	* in the specified room. If successful, it returns a response containing the list of players along with
+	* the current menu handler. If the operation fails (e.g., room not found), an error response is returned,
+	* and the current menu handler is maintained.
+	*
+	* @param info The request information containing the serialized data representing the room ID.
+	* @return RequestResult containing the response to the get all players in room request and the next handler to be used.
+	*/
+	RequestResult getAllPlayersInRoom(const RequestInfo& info);
+
 	RequestHandlerFactory& _factoryHandler;
 };

@@ -170,3 +170,40 @@ RequestResult MenuRequestHandler::getAllRooms(const RequestInfo& info)
     
     return result;
 }
+
+RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
+{
+    GetPlayersInRoomRequest request = JsonRequestPacketDeserializer::deserializeGetPlayersInRoomRequest(info.buffer);
+
+    RequestResult result;
+
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
+
+    try
+    {
+        GetPlayersInRoomResponse response;
+
+        response.playersInRoom = roomManger.getRoom(request.roomID).getAllUsers();
+
+        //SUCCESS reponse to getAllPlayersInRoom
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getAllPlayersInRoom
+        response.message = e.what();
+        response.id = GET_PLAYERS_IN_ROOM_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
