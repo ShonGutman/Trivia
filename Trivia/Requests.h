@@ -77,3 +77,8 @@ struct CreateRoomRequest
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
 };
+
+struct LeaveRoomRequest
+{
+	unsigned int roomID;
+};
