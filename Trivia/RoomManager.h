@@ -24,11 +24,11 @@ public:
 	/**
 	 * Creates a new room and adds the author to it.
 	 *
-	 * @param auther The author of the room to be created.
+	 * @param roomAdmin The author and admin of the room to be created.
 	 * @param data The data of the room to be created.
 	 * @throws std::runtime_error if a room with the same ID already exists.
 	 */
-	void createRoom(const LoggedUser auther, const RoomData data);
+	void createRoom(const LoggedUser& roomAdmin, const RoomData& data);
 
 	/**
 	 * Deletes a room with the specified ID.

@@ -9,10 +9,10 @@ RoomManager& RoomManager::get()
 	return instance;
 }
 
-void RoomManager::createRoom(const LoggedUser auther, const RoomData data)
+void RoomManager::createRoom(const LoggedUser& roomAdmin, const RoomData& data)
 {
 	//create new room
-	auto result = _rooms.insert({ data.id, Room(data) });
+	auto result = _rooms.insert({ data.id, Room(data, roomAdmin) });
 
 	//result is a pair of 2 values an iterator to object and bool to indicate if element was inserted successfully
 	if (!result.second)
@@ -21,9 +21,6 @@ void RoomManager::createRoom(const LoggedUser auther, const RoomData data)
 	}
 
 	RoomManager::_amountOfRoomsEverJoined++;
-
-	//add auther to the room
-	_rooms.at(data.id).addUser(auther);
 }
 
 void RoomManager::deleteRoom(const unsigned int roomID)

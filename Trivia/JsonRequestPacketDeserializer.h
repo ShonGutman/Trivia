@@ -11,11 +11,12 @@ using json = nlohmann::json;
 #define ADDRESS_KEY "address"
 #define PHONE_NUMBER_KEY "phoneNumber"
 #define BIRTHDAY_KEY "birthday"
-#define ROOM_ID_KEY "roomID"
-#define ROOM_NAME_KEY "roomName"
-#define MAX_PLAYERS_IN_ROOM_KEY "maxPlayers"
-#define NUM_OF_QUESTIONS_IN_GAME_KEY "numOfQuestionsInGame"
-#define TINE_PER_QUESTION_KEY "timePerQuestion"
+
+#define ROOM_ID_KEY "room id"
+#define ROOM_NAME_KEY "room name"
+#define MAX_PLAYERS_IN_ROOM_KEY "max players"
+#define NUM_OF_QUESTIONS_IN_GAME_KEY "num of questions in game"
+#define TINE_PER_QUESTION_KEY "time per question"
 
 
 #define SIZE_BYTE 8
