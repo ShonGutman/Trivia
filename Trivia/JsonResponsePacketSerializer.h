@@ -152,10 +152,10 @@ private:
 	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<RoomData>& roomVec);
 
 	/**
-	 * Converts a vector of strings into a JSON array.
+	 * Converts a set of LoggedUser into a JSON array.
 	 *
-	 * @param LoggedSet The vector containing strings to be converted.
-	 * @return A JSON array representing the converted strings.
+	 * @param LoggedSet The set containing LoggedUser to be converted.
+	 * @return A JSON array representing the converted LoggedUser.
 	 */
 	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::set<LoggedUser>& LoggedSet);
 

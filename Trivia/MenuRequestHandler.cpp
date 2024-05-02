@@ -18,7 +18,30 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
 
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
 {
-    return RequestResult();
+    if (LOGOUT_REQUEST_ID == info.id)
+    {
+        return this->logout(info, user);
+    }
+
+    else if(JOIN_ROOM_REQUEST_ID == info.id)
+    {
+        return this->joinRoom(info, user);
+    }
+
+    else if (CREATE_ROOM_REQUEST_ID == info.id)
+    {
+        return this->createRoom(info, user);
+    }
+
+    else if (GET_ALL_ROOMS_REQUEST_ID == info.id)
+    {
+        return this->getAllRooms(info);
+    }
+
+    else if (GET_PLAYERS_IN_ROOM_REQUEST_ID == info.id)
+    {
+        return this->getAllPlayersInRoom(info);
+    }
 }
 
 RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& user)
