@@ -58,7 +58,16 @@ private:
 	*/
 	RequestResult createRoom(const RequestInfo& info, const LoggedUser& user);
 
-	RequestResult leaveRoom(const RequestInfo& info, const LoggedUser& user);
+	/*
+	* Processes a request to retrieve information about all available rooms. It queries the RoomManager
+	* for the list of available rooms and constructs a response containing this information. If successful,
+	* it returns a response with details about all rooms along with the current menu handler. If the operation
+	* fails (e.g., no rooms available), an error response is returned, and the current menu handler is maintained.
+	*
+	* @param info The request information, typically empty as no additional data is required.
+	* @return RequestResult containing the response to the get all rooms request and the next handler to be used.
+	*/
+	RequestResult getAllRooms(const RequestInfo& info);
 
 	RequestHandlerFactory& _factoryHandler;
 };
