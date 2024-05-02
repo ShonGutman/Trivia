@@ -67,6 +67,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse
     json jsonGetPlayersInRoom;
 
     // Add data to the json object.
+    jsonGetPlayersInRoom[ROOM_ADMIN_KEY] = response.roomAdmin.getName();
     jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom).dump();;
 
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
@@ -186,12 +187,12 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
     for (int i = 0; i < roomVec.size(); i++)
     {
         // Adds the data to the currentRoom to the json
-        currentRoom[ID] = roomVec[i].id;
-        currentRoom[NAME] = roomVec[i].name;
-        currentRoom[MAX_PLAYERS] = roomVec[i].maxPlayers;
-        currentRoom[NUM_OF_QUESTION_IN_GAME] = roomVec[i].numOfQuestionsInGame;
-        currentRoom[TIME_PER_QUESTION] = roomVec[i].timePerQuestion;
-        currentRoom[IS_ACTIVE] = roomVec[i].isActive;
+        currentRoom[ROOM_ID_KEY] = roomVec[i].id;
+        currentRoom[ROOM_NAME_KEY] = roomVec[i].name;
+        currentRoom[MAX_PLAYERS_IN_ROOM_KEY] = roomVec[i].maxPlayers;
+        currentRoom[NUM_OF_QUESTIONS_IN_GAME_KEY] = roomVec[i].numOfQuestionsInGame;
+        currentRoom[TINE_PER_QUESTION_KEY] = roomVec[i].timePerQuestion;
+        currentRoom[IS_ACTIVE_KEY] = roomVec[i].isActive;
 
         // Adds the currentRoom to the json of rooms.
         convortedJson[i] = currentRoom.dump();
@@ -231,10 +232,10 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 {
     json convortedJson;
 
-    convortedJson[NUMBER_OF_GAMES] = presonalStatsStruct.numberOfGames;
-    convortedJson[NUMBER_OF_RIGHT_ANS] = presonalStatsStruct.numRightAns;
-    convortedJson[NUMBER_OF_WRONG_ANS] = presonalStatsStruct.numWrongAns;
-    convortedJson[AVG_TIME_FOR_ANS] = presonalStatsStruct.avgTimeForAns;
+    convortedJson[NUMBER_OF_GAMES_KEY] = presonalStatsStruct.numberOfGames;
+    convortedJson[NUMBER_OF_RIGHT_ANS_KEY] = presonalStatsStruct.numRightAns;
+    convortedJson[NUMBER_OF_WRONG_ANS_KEY] = presonalStatsStruct.numWrongAns;
+    convortedJson[AVG_TIME_FOR_ANS_KEY] = presonalStatsStruct.avgTimeForAns;
 
     return convortedJson;
 }

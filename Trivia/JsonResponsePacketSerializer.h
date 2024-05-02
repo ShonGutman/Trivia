@@ -15,20 +15,23 @@ using json = nlohmann::json;
 #define MESSAGE_KEY "message"
 #define ROOMS_KEY "Rooms"
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
+#define ROOM_ADMIN_KEY "roomAdmin"
 #define USER_STATISTICS_KEY "UserStatistics"
 #define HIGHSCORES_KEY "HighScores"
 
-#define ID "id"
-#define NAME "name"
-#define MAX_PLAYERS "max players"
-#define NUM_OF_QUESTION_IN_GAME "num of questions in game"
-#define TIME_PER_QUESTION "time per question"
-#define IS_ACTIVE "is active"
+#define ROOM_ID_KEY "room id"
+#define ROOM_NAME_KEY "room name"
+#define MAX_PLAYERS_IN_ROOM_KEY "max players"
+#define NUM_OF_QUESTIONS_IN_GAME_KEY "num of questions in game"
+#define TINE_PER_QUESTION_KEY "time per question"
+#define IS_ACTIVE_KEY "is active"
 
-#define NUMBER_OF_GAMES "number of games"
-#define NUMBER_OF_RIGHT_ANS "number of right answers"
-#define NUMBER_OF_WRONG_ANS "number of wrong answers"
-#define AVG_TIME_FOR_ANS "average time for answer"
+
+
+#define NUMBER_OF_GAMES_KEY "number of games"
+#define NUMBER_OF_RIGHT_ANS_KEY "number of right answers"
+#define NUMBER_OF_WRONG_ANS_KEY "number of wrong answers"
+#define AVG_TIME_FOR_ANS_KEY "average time for answer"
 
 
 class JsonResponsePacketSerializer

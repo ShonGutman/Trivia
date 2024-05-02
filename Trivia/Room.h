@@ -30,7 +30,7 @@ class Room
 public:
 
 	//CTOR//
-	Room(const RoomData& data);
+	Room(const RoomData& data, const LoggedUser& roomAdmin);
 
 	/**
 	 * Adds a user to the room.
@@ -56,6 +56,13 @@ public:
 	std::set<LoggedUser> getAllUsers() const;
 
 	/**
+	 * Retrieves the admin of the room
+	 *
+	 * @return room admin of the current room
+	 */
+	LoggedUser getRoomAdmin() const;
+
+	/**
 	 * Retrieves data about the room.
 	 *
 	 * @return Roomdata with all data to know about the room.
@@ -65,4 +72,5 @@ public:
 private:
 	RoomData _metaData;
 	std::set<LoggedUser> _users;
+	LoggedUser _roomAdmin;
 };
