@@ -10,7 +10,6 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
     return LOGOUT_REQUEST_ID == info.id 
         || JOIN_ROOM_REQUEST_ID == info.id
         || CREATE_ROOM_REQUEST_ID == info.id
-        || LEAVE_ROOM_REQUEST_ID == info.id
         || GET_ALL_ROOMS_REQUEST_ID == info.id
         || GET_PLAYERS_IN_ROOM_REQUEST_ID == info.id
         || GET_PERSONAL_SCORE_REQUEST_ID == info.id
@@ -74,7 +73,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
         JoinRoomResponse response;
         roomManger.getRoom(request.roomID).addUser(user);
 
-        //SUCCESS reponse to logout
+        //SUCCESS reponse to joinRoom
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
@@ -86,7 +85,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
     {
         ErrorResponse response;
 
-        //FAILED reponse to logout
+        //FAILED reponse to joinRoom
         response.message = e.what();
         response.id = JOIN_ROOM_RESPONSE_ID;
 
@@ -113,7 +112,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
         roomManger.createRoom(user, RoomData(roomManger.getNextRoomId(), request.roomName, request.maxPlayers,
         request.numOfQuestionsInGame, request.timePerQuestion));
 
-        //SUCCESS reponse to logout
+        //SUCCESS reponse to createRoom
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
@@ -125,7 +124,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
     {
         ErrorResponse response;
 
-        //FAILED reponse to logout
+        //FAILED reponse to createRoom
         response.message = e.what();
         response.id = CREATE_ROOM_RESPONSE_ID;
 
@@ -137,11 +136,37 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
     return result;
 }
 
-RequestResult MenuRequestHandler::leaveRoom(const RequestInfo& info, const LoggedUser& user)
+RequestResult MenuRequestHandler::getAllRooms(const RequestInfo& info)
 {
-    CreateRoomRequest request = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(info.buffer);
-
     RequestResult result;
 
-    RoomManager& roomManger = _factoryHandler.getRoomManager();
+    RoomManager& roomManager = _factoryHandler.getRoomManager();
+
+    try
+    {
+        GetAllRoomsResponse response;
+
+        response.rooms = roomManager.getRooms();
+
+        //SUCCESS reponse to getAllrooms
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getAllRooms
+        response.message = e.what();
+        response.id = GET_ALL_ROOMS_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    
+    return result;
 }
