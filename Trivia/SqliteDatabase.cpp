@@ -55,7 +55,7 @@ std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 {
 	float avgAnsTime = 0;
-	string sqlStatement = R"(select avgAnsTime from statistics where username = "{}";)";;
+	string sqlStatement = R"(select avgAnsTime from statistics where username = "{}";)";
 	sqlStatement = format(sqlStatement, { username });
 
 	preformSqlRequest(sqlStatement, callbackFloat, &avgAnsTime);
