@@ -169,7 +169,7 @@ bool SqliteDatabase::create_statistics_table()
 		numOfGames int not null,
 		numOfRightAns int not null,
 		numOfWrongAns int not null,
-		avgAnsTime float not null);)";
+		avgAnsTime double not null);)";
 
 	return preformSqlRequest(sqlStatement);
 }
