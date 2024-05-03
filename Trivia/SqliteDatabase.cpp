@@ -54,8 +54,8 @@ std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 
 float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 {
-	float avgAnsTime;
-	string sqlStatement = "select avgAnsTime from statistics where username == {};";
+	float avgAnsTime = 0;
+	string sqlStatement = R"(select avgAnsTime from statistics where username = "{}";)";;
 	sqlStatement = format(sqlStatement, { username });
 
 	preformSqlRequest(sqlStatement, callbackFloat, &avgAnsTime);
@@ -65,7 +65,7 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 
 int SqliteDatabase::getNumOfCorrectAnswers(const string& username)
 {
-	int correctAns;
+	int correctAns = 0;
 	string sqlStatement = "select numOfRightAns from statistics where username == {};";
 	sqlStatement = format(sqlStatement, { username });
 
@@ -76,7 +76,7 @@ int SqliteDatabase::getNumOfCorrectAnswers(const string& username)
 
 int SqliteDatabase::getNumOfWrongAnswers(const string& username)
 {
-	int wrongAns;
+	int wrongAns = 0;
 	string sqlStatement = "select numOfWrongAns from statistics where username == {};";
 	sqlStatement = format(sqlStatement, { username });
 
@@ -92,7 +92,7 @@ int SqliteDatabase::getNumOfTotalAnswers(const string& username)
 
 int SqliteDatabase::getNumOfPlayerGames(const string& username)
 {
-	int gamesPlayed;
+	int gamesPlayed = 0;
 	string sqlStatement = "select numOfGames from statistics where username == {};";
 	sqlStatement = format(sqlStatement, { username });
 
@@ -113,7 +113,7 @@ int SqliteDatabase::getPlayerScore(const string& username)
 std::map<std::string, int> SqliteDatabase::getHighscores()
 {
 	std::map<std::string, int> highscoreList;
-	std::string sqlStatement = "SELECT username, numOfRightAns FROM statistics;";
+	std::string sqlStatement = "select username, numOfRightAns from statistics;";
 	preformSqlRequest(sqlStatement, callbackHighScoresMap, &highscoreList);
 
 	return highscoreList;
@@ -164,13 +164,12 @@ bool SqliteDatabase::create_users_table()
 
 bool SqliteDatabase::create_statistics_table()
 {
-	// CHECK THE NOT NUL AND INT
 	const string sqlStatement = R"(create table statistics (
 		username text primary key not null,
 		numOfGames int not null,
 		numOfRightAns int not null,
 		numOfWrongAns int not null,
-		avgAnsTime float not null,);)";
+		avgAnsTime float not null);)";
 
 	return preformSqlRequest(sqlStatement);
 }
@@ -262,7 +261,7 @@ bool SqliteDatabase::addQuestion(const string question, const string correct, co
 
 bool SqliteDatabase::initTables()
 {
-	return create_users_table() && create_questions_table();
+	return create_users_table() && create_questions_table() && create_statistics_table();
 }
 
 bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, char**, char**), void* data)
@@ -333,7 +332,7 @@ int SqliteDatabase::callbackFloat(void* data, int argc, char** argv, char** azCo
 {
 	if (argc > 0 && argv[0]) {
 		float* result = static_cast<float*>(data);
-		*result = std::stof(argv[0]);
+		*result = std::stod(argv[0]);
 	}
 	return 0;
 }
@@ -342,7 +341,7 @@ int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, cha
 {
 	// Cast the data pointer back to the map type
 	std::map<std::string, int>* resultMap = static_cast<std::map<std::string, int>*>(data);
-	std::string username;
+	std::string username = "";
 	int numOfRightAns = 0;
 
 	for (int i = 0; i < argc; i++)
@@ -360,7 +359,7 @@ int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, cha
 		(*resultMap)[username] = numOfRightAns;
 	}
 
-	return SQLITE_OK;
+	return 0;
 }
 
 string SqliteDatabase::format(string fmt, std::vector<string> args)
