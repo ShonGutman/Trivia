@@ -331,7 +331,7 @@ int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** a
 int SqliteDatabase::callbackFloat(void* data, int argc, char** argv, char** azColName)
 {
 	if (argc > 0 && argv[0]) {
-		float* result = static_cast<float*>(data);
+		double* result = static_cast<double*>(data);
 		*result = std::stod(argv[0]);
 	}
 	return 0;
