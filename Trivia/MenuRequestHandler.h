@@ -81,7 +81,28 @@ private:
 	*/
 	RequestResult getAllPlayersInRoom(const RequestInfo& info);
 
-	
+	/*
+	* Processes a request to retrieve the personal score statistics of the specified user. It queries
+	* the StatisticsManager for the personal statistics of the user. If successful, it returns a response
+	* containing the personal score statistics along with the current menu handler. If the operation fails
+	* an error response is returned, and the current menu handler is maintained.
+	*
+	* @param info The request information, typically empty as no additional data is required.
+	* @param user The logged-in user whose personal score statistics are requested.
+	* @return RequestResult containing the response to the get personal score request and the next handler to be used.
+	*/
+	RequestResult getPersonalScore(const RequestInfo& info, const LoggedUser& user);
+
+	/*
+	* Processes a request to retrieve the highest scores of all players. It queries the StatisticsManager
+	* for the highest scores. If successful, it returns a response containing the highest scores along with
+	* the current menu handler. If the operation fails (e.g., no scores available), an error response is returned,
+	* and the current menu handler is maintained.
+	*
+	* @param info The request information, typically empty as no additional data is required.
+	* @return RequestResult containing the response to the get highest scores request and the next handler to be used.
+	*/
+	RequestResult getHighestScores(const RequestInfo& info);
 
 	RequestHandlerFactory& _factoryHandler;
 };

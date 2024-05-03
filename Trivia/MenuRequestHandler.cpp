@@ -42,6 +42,21 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedU
     {
         return this->getAllPlayersInRoom(info);
     }
+
+    else if (GET_PERSONAL_SCORE_REQUEST_ID == info.id)
+    {
+        return this->getPersonalScore(info, user);
+    }
+
+    else if (GET_HIGHEST_SCORE_REQUEST_ID == info.id)
+    {
+        return this->getHighestScores(info);
+    }
+
+    else
+    {
+        throw std::runtime_error("Illigal option!");
+    }
 }
 
 RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& user)
@@ -224,6 +239,72 @@ RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
         //FAILED reponse to getAllPlayersInRoom
         response.message = e.what();
         response.id = GET_PLAYERS_IN_ROOM_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
+
+RequestResult MenuRequestHandler::getPersonalScore(const RequestInfo& info, const LoggedUser& user)
+{
+    RequestResult result;
+
+    StatisticsManager& statisticsManager = _factoryHandler.getStatisticsManager();
+
+    try
+    {
+        GetPersonalStatsResponse response = statisticsManager.getUserStatistics(user.getName());
+
+        //SUCCESS reponse to getPersonalStatsResponse
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getPersonalStatsResponse
+        response.message = e.what();
+        response.id = GET_PERSONAL_SCORE_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
+
+RequestResult MenuRequestHandler::getHighestScores(const RequestInfo& info)
+{
+    RequestResult result;
+
+    StatisticsManager& statisticsManager = _factoryHandler.getStatisticsManager();
+
+    try
+    {
+        GetHighscoreResponse response = statisticsManager.getHighScore();
+
+        //SUCCESS reponse to getHighscoreResponse
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getHighscoreResponse
+        response.message = e.what();
+        response.id = GET_HIGHEST_SCORE_RESPONSE_ID;
 
         //assign to MenuHandler
         result.newHandler = _factoryHandler.createMenuRequestHandler();
