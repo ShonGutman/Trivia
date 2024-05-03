@@ -81,5 +81,7 @@ private:
 	*/
 	RequestResult getAllPlayersInRoom(const RequestInfo& info);
 
+	
+
 	RequestHandlerFactory& _factoryHandler;
 };

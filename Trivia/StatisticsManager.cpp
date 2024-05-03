@@ -1,13 +1,19 @@
 #include "StatisticsManager.h"
 
-StatisticsManager::StatisticsManager()
+StatisticsManager::StatisticsManager(IDatabase* database)
 {
-	_database = new SqliteDatabase();
+	_database = database;
 }
 
 StatisticsManager::~StatisticsManager()
 {
 	delete _database;
+}
+
+StatisticsManager& StatisticsManager::get(IDatabase* database)
+{
+	static StatisticsManager instance(database);
+	return instance;
 }
 
 GetHighscoreResponse StatisticsManager::getHighScore()
