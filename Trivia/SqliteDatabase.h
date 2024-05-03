@@ -17,6 +17,8 @@
 #define INCORRECT2_COL "incorrect2"
 #define INCORRECT3_COL "incorrect3"
 
+#define USERNAME_COL "username"
+#define RIGHT_ANS_COL "numOfRightAns"
 
 class SqliteDatabase : public IDatabase
 {
@@ -63,7 +65,69 @@ public:
 	 */
 	void signup(const string& username, const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday) override;
 
+	/**
+	 * Retrieves a vector of questions from the database.
+	 *
+	 * @param numOfQuestions The number of questions to retrieve. Defaults to NUM_QUESTIONS if not specified.
+	 * @return A vector of Question objects retrieved from the database.
+	 */
 	virtual std::vector<Question> getQuestions(const int numOfQuestions = NUM_QUESTIONS) override;
+
+	/**
+	* Retrieves the average answer time for a player.
+	*
+	* @param username The username of the player.
+	* @return The average answer time of the player.
+	*/
+	virtual float getPlayerAverageAnswerTime(const string& username) override;
+
+	/**
+	 * Retrieves the number of correct answers for a player.
+	 *
+	 * @param username The username of the player.
+	 * @return The number of correct answers of the player.
+	 */
+	virtual int getNumOfCorrectAnswers(const string& username) override;
+
+	/**
+	 * Retrieves the number of worng answers for a player.
+	 *
+	 * @param username The username of the player.
+	 * @return The number of worng answers of the player.
+	 */
+	virtual int getNumOfWrongAnswers(const string& username) override;
+
+	/**
+	 * Retrieves the total number of answers (correct and incorrect) for a player.
+	 *
+	 * @param username The username of the player.
+	 * @return The total number of answers of the player.
+	 */
+	virtual int getNumOfTotalAnswers(const string& username) override;
+
+	/**
+	 * Retrieves the number of games played by a player.
+	 *
+	 * @param username The username of the player.
+	 * @return The number of games played by the player.
+	 */
+	virtual int getNumOfPlayerGames(const string& username) override;
+
+	/**
+	 * Retrieves the score of a player.
+	 *
+	 * @param username The username of the player.
+	 * @return The score of the player.
+	 */
+	virtual int getPlayerScore(const string& username) override;
+
+	/**
+	 * Retrieves the highscores.
+	 *
+	 * @return A map containing username as string and their corresponding scores, representing the highscores.
+	 */
+	virtual std::map<std::string, int> getHighscores() override;
+
 
 private:
 
@@ -83,6 +147,12 @@ private:
 	* @return true if table created succesfully. false if not
 	*/
 	bool create_users_table();
+
+	/*
+	* function creates table of stats inisde a given data base
+	* @return true if table created succesfully. false if not
+	*/
+	bool create_statistics_table();
 
 	/*
 	* function creates table of questions inisde a given data base
@@ -124,6 +194,9 @@ private:
 
 	static int callbackNumber(void* data, int argc, char** argv, char** azColName);
 	static int callbackQuestion(void* data, int argc, char** argv, char** azColName);
+	static int callbackFloat(void* data, int argc, char** argv, char** azColName);
+	static int callbackHighScoresMap(void* data, int argc, char** argv, char** azColName);
+
 
 	/*
 	* function preform string formating. given a string function will replace {} with value from args

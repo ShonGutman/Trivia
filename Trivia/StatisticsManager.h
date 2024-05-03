@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
-#include<iostream>
+#include <map>
+#include <iostream>
+#include "Responses.h"
 #include "SqliteDatabase.h"
 #include "IDatabase.h"
 
@@ -14,17 +16,18 @@ class StatisticsManager : public IDatabase
 	/**
 	 * Retrieves the high scores from the system.
 	 *
-	 * @return A vector of strings representing the high scores.
+	 * @return A GetHighscoreResponse that has map and status
+	 * first - name of user, sec - score;
 	 */
-	std::vector<std::string> getHighScore();
+	GetHighscoreResponse getHighScore();
 
 	/**
 	 * Retrieves the statistics for a specific user.
 	 *
 	 * @param username The username for which statistics are to be retrieved.
-	 * @return A vector of strings representing the user statistics.
+	 * @return GetPersonalStatsResponse struct
 	 */
-	std::vector<std::string> getUserStatistics(std::string username);
+	GetPersonalStatsResponse getUserStatistics(std::string username);
 
 
 private:
