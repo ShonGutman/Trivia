@@ -15,20 +15,23 @@ using json = nlohmann::json;
 #define MESSAGE_KEY "message"
 #define ROOMS_KEY "Rooms"
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
+#define ROOM_ADMIN_KEY "roomAdmin"
 #define USER_STATISTICS_KEY "UserStatistics"
 #define HIGHSCORES_KEY "HighScores"
 
-#define ID "id"
-#define NAME "name"
-#define MAX_PLAYERS "max players"
-#define NUM_OF_QUESTION_IN_GAME "num of questions in game"
-#define TIME_PER_QUESTION "time per question"
-#define IS_ACTIVE "is active"
+#define ROOM_ID_KEY "room id"
+#define ROOM_NAME_KEY "room name"
+#define MAX_PLAYERS_IN_ROOM_KEY "max players"
+#define NUM_OF_QUESTIONS_IN_GAME_KEY "num of questions in game"
+#define TINE_PER_QUESTION_KEY "time per question"
+#define IS_ACTIVE_KEY "is active"
 
-#define NUMBER_OF_GAMES "number of games"
-#define NUMBER_OF_RIGHT_ANS "number of right answers"
-#define NUMBER_OF_WRONG_ANS "number of wrong answers"
-#define AVG_TIME_FOR_ANS "average time for answer"
+
+
+#define NUMBER_OF_GAMES_KEY "number of games"
+#define NUMBER_OF_RIGHT_ANS_KEY "number of right answers"
+#define NUMBER_OF_WRONG_ANS_KEY "number of wrong answers"
+#define AVG_TIME_FOR_ANS_KEY "average time for answer"
 
 
 class JsonResponsePacketSerializer
@@ -55,13 +58,20 @@ public:
 	*/
 	static Buffer serializerResponse(SignupResponse& response);
 
+	/*
+	* Serializes a logout response into a binary buffer.
+	* @param response: The LogoutResponse object to be serialized.
+	* @return: The binary buffer containing the serialized response.
+	*/
+	static Buffer serializerResponse(LogoutResponse& response);
+
 	/**
 	 * Serializes a LeaveRoomResponse into a Buffer.
 	 *
 	 * @param response The LeaveRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeLeaveRoomResponse(LeaveRoomResponse& response);
+	static Buffer serializerResponse(LeaveRoomResponse& response);
 
 	/**
 	 * Serializes a GetRoomResponse into a Buffer.
@@ -69,7 +79,7 @@ public:
 	 * @param response The GetRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetRoomResponse(GetAllRoomsResponse& response);
+	static Buffer serializerResponse(GetAllRoomsResponse& response);
 
 	/**
 	 * Serializes a GetPlayersInRoomResponse into a Buffer.
@@ -77,7 +87,7 @@ public:
 	 * @param response The GetPlayersInRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeGetPlayersInRoomResponse(GetPlayersInRoomResponse& response);
+	static Buffer serializerResponse(GetPlayersInRoomResponse& response);
 
 	/**
 	 * Serializes a JoinRoomResponse into a Buffer.
@@ -85,7 +95,7 @@ public:
 	 * @param response The JoinRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeJoinRoomResponse(JoinRoomResponse& response);
+	static Buffer serializerResponse(JoinRoomResponse& response);
 
 	/**
 	 * Serializes a CreateRoomResponse into a Buffer.
@@ -93,7 +103,7 @@ public:
 	 * @param response The CreateRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeCreateRoomResponse(CreateRoomResponse& response);
+	static Buffer serializerResponse(CreateRoomResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -101,7 +111,7 @@ public:
 	 * @param highscoreResponse The HighscoreResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializeHighScoreResponse(GetHighscoreResponse& highscoreResponse);
+	static Buffer serializerResponse(GetHighscoreResponse& highscoreResponse);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -109,7 +119,7 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializePersonalStatsResponse(GetPersonalStatsResponse& personalStatsResponse);
+	static Buffer serializerResponse(GetPersonalStatsResponse& personalStatsResponse);
 
 
 
@@ -145,12 +155,12 @@ private:
 	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<RoomData>& roomVec);
 
 	/**
-	 * Converts a vector of strings into a JSON array.
+	 * Converts a set of LoggedUser into a JSON array.
 	 *
-	 * @param stringVec The vector containing strings to be converted.
-	 * @return A JSON array representing the converted strings.
+	 * @param LoggedSet The set containing LoggedUser to be converted.
+	 * @return A JSON array representing the converted LoggedUser.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<std::string>& stringVec);
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::set<LoggedUser>& LoggedSet);
 
 	/**
 	 * Converts a map of strings and int into a JSON array.

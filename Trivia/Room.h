@@ -14,7 +14,7 @@ struct RoomData
 	bool isActive;
 	
 	//CTOR
-	RoomData(unsigned int id, std::string name, unsigned int maxPlayers, unsigned int numOfQuestions, unsigned int timePerQuestion, bool isActive)
+	RoomData(unsigned int id, std::string name, unsigned int maxPlayers, unsigned int numOfQuestions, unsigned int timePerQuestion, bool isActive = false)
 	{
 		this->id = id;
 		this->name = name;
@@ -30,7 +30,7 @@ class Room
 public:
 
 	//CTOR//
-	Room(const RoomData& data);
+	Room(const RoomData& data, const LoggedUser& roomAdmin);
 
 	/**
 	 * Adds a user to the room.
@@ -51,9 +51,16 @@ public:
 	/**
 	 * Retrieves all users currently in the room.
 	 *
-	 * @return A constant reference to a set containing all logged users in the room.
+	 * @return A set containing all logged users in the room.
 	 */
-	const std::set<LoggedUser>& getAllUsers() const;
+	std::set<LoggedUser> getAllUsers() const;
+
+	/**
+	 * Retrieves the admin of the room
+	 *
+	 * @return room admin of the current room
+	 */
+	LoggedUser getRoomAdmin() const;
 
 	/**
 	 * Retrieves data about the room.
@@ -65,4 +72,5 @@ public:
 private:
 	RoomData _metaData;
 	std::set<LoggedUser> _users;
+	LoggedUser _roomAdmin;
 };

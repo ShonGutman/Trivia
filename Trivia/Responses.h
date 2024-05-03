@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <set>
 #include <string>
 #include <map>
 #include "Room.h"
@@ -11,13 +12,14 @@ typedef std::vector<BYTE> Buffer;
 typedef enum : unsigned int {
 	LOGIN_RESPONSE_ID = 1,
 	SIGN_UP_RESPONSE_ID = 2,
-	JOIN_ROOM_RESPONSE_ID = 3,
-	CREATE_ROOM_RESPONSE_ID = 4,
-	LEAVE_ROOM_RESPONSE_ID = 5,
+	LOGOUT_RESPONSE_ID = 3,
+	JOIN_ROOM_RESPONSE_ID = 4,
+	CREATE_ROOM_RESPONSE_ID = 5,
 	GET_ALL_ROOMS_RESPONSE_ID = 6,
 	GET_PLAYERS_IN_ROOM_RESPONSE_ID = 7,
 	GET_PERSONAL_SCORE_RESPONSE_ID = 8,
 	GET_HIGHEST_SCORE_RESPONSE_ID = 9,
+	LEAVE_ROOM_RESPONSE_ID = 10,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -36,6 +38,11 @@ struct SignupResponse
 {
 	STATUS status;
 }typedef SignupResponse;
+
+struct LogoutResponse
+{
+	STATUS status;
+}typedef LogoutResponse;
 
 struct ErrorResponse
 {
@@ -57,7 +64,8 @@ typedef struct GetAllRoomsResponse
 typedef struct GetPlayersInRoomResponse
 {
 	STATUS status;
-	std::vector<std::string> playersInRoom;
+	std::set<LoggedUser> playersInRoom;
+	LoggedUser roomAdmin;
 }GetPlayersInRoomResponse;
 
 typedef struct GetHighscoreResponse

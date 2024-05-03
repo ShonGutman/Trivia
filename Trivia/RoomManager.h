@@ -24,11 +24,11 @@ public:
 	/**
 	 * Creates a new room and adds the author to it.
 	 *
-	 * @param auther The author of the room to be created.
+	 * @param roomAdmin The author and admin of the room to be created.
 	 * @param data The data of the room to be created.
 	 * @throws std::runtime_error if a room with the same ID already exists.
 	 */
-	void createRoom(const LoggedUser auther, const RoomData data);
+	void createRoom(const LoggedUser& roomAdmin, const RoomData& data);
 
 	/**
 	 * Deletes a room with the specified ID.
@@ -48,24 +48,33 @@ public:
 	bool getRoomState(const unsigned int roomID) const;
 
 	/**
-	 * Retrieves a vector containing the data of all rooms.
+	 * Retrieves a reference to the vector containing the data of all rooms.
 	 *
-	 * @return A vector of RoomData objects representing the data of all rooms.
+	 * @return A reference to the vector of RoomData objects representing the data of all rooms.
 	 */
 	std::vector<RoomData> getRooms() const;
 
 	/**
-	 * Retrieves a constant reference to the room with the specified ID.
+	 * Retrieves a reference to the room with the specified ID.
 	 *
 	 * @param roomID The ID of the room to retrieve.
-	 * @return A constant reference to the Room object corresponding to the specified ID.
+	 * @return A reference to the Room object corresponding to the specified ID.
 	 * @throws std::out_of_range if the room with the specified ID does not exist.
 	 */
-	const Room& getRoom(const unsigned int roomID) const;
+	Room& getRoom(const unsigned int roomID);
+
+	/*
+	* Gets ID of the next room (in order to maintaine unique id)
+	* 
+	* @return: a number of the next room id to be added
+	*/
+	const int getNextRoomId() const;
 
 private:
 
 	RoomManager() = default;
 
 	std::map<unsigned int, Room> _rooms;
+
+	static int _amountOfRoomsEverJoined;
 };

@@ -7,11 +7,24 @@
 #include "SqliteDatabase.h"
 #include "IDatabase.h"
 
-class StatisticsManager : public IDatabase
+class StatisticsManager
 {
-	// CTOR && DTOR //
-	StatisticsManager();
-	virtual ~StatisticsManager();
+public:
+
+	// DTOR //
+	~StatisticsManager();
+
+	/*
+	* Function to get the singleton instance
+	*
+	* @param database the database needed, not a must
+	* @return the instance of StatisticsManager
+	*/
+	static StatisticsManager& get(IDatabase* database = nullptr);
+
+	// Delete copy constructor and assignment operator to prevent copies
+	StatisticsManager(const StatisticsManager&) = delete;
+	StatisticsManager& operator=(const StatisticsManager&) = delete;
 
 	/**
 	 * Retrieves the high scores from the system.
@@ -31,5 +44,9 @@ class StatisticsManager : public IDatabase
 
 
 private:
+
+	// CTOR //
+	StatisticsManager(IDatabase* database);
+
 	IDatabase* _database;
 };
