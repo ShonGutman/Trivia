@@ -18,9 +18,14 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, Logged
         return this->login(info, user);
     }
 
-    else
+    else if(SIGN_UP_REQUEST_ID == info.id)
     {
         return this->signup(info, user);
+    }
+
+    else
+    {
+        throw std::runtime_error("Illegal option!");
     }
 
 }

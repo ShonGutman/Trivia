@@ -55,7 +55,7 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedU
 
     else
     {
-        throw std::runtime_error("Illigal option!");
+        throw std::runtime_error("Illegal option!");
     }
 }
 
