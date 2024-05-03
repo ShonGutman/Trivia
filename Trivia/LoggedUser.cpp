@@ -22,7 +22,7 @@ void LoggedUser::setName(const std::string& username)
 	_username = username;
 }
 
-void LoggedUser::setToInitialized()
+void LoggedUser::setToNoneInitialized()
 {
 	_username = NONE_INITIALIZED_USERNAME;
 }

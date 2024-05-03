@@ -77,8 +77,8 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& info, LoggedUser& us
         result.newHandler = _factoryHandler.createLoginRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
-        //make user initialized
-        user.setToInitialized();
+        //make user none initialized
+        user.setToNoneInitialized();
 	}
 
 	catch (const std::exception& e)

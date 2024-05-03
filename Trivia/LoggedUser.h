@@ -30,9 +30,9 @@ public:
 	void setName(const std::string& username);
 
 	/**
-	 * Sets user to be initialized
+	 * Sets user to be not initialized
 	 */
-	void setToInitialized();
+	void setToNoneInitialized();
 
 	/**
 	 * Checks if user is initialized (username is not NONE_INITIALIZED_USERNAME)
