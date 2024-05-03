@@ -3,7 +3,8 @@
 RequestHandlerFactory::RequestHandlerFactory(IDatabase* database)
     : _database(database),
     _loginManager(LoginManager::get(database)),
-    _roomManager(RoomManager::get())
+    _roomManager(RoomManager::get()),
+    _statisticsManager(StatisticsManager::get(database))
 {
 }
 
@@ -27,4 +28,9 @@ LoginManager& RequestHandlerFactory::getLoginManager()
 RoomManager& RequestHandlerFactory::getRoomManager()
 {
     return this->_roomManager;
+}
+
+StatisticsManager& RequestHandlerFactory::getStatisticsManager()
+{
+    return this->_statisticsManager;
 }

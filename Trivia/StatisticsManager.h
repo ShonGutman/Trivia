@@ -9,6 +9,8 @@
 
 class StatisticsManager
 {
+public:
+
 	// DTOR //
 	~StatisticsManager();
 

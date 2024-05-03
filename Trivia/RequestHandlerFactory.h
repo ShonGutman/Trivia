@@ -2,6 +2,7 @@
 
 #include "LoginManager.h"
 #include "RoomManager.h"
+#include "StatisticsManager.h"
 #include "IDatabase.h"
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
@@ -60,8 +61,19 @@ public:
 	 */
 	RoomManager& getRoomManager();
 
+	/**
+	 * Retrieves the StatisticsManager instance associated with the RequestHandlerFactory.
+	 *
+	 * This function returns a reference to the StatisticsManager instance associated with
+	 * the RequestHandlerFactory.
+	 *
+	 * @return A reference to the StatisticsManager instance.
+	 */
+	StatisticsManager& getStatisticsManager();
+
 private:
 	LoginManager& _loginManager;
 	RoomManager& _roomManager;
+	StatisticsManager& _statisticsManager;
 	IDatabase* _database;
 };
