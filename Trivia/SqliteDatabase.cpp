@@ -66,7 +66,7 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 int SqliteDatabase::getNumOfCorrectAnswers(const string& username)
 {
 	int correctAns = 0;
-	string sqlStatement = "select numOfRightAns from statistics where username == {};";
+	string sqlStatement = R"(select numOfRightAns from statistics where username = "{}";)";
 	sqlStatement = format(sqlStatement, { username });
 
 	preformSqlRequest(sqlStatement, callbackNumber, &correctAns);
@@ -77,7 +77,7 @@ int SqliteDatabase::getNumOfCorrectAnswers(const string& username)
 int SqliteDatabase::getNumOfWrongAnswers(const string& username)
 {
 	int wrongAns = 0;
-	string sqlStatement = "select numOfWrongAns from statistics where username == {};";
+	string sqlStatement = R"(select numOfWrongAns from statistics where username = "{}";)";
 	sqlStatement = format(sqlStatement, { username });
 
 	preformSqlRequest(sqlStatement, callbackNumber, &wrongAns);
@@ -93,7 +93,7 @@ int SqliteDatabase::getNumOfTotalAnswers(const string& username)
 int SqliteDatabase::getNumOfPlayerGames(const string& username)
 {
 	int gamesPlayed = 0;
-	string sqlStatement = "select numOfGames from statistics where username == {};";
+	string sqlStatement = R"(select numOfGames from statistics where username = "{}";)";
 	sqlStatement = format(sqlStatement, { username });
 
 	preformSqlRequest(sqlStatement, callbackNumber, &gamesPlayed);
@@ -113,7 +113,7 @@ int SqliteDatabase::getPlayerScore(const string& username)
 std::map<std::string, int> SqliteDatabase::getHighscores()
 {
 	std::map<std::string, int> highscoreList;
-	std::string sqlStatement = "select username, numOfRightAns from statistics;";
+	std::string sqlStatement = R"(select username, numOfRightAns from statistics;)";
 	preformSqlRequest(sqlStatement, callbackHighScoresMap, &highscoreList);
 
 	return highscoreList;
