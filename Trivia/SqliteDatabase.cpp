@@ -52,6 +52,73 @@ std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 	return questionsVector;
 }
 
+float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
+{
+	float avgAnsTime = 0;
+	string sqlStatement = R"(select avgAnsTime from statistics where username = "{}";)";
+	sqlStatement = format(sqlStatement, { username });
+
+	preformSqlRequest(sqlStatement, callbackFloat, &avgAnsTime);
+
+	return avgAnsTime;
+}
+
+int SqliteDatabase::getNumOfCorrectAnswers(const string& username)
+{
+	int correctAns = 0;
+	string sqlStatement = R"(select numOfRightAns from statistics where username = "{}";)";
+	sqlStatement = format(sqlStatement, { username });
+
+	preformSqlRequest(sqlStatement, callbackNumber, &correctAns);
+
+	return correctAns;
+}
+
+int SqliteDatabase::getNumOfWrongAnswers(const string& username)
+{
+	int wrongAns = 0;
+	string sqlStatement = R"(select numOfWrongAns from statistics where username = "{}";)";
+	sqlStatement = format(sqlStatement, { username });
+
+	preformSqlRequest(sqlStatement, callbackNumber, &wrongAns);
+
+	return wrongAns;
+}
+
+int SqliteDatabase::getNumOfTotalAnswers(const string& username)
+{
+	return getNumOfCorrectAnswers(username) + getNumOfWrongAnswers(username);
+}
+
+int SqliteDatabase::getNumOfPlayerGames(const string& username)
+{
+	int gamesPlayed = 0;
+	string sqlStatement = R"(select numOfGames from statistics where username = "{}";)";
+	sqlStatement = format(sqlStatement, { username });
+
+	preformSqlRequest(sqlStatement, callbackNumber, &gamesPlayed);
+
+	return gamesPlayed;
+}
+
+int SqliteDatabase::getPlayerScore(const string& username)
+{
+	// the score is the num of right answers, the higher the num is the higher the score
+	int score;
+	score = getNumOfCorrectAnswers(username);
+
+	return score;
+}
+
+std::map<std::string, int> SqliteDatabase::getHighscores()
+{
+	std::map<std::string, int> highscoreList;
+	std::string sqlStatement = R"(select username, numOfRightAns from statistics;)";
+	preformSqlRequest(sqlStatement, callbackHighScoresMap, &highscoreList);
+
+	return highscoreList;
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
@@ -91,6 +158,18 @@ bool SqliteDatabase::create_users_table()
 		address text not null,
 		phoneNumber text not null,
 		birthday text not null);)";
+
+	return preformSqlRequest(sqlStatement);
+}
+
+bool SqliteDatabase::create_statistics_table()
+{
+	const string sqlStatement = R"(create table statistics (
+		username text primary key not null,
+		numOfGames int not null,
+		numOfRightAns int not null,
+		numOfWrongAns int not null,
+		avgAnsTime double not null);)";
 
 	return preformSqlRequest(sqlStatement);
 }
@@ -182,7 +261,7 @@ bool SqliteDatabase::addQuestion(const string question, const string correct, co
 
 bool SqliteDatabase::initTables()
 {
-	return create_users_table() && create_questions_table();
+	return create_users_table() && create_questions_table() && create_statistics_table();
 }
 
 bool SqliteDatabase::preformSqlRequest(string sql, int(*callback)(void*, int, char**, char**), void* data)
@@ -246,6 +325,40 @@ int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** a
 
 	std::vector<std::string> incorrects = { incorrect1 ,incorrect2, incorrect3 };
 	questions->push_back(Question(question, correct, incorrects));
+	return 0;
+}
+
+int SqliteDatabase::callbackFloat(void* data, int argc, char** argv, char** azColName)
+{
+	if (argc > 0 && argv[0]) {
+		double* result = static_cast<double*>(data);
+		*result = std::stod(argv[0]);
+	}
+	return 0;
+}
+
+int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, char** azColName)
+{
+	// Cast the data pointer back to the map type
+	std::map<std::string, int>* resultMap = static_cast<std::map<std::string, int>*>(data);
+	std::string username = "";
+	int numOfRightAns = 0;
+
+	for (int i = 0; i < argc; i++)
+	{
+		if (std::string(azColName[i]) == USERNAME_COL)
+		{
+			username = argv[i];
+		}
+		else if (std::string(azColName[i]) == RIGHT_ANS_COL)
+		{
+			numOfRightAns = std::stoi(argv[i]);
+		}
+
+		// Populate the map with the retrieved data
+		(*resultMap)[username] = numOfRightAns;
+	}
+
 	return 0;
 }
 
