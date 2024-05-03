@@ -343,7 +343,7 @@ int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, cha
 	// Cast the data pointer back to the map type
 	std::map<std::string, int>* resultMap = static_cast<std::map<std::string, int>*>(data);
 	std::string username;
-	int numOfRightAns;
+	int numOfRightAns = 0;
 
 	for (int i = 0; i < argc; i++)
 	{
