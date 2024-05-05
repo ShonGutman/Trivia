@@ -1,44 +1,118 @@
 #include "JsonResponsePacketSerializer.h"
 
-Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse& response)
 {
-    Buffer errBuffer;
     json jsonErr;
 
     // Add data to the json object.
     jsonErr[STATUS_KEY] = FAILED;
     jsonErr[MESSAGE_KEY] = response.message;
 
-    errBuffer = fitBuffToProtocol(jsonErr.dump(), response.id);
-
-    return errBuffer;
-
+    return fitBuffToProtocol(jsonErr.dump(), response.id);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse& response)
 {
-    Buffer loginBuffer;
     json jsonLogin;
 
     // Add data to the json object.
     jsonLogin[STATUS_KEY] = response.status;
 
-    loginBuffer = fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
-
-    return loginBuffer;
+    return fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse response)
+Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response)
 {
-    Buffer SignupBuffer;
     json jsonSignup;
 
     // Add data to the json object.
     jsonSignup[STATUS_KEY] = response.status;
 
-    SignupBuffer = fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
+    return fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
+}
 
-    return SignupBuffer;
+Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response)
+{
+    json jsonLogout;
+
+    // Add data to the json object.
+    jsonLogout[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
+{
+    json jsonLeaveRoom;
+
+    // Add data to the json object.
+    jsonLeaveRoom[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& response)
+{
+    json jsonRoom;
+
+    // Add data to the json object.
+    jsonRoom[STATUS_KEY] = response.status;
+    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms).dump();
+
+    return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse& response)
+{
+    json jsonGetPlayersInRoom;
+
+    // Add data to the json object.
+    jsonGetPlayersInRoom[ROOM_ADMIN_KEY] = response.roomAdmin.getName();
+    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom).dump();;
+
+    return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(JoinRoomResponse& response)
+{
+    json jsonJoinRoom;
+
+    // Add data to the json object.
+    jsonJoinRoom[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(CreateRoomResponse& response)
+{
+    json jsonCreateRoom;
+
+    // Add data to the json object.
+    jsonCreateRoom[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& highscoreResponse)
+{
+    json jsonHighScore;
+
+    // Add data to the json object.
+    jsonHighScore[STATUS_KEY] = highscoreResponse.status;
+    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores).dump();
+
+    return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse& personalStatsResponse)
+{
+    json jsonStats;
+
+    // Add data to the json object.
+    jsonStats[STATUS_KEY] = personalStatsResponse.status;
+    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(personalStatsResponse).dump();
+
+    return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
@@ -104,4 +178,64 @@ Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, Response
 
 
     return protocolBuffer;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<RoomData>& roomVec)
+{
+    json convortedJson, currentRoom;
+
+    for (int i = 0; i < roomVec.size(); i++)
+    {
+        // Adds the data to the currentRoom to the json
+        currentRoom[ROOM_ID_KEY] = roomVec[i].id;
+        currentRoom[ROOM_NAME_KEY] = roomVec[i].name;
+        currentRoom[MAX_PLAYERS_IN_ROOM_KEY] = roomVec[i].maxPlayers;
+        currentRoom[NUM_OF_QUESTIONS_IN_GAME_KEY] = roomVec[i].numOfQuestionsInGame;
+        currentRoom[TINE_PER_QUESTION_KEY] = roomVec[i].timePerQuestion;
+        currentRoom[IS_ACTIVE_KEY] = roomVec[i].isActive;
+
+        // Adds the currentRoom to the json of rooms.
+        convortedJson[i] = currentRoom.dump();
+    }
+
+    return convortedJson;
+}
+
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::set<LoggedUser>& LoggedSet)
+{
+    json convortedJson;
+
+    int i = 0;
+    for (auto& it : LoggedSet)
+    {
+        convortedJson[i++] = it.getName();
+    }
+
+    return convortedJson;
+}
+
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, int>& scoresMap)
+{
+    json convortedJson;
+
+    for (auto const &object : scoresMap)
+    {
+        convortedJson[object.first] = convortedJson[object.second]; // first = name, sec = high score
+    }
+
+    return convortedJson;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)
+{
+    json convortedJson;
+
+    convortedJson[NUMBER_OF_GAMES_KEY] = presonalStatsStruct.numberOfGames;
+    convortedJson[NUMBER_OF_RIGHT_ANS_KEY] = presonalStatsStruct.numRightAns;
+    convortedJson[NUMBER_OF_WRONG_ANS_KEY] = presonalStatsStruct.numWrongAns;
+    convortedJson[AVG_TIME_FOR_ANS_KEY] = presonalStatsStruct.avgTimeForAns;
+
+    return convortedJson;
 }

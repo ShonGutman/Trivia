@@ -2,7 +2,9 @@
 
 RequestHandlerFactory::RequestHandlerFactory(IDatabase* database)
     : _database(database),
-    _loginManager(LoginManager::get(database)) 
+    _loginManager(LoginManager::get(database)),
+    _roomManager(RoomManager::get()),
+    _statisticsManager(StatisticsManager::get(database))
 {
 }
 
@@ -15,11 +17,20 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
 {
     //memory must be deleted
-    //for the time being it is empty.
-    return new MenuRequestHandler();
+    return new MenuRequestHandler(*this);
 }
 
-LoginManager& RequestHandlerFactory::getLoginManager() 
+LoginManager& RequestHandlerFactory::getLoginManager()
 {
     return this->_loginManager;
+}
+
+RoomManager& RequestHandlerFactory::getRoomManager()
+{
+    return this->_roomManager;
+}
+
+StatisticsManager& RequestHandlerFactory::getStatisticsManager()
+{
+    return this->_statisticsManager;
 }

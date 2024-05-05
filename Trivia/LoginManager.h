@@ -11,6 +11,7 @@ using std::string;
 class LoginManager
 {
 public:
+
 	/*
 	* Function to get the singleton instance
 	* 

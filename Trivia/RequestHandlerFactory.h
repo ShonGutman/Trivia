@@ -1,12 +1,15 @@
 #pragma once
 
 #include "LoginManager.h"
+#include "RoomManager.h"
+#include "StatisticsManager.h"
 #include "IDatabase.h"
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
 
 // to avoid circular definition
 class LoginRequestHandler;
+class MenuRequestHandler;
 
 class RequestHandlerFactory
 {
@@ -48,7 +51,29 @@ public:
 	 */
 	LoginManager& getLoginManager();
 
+	/**
+	 * Retrieves the RoomManager instance associated with the RequestHandlerFactory.
+	 *
+	 * This function returns a reference to the RoomManager instance associated with
+	 * the RequestHandlerFactory.
+	 *
+	 * @return A reference to the RoomManager instance.
+	 */
+	RoomManager& getRoomManager();
+
+	/**
+	 * Retrieves the StatisticsManager instance associated with the RequestHandlerFactory.
+	 *
+	 * This function returns a reference to the StatisticsManager instance associated with
+	 * the RequestHandlerFactory.
+	 *
+	 * @return A reference to the StatisticsManager instance.
+	 */
+	StatisticsManager& getStatisticsManager();
+
 private:
 	LoginManager& _loginManager;
+	RoomManager& _roomManager;
+	StatisticsManager& _statisticsManager;
 	IDatabase* _database;
 };

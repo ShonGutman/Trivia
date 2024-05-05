@@ -4,7 +4,6 @@
 #include <string>
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
-#include "LoginManager.h"
 
 // to avoid circular definition
 class RequestHandlerFactory;
@@ -16,8 +15,9 @@ public:
 	//CTOR//
 	LoginRequestHandler(RequestHandlerFactory& factory);
 
-	bool isRequestRelevant(RequestInfo& info);
-	RequestResult handleRequest(RequestInfo& info, LoggedUser& user);
+	bool isRequestRelevant(const RequestInfo& info) override;
+
+	RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
 
@@ -34,7 +34,7 @@ private:
 	 * @param user The user the will be logged
 	 * @return The result of handling the login request, including the response and the new handler.
 	 */
-	RequestResult login(RequestInfo& info, LoggedUser& user);
+	RequestResult login(const RequestInfo& info, LoggedUser& user);
 
 	/**
 	 * Handles a signup request.
@@ -49,7 +49,7 @@ private:
 	 * @param user The user the will be signed
 	 * @return The result of handling the signup request, including the response and the new handler.
 	 */
-	RequestResult signup(RequestInfo& info, LoggedUser& user);
+	RequestResult signup(const RequestInfo& info, LoggedUser& user);
 
 	RequestHandlerFactory& _factoryHandler;
 };

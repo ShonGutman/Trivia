@@ -5,12 +5,12 @@ LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& factory)
 {
 }
 
-bool LoginRequestHandler::isRequestRelevant(RequestInfo& info)
+bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
     return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
 }
 
-RequestResult LoginRequestHandler::handleRequest(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
 {
 
     if (LOGIN_REQUEST_ID == info.id)
@@ -18,25 +18,30 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo& info, LoggedUser& 
         return this->login(info, user);
     }
 
-    else
+    else if(SIGN_UP_REQUEST_ID == info.id)
     {
         return this->signup(info, user);
     }
 
+    else
+    {
+        throw std::runtime_error("Illegal option!");
+    }
+
 }
 
-RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::login(const RequestInfo& info, LoggedUser& user)
 {
     LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
 
     RequestResult result;
 
-    LoginManager& manager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
     try
     {
         LoginResponse response;
-        manager.login(request.username, request.password);
+        loginManager.login(request.username, request.password);
 
         //SUCCESS reponse to login
         response.status = SUCCESS;
@@ -65,18 +70,18 @@ RequestResult LoginRequestHandler::login(RequestInfo& info, LoggedUser& user)
     return result;
 }
 
-RequestResult LoginRequestHandler::signup(RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& user)
 {
     SignupRequest request = JsonRequestPacketDeserializer::deserializeSignUpRequest(info.buffer);
 
     RequestResult result;
 
-    LoginManager& manager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
     try
     {
         SignupResponse response;
-        manager.signup(request.username, request.password, request.email, request.address, request.phoneNumber, request.birthday);
+        loginManager.signup(request.username, request.password, request.email, request.address, request.phoneNumber, request.birthday);
 
         //SUCCESS reponse to signup
         response.status = SUCCESS;
