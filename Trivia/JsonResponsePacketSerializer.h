@@ -111,7 +111,7 @@ public:
 	 * @param highscoreResponse The HighscoreResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetHighscoreResponse& highscoreResponse);
+	static Buffer serializerResponse(GetHighscoreResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -119,7 +119,39 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetPersonalStatsResponse& personalStatsResponse);
+	static Buffer serializerResponse(GetPersonalStatsResponse& response);
+
+	/*
+	* Serializes a LeaveRoomResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The LeaveRoomResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(LeaveRoomResponse& response);
+
+	/*
+	* Serializes a CloseRoomResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The CloseRoomResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(CloseRoomResponse& response);
+
+	/*
+	* Serializes a StartGameResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The StartGameResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(StartGameResponse& response);
 
 
 

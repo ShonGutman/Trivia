@@ -101,10 +101,10 @@ typedef struct CloseRoomResponse
 	STATUS status;
 }LeaveRoomResponse;
 
-typedef struct StartRoomResponse
+typedef struct StartGameResponse
 {
 	STATUS status;
-}StartRoomResponse;
+}StartGameResponse;
 
 typedef struct GetRoomStatusResponse
 {
