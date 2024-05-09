@@ -36,6 +36,8 @@
                 Foreground="#F2BED1"/>
             
             <TextBox  
+                Name="UserName_Input"
+                
                 Grid.Column="1"
                 Grid.Row="1"
                 Padding="0,5"
@@ -61,7 +63,8 @@
                 HorizontalAlignment="Left"/>
         </Grid>
 
-    <Button x:Name="LoginButton" 
+    <Button Name="LoginButton" 
+        Click="LoginButton_Click"
         Content="Login" 
         Background="#F2BED1"
         Foreground="#F9F5F6"
