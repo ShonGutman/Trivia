@@ -33,6 +33,10 @@ using json = nlohmann::json;
 #define NUMBER_OF_WRONG_ANS_KEY "number of wrong answers"
 #define AVG_TIME_FOR_ANS_KEY "average time for answer"
 
+#define HAS_GAME_BEGUN_KEY "has game begun"
+#define PLAYERS_IN_ROOM_KEY "players in room"
+
+
 
 class JsonResponsePacketSerializer
 {
@@ -152,6 +156,18 @@ public:
 	*/
 
 	static Buffer serializerResponse(StartGameResponse& response);
+
+	/*
+	* Serializes a GetRoomStatusResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status, whether the game has begun, and the list of players in the room. It converts
+	* the player objects into JSON format using a helper function. Finally, it adjusts the buffer to fit the protocol
+	* requirements and returns it.
+	*
+	* @param response The GetRoomStatusResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(GetRoomStatusResponse& response);
 
 
 

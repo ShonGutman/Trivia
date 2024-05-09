@@ -71,6 +71,18 @@ Buffer JsonResponsePacketSerializer::serializerResponse(StartGameResponse& respo
     return fitBuffToProtocol(jsonStartRoom.dump(), START_GAME_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializerResponse(GetRoomStatusResponse& response)
+{
+    json jsonRoomStatus;
+
+    // Add data to the json object.
+    jsonRoomStatus[STATUS_KEY] = response.status;
+    jsonRoomStatus[HAS_GAME_BEGUN_KEY] = response.hasGameBegun;
+    jsonRoomStatus[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.players);
+
+    return fitBuffToProtocol(jsonRoomStatus.dump(), GET_ROOM_STATE_RESPONSE_ID);
+}
+
 Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& response)
 {
     json jsonRoom;

@@ -111,7 +111,4 @@ typedef struct GetRoomStatusResponse
 	STATUS status;
 	bool hasGameBegun = false;
 	std::set<LoggedUser> players;
-	unsigned int questionCount = 0;
-	unsigned int timePerQuestion = 0;
-
-};
+}GetRoomStatusResponse;
