@@ -33,6 +33,10 @@ using json = nlohmann::json;
 #define NUMBER_OF_WRONG_ANS_KEY "number of wrong answers"
 #define AVG_TIME_FOR_ANS_KEY "average time for answer"
 
+#define HAS_GAME_BEGUN_KEY "has game begun"
+#define PLAYERS_IN_ROOM_KEY "players in room"
+
+
 
 class JsonResponsePacketSerializer
 {
@@ -64,14 +68,6 @@ public:
 	* @return: The binary buffer containing the serialized response.
 	*/
 	static Buffer serializerResponse(LogoutResponse& response);
-
-	/**
-	 * Serializes a LeaveRoomResponse into a Buffer.
-	 *
-	 * @param response The LeaveRoomResponse to serialize.
-	 * @return A Buffer containing the serialized data.
-	 */
-	static Buffer serializerResponse(LeaveRoomResponse& response);
 
 	/**
 	 * Serializes a GetRoomResponse into a Buffer.
@@ -111,7 +107,7 @@ public:
 	 * @param highscoreResponse The HighscoreResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetHighscoreResponse& highscoreResponse);
+	static Buffer serializerResponse(GetHighscoreResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -119,7 +115,51 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetPersonalStatsResponse& personalStatsResponse);
+	static Buffer serializerResponse(GetPersonalStatsResponse& response);
+
+	/*
+	* Serializes a LeaveRoomResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The LeaveRoomResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(LeaveRoomResponse& response);
+
+	/*
+	* Serializes a CloseRoomResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The CloseRoomResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(CloseRoomResponse& response);
+
+	/*
+	* Serializes a StartGameResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The StartGameResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(StartGameResponse& response);
+
+	/*
+	* Serializes a GetRoomStatusResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status, whether the game has begun, and the list of players in the room. It converts
+	* the player objects into JSON format using a helper function. Finally, it adjusts the buffer to fit the protocol
+	* requirements and returns it.
+	*
+	* @param response The GetRoomStatusResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+
+	static Buffer serializerResponse(GetRoomStatusResponse& response);
 
 
 
