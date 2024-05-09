@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Menu" Height="400" Width="400" Background="#F9F5F6">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="20"></RowDefinition>
+            <RowDefinition Height ="100"></RowDefinition>
+            <RowDefinition Height ="100"></RowDefinition>
+            <RowDefinition Height ="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBox 
+            x:Name="TriviaTitle"
+            Grid.Row="1"
+            TextWrapping="Wrap" 
+            Text="Trivia" 
+            Width="204" Height="80"
+            FontSize="69"
+            FontFamily="Hadassah Friedlaender Bold"
+            HorizontalAlignment="Center"  
+            VerticalAlignment="Center"
+            Foreground="#F2BED1"
+            Background="#F9F5F6"
+            BorderThickness="0"
+            />
+
+        <Button 
+            x:Name="LoginButton"
+            
+            Content="Login" 
+            Grid.Row="2"
+            FontSize="30"
+            FontFamily="Hadassah Friedlaender Bold"
+            HorizontalAlignment="Center"  
+            VerticalAlignment="Center" Height="50" Width="150"/>
+
+        <Button 
+            x:Name="SignupButton"
+            
+            Grid.Row="3"
+            Content="Signup" 
+            FontSize="30"
+            FontFamily="Hadassah Friedlaender Bold"
+            HorizontalAlignment="Center"  
+            VerticalAlignment="Center" Height="50" Width="150"/>
+
 
     </Grid>
 </Window>
