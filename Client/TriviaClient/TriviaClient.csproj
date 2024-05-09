@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="border.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="border.png" />
+  </ItemGroup>
+
 </Project>

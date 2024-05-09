@@ -6,17 +6,42 @@
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
         Title="Menu" Height="400" Width="400" Background="#F9F5F6">
+
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="FontFamily" Value="Hadassah Friedlaender Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="#FEF2F4"/>
+            <Setter Property="Background" Value="#F2BED1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="25">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height ="20"></RowDefinition>
-            <RowDefinition Height ="100"></RowDefinition>
-            <RowDefinition Height ="100"></RowDefinition>
-            <RowDefinition Height ="100"></RowDefinition>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
+
         </Grid.RowDefinitions>
 
         <TextBox 
-            x:Name="TriviaTitle"
-            Grid.Row="1"
+            Name="TriviaTitle"
+            Grid.Row="0"
             TextWrapping="Wrap" 
             Text="Trivia" 
             Width="204" Height="80"
@@ -26,31 +51,24 @@
             VerticalAlignment="Center"
             Foreground="#F2BED1"
             Background="#F9F5F6"
-            BorderThickness="0"
+            BorderBrush="{x:Null}"
             />
 
         <Button 
-            x:Name="LoginButton"
+            Name="LoginButton"
             Click="LoginButton_Click"
-            
             Content="Login" 
-            Grid.Row="2"
-            FontSize="30"
-            FontFamily="Hadassah Friedlaender Bold"
-            HorizontalAlignment="Center"  
-            VerticalAlignment="Center" Height="50" Width="150"/>
+            Grid.Row="1"
+            Style="{StaticResource RoundedButtonStyle}"/>
 
         <Button 
-            x:Name="SignupButton"
+            Name="SignupButton"
             Click="SignupButton_Click"
-            
-            Grid.Row="3"
+            Grid.Row="2"
             Content="Signup" 
-            FontSize="30"
-            FontFamily="Hadassah Friedlaender Bold"
-            HorizontalAlignment="Center"  
-            VerticalAlignment="Center" Height="50" Width="150"/>
+            Style="{StaticResource RoundedButtonStyle}"/>
 
+        <Image Source="border.png" HorizontalAlignment="Center" Height="35" Grid.Row="3" VerticalAlignment="Top" Width="250"/>
 
     </Grid>
 </Window>
