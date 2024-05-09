@@ -75,7 +75,11 @@
             Content="Signup" 
             Style="{StaticResource RoundedButtonStyle}"/>
 
-        <Image Source="border.png" HorizontalAlignment="Center" Height="35" Grid.Row="3" VerticalAlignment="Top" Width="250"/>
+        <Image Source="pictures/border.png" 
+               Stretch="Fill" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top"
+               Height="65" Grid.Row="3" Width="400"/>
 
     </Grid>
 </Window>

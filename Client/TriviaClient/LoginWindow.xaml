@@ -61,15 +61,15 @@
                 HorizontalAlignment="Left"/>
         </Grid>
 
-        <Button x:Name="LoginButton" 
-            Content="Login" 
-            Background="#F2BED1"
-            Foreground="#F9F5F6"
-            FontFamily ="Hadassah Friedlaender Bold"
-            FontSize="15"
-            Margin="0,25"
-            Height="35"
-            Width="250">
+    <Button x:Name="LoginButton" 
+        Content="Login" 
+        Background="#F2BED1"
+        Foreground="#F9F5F6"
+        FontFamily ="Hadassah Friedlaender Bold"
+        FontSize="15"
+        Margin="0,25"
+        Height="35"
+        Width="250">
         <Button.Style>
             <Style TargetType="Button">
                 <Setter Property="Template">
@@ -91,6 +91,14 @@
                 </Setter>
             </Style>
         </Button.Style>
-    </Button>
-</StackPanel>
+     </Button>
+
+    <Image Source="pictures/boots.png" 
+            Stretch="Fill" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Height="100" Grid.Row="3" 
+            Width="100"/>
+
+    </StackPanel>
 </Window>
