@@ -41,16 +41,6 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response
     return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
-{
-    json jsonLeaveRoom;
-
-    // Add data to the json object.
-    jsonLeaveRoom[STATUS_KEY] = response.status;
-
-    return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
-}
-
 Buffer JsonResponsePacketSerializer::serializerResponse(CloseRoomResponse& response)
 {
     json jsonCloseRoom;

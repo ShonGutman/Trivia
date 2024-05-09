@@ -99,7 +99,7 @@ typedef struct LeaveRoomResponse
 typedef struct CloseRoomResponse
 {
 	STATUS status;
-}LeaveRoomResponse;
+}CloseRoomResponse;
 
 typedef struct StartGameResponse
 {

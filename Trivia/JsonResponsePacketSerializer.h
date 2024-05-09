@@ -70,14 +70,6 @@ public:
 	static Buffer serializerResponse(LogoutResponse& response);
 
 	/**
-	 * Serializes a LeaveRoomResponse into a Buffer.
-	 *
-	 * @param response The LeaveRoomResponse to serialize.
-	 * @return A Buffer containing the serialized data.
-	 */
-	static Buffer serializerResponse(LeaveRoomResponse& response);
-
-	/**
 	 * Serializes a GetRoomResponse into a Buffer.
 	 *
 	 * @param response The GetRoomResponse to serialize.
