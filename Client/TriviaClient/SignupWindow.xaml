@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="SignupWindow" Height="450" Width="800">
-    <StackPanel>
+        Title="SignupWindow" Height="450" Width="450" Background="#F9F5F6">
+
+    <StackPanel Orientation="Vertical" Margin="20">
         <TextBlock Text="Registration" 
             FontSize="45"
             HorizontalAlignment="Center"
@@ -16,7 +17,101 @@
             Foreground="#F2BED1"
             Padding="10"
         />
-        
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Text="User Name" 
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                FontWeight="Bold"
+                FontFamily="Hadassah Friedlaender Bold"
+                Foreground="#F2BED1"/>
+
+            <TextBox  
+                x:Name="UserName_Input"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Padding="0,5"
+                Width="410"
+                BorderThickness="0,0,0,1"
+                HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+            <TextBlock 
+                Text="Password" 
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                FontWeight="Bold"
+                FontFamily="Hadassah Friedlaender Bold"
+                Foreground="#F2BED1"/>
+
+            <TextBox  
+                x:Name="Password_input"
+                Grid.Row="3"
+                Padding="0,5"
+                Width="200"
+                Margin="0,0,0,15"
+                BorderThickness="0,0,0,1"
+                HorizontalAlignment="Left"/>
+
+            <TextBlock 
+                Text="Confirm Password" 
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                FontWeight="Bold"
+                FontFamily="Hadassah Friedlaender Bold"
+                Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+            <TextBox  
+                x:Name="ConfirmPassword_input"
+                Grid.Row="3"
+                Grid.Column="2"
+                Margin="0,0,0,15"
+                Padding="0,5"
+                Width="200"
+                BorderThickness="0,0,0,1"
+                HorizontalAlignment="Right"/>
+
+            <TextBlock 
+                Text="Email" 
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                FontWeight="Bold"
+                FontFamily="Hadassah Friedlaender Bold"
+                Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+            <TextBox  
+                x:Name="Email_input"
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                Padding="0,5"
+                Width="410"
+                BorderThickness="0,0,0,1"
+                HorizontalAlignment="Left"/>
+        </Grid>
+
+
     </StackPanel>
 </Window>
