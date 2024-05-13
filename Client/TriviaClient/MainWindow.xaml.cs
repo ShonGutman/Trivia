@@ -21,8 +21,14 @@ namespace TriviaClient
             InitializeComponent();
         }
 
+        // Handles the click event of the Login button.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            // Create a new instance of the LoginWindow.
+            LoginWindow loginWindow = new LoginWindow();
+
+            this.Close();
+            loginWindow.Show();
 
         }
 
