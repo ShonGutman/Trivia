@@ -19,9 +19,16 @@ namespace TriviaClient
     /// </summary>
     public partial class SignupWindow : Window
     {
-        public SignupWindow()
+        private Communicator communicator;
+        public SignupWindow(Communicator communicator)
         {
+            this.communicator = communicator;
             InitializeComponent();
+        }
+
+        private void SignupButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

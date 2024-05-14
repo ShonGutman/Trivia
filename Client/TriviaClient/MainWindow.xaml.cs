@@ -47,6 +47,11 @@ namespace TriviaClient
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
+            // Create a new instance of the LoginWindow.
+            SignupWindow signupWindow = new SignupWindow(communicator);
+
+            this.Close();
+            signupWindow.Show();
         }
     }
 }
