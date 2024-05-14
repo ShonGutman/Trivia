@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="MainMenuWindow" Height="650" Width="500" Background="#F9F5F6">
+        Title="MainMenuWindow" Height="550" Width="500" Background="#F9F5F6">
 
     <Window.Resources>
         <Style x:Key="ExitButtonStyle" TargetType="Button">
@@ -65,8 +65,20 @@
         </Style>
     </Window.Resources>
 
-    <StackPanel Orientation="Vertical" Margin="20">
-        <TextBlock Text="Menu" 
+    <Grid>
+        <Label
+            Name="UserLabel"
+            Content="Hello User!"
+            FontSize="20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="Hadassah Friedlaender Bold"
+            FontWeight="SemiBold"
+            Foreground="#E6A4B4"
+        />
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Menu" 
             FontSize="60"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -74,31 +86,20 @@
             FontFamily="Hadassah Friedlaender Bold"
             Foreground="#F2BED1"
         />
+            <Button Content="Join Room" Style="{StaticResource RoundedButtonStyle}" Click="JoinRoom_Click"/>
+            <Button Content="Create Room" Style="{StaticResource RoundedButtonStyle}" Click="CreateRoom_Click"/>
+            <Button Content="My Status" Style="{StaticResource RoundedButtonStyle}" Click="MyStatus_Click"/>
+            <Button Content="Best Scores" Style="{StaticResource RoundedButtonStyle}" Click="BestScores_Click"/>
 
-        <Label
-            Name="UserLabel"
-            Content="Hello User!"
-            FontSize="40"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            FontFamily="Hadassah Friedlaender Bold"
-            FontWeight="SemiBold"
-            Foreground="#E6A4B4"
-        />
-
-        <Button Content="Join Room" Style="{StaticResource RoundedButtonStyle}" Click="JoinRoom_Click"/>
-        <Button Content="Create Room" Style="{StaticResource RoundedButtonStyle}" Click="CreateRoom_Click"/>
-        <Button Content="My Status" Style="{StaticResource RoundedButtonStyle}" Click="MyStatus_Click"/>
-        <Button Content="Best Scores" Style="{StaticResource RoundedButtonStyle}" Click="BestScores_Click"/>
-        
-        <Image Source="pictures/border.png" 
+            <Image Source="pictures/border.png" 
                Stretch="Fill" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top"
                Height="65" Grid.Row="3" Width="460"/>
 
-        <Button Name="Signout" Content="Signout" Style="{StaticResource ExitButtonStyle}" Click="Signout_Click"/>
-        <Button Content="Exit" Style="{StaticResource ExitButtonStyle}" Click="Exit_Click"/>
+            <Button Name="Signout" Content="Signout" Style="{StaticResource ExitButtonStyle}" Click="Signout_Click"/>
+            <Button Content="Exit" Style="{StaticResource ExitButtonStyle}" Click="Exit_Click"/>
 
-    </StackPanel>
+        </StackPanel>
+    </Grid>
 </Window>
