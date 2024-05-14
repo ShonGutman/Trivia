@@ -75,7 +75,7 @@
             Foreground="#F2BED1"
         />
 
-        <TextBlock Text="Welcome User!" 
+        <Label
             FontSize="40"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -84,7 +84,7 @@
             Foreground="#E6A4B4"
         />
 
-        <Button Content="Signout" Style="{StaticResource RoundedButtonStyle}" Click="Signout_Click"/>
+        <Button Name="Signout" Content="Signout" Style="{StaticResource RoundedButtonStyle}" Click="Signout_Click"/>
         <Button Content="Join Room" Style="{StaticResource RoundedButtonStyle}" Click="JoinRoom_Click"/>
         <Button Content="Create Room" Style="{StaticResource RoundedButtonStyle}" Click="CreateRoom_Click"/>
         <Button Content="My Status" Style="{StaticResource RoundedButtonStyle}" Click="MyStatus_Click"/>

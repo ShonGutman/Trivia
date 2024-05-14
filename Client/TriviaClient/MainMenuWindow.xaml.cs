@@ -23,5 +23,30 @@ namespace TriviaClient
         {
             InitializeComponent();
         }
+
+        private void Signout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void JoinRoom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreateRoom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MyStatus_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BestScores_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
