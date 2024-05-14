@@ -28,7 +28,7 @@ namespace TriviaClient
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
-            
+           
         }
     }
 }

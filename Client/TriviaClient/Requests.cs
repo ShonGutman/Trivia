@@ -26,5 +26,25 @@ namespace TriviaClient
                 this.password = password;
             }
         }
+
+        public class SignupRequest
+        {
+            public string username { get; set; }
+            public string password { get; set; }
+            public string email { get; set; }
+            public string address { get; set; }
+            public string phoneNumber { get; set; }
+            public string birthday { get; set; }
+
+            public SignupRequest(string username, string password, string email, string address, string phoneNumber, string birthday)
+            {
+                this.username = username;
+                this.password = password;
+                this.email = email;
+                this.address = address;
+                this.phoneNumber = phoneNumber;
+                this.birthday = birthday;
+            }
+        }
     }
 }
