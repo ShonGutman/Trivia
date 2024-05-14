@@ -16,16 +16,29 @@ namespace TriviaClient
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private Communicator communicator;
+
+        //ctor
         public MainWindow()
         {
+            communicator = new Communicator();
+            InitializeComponent();
+        }
+
+        //ctor
+        public MainWindow(Communicator communicator)
+        {
+            this.communicator = communicator;
             InitializeComponent();
         }
 
         // Handles the click event of the Login button.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+
             // Create a new instance of the LoginWindow.
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new LoginWindow(communicator);
 
             this.Close();
             loginWindow.Show();
@@ -34,7 +47,6 @@ namespace TriviaClient
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }
