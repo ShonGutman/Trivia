@@ -16,6 +16,7 @@
                 <TextBlock x:Name="ErrorMessage" Text="" FontSize="14" FontWeight="Bold" Foreground="#D14D72" HorizontalAlignment="Center" Margin="0 5"/>
                 <Button 
                     Content="OK" 
+                    Click="Button_Click"
                     Background="#F2BED1"
                     Foreground="#F9F5F6"
                     FontFamily ="Hadassah Friedlaender Bold"
