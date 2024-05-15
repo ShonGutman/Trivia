@@ -32,6 +32,12 @@ namespace TriviaClient
         // Handles the click event of the Login button.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            //stop because not all input is given
+            if(isInputEmpty())
+            { 
+                return; 
+            }
+
             //get userName & password from field in gui
             string userName = userName_Input.Text;
             string password = password_Input.Password;
@@ -56,6 +62,20 @@ namespace TriviaClient
 
                 }
             }
+        }
+
+        private bool isInputEmpty()
+        {
+            if (string.IsNullOrEmpty(userName_Input.Text) || string.IsNullOrEmpty(password_Input.Password))
+            {
+
+                // Display error message
+                MessageBox.Show("Please enter both username and password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
