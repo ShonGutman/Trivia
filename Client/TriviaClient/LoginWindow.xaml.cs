@@ -54,18 +54,25 @@ namespace TriviaClient
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
 
+            //check if server response is indead login response
             if(response.id == Responses.ResponseId.LOGIN_RESPONSE_ID)
             {
                 //check if server responsed was failed
                 if(Helper.isFailed(response.messageJson))
                 {
+                  
                     Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
 
-                    // Display error message
+                    //raise error popup with server's response
                     ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
                     errorWindow.ShowDialog();
+                }
 
-                    return;
+                else
+                {
+                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator);
+                    this.Close();
+                    mainMenuWindow.Show();
                 }
             }
         }

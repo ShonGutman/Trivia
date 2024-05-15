@@ -40,7 +40,12 @@ namespace TriviaClient
 
             if(!password.Equals(confirmPassword))
             {
-                //do smth (later)...
+
+                //raise error popup response
+                ErrorPopup errorWindow = new ErrorPopup("Passwords don't match each other");
+                errorWindow.ShowDialog();
+
+                return;
             }
 
             //create a signup request
@@ -56,12 +61,24 @@ namespace TriviaClient
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
 
+            //check if server response is indead signup response
             if (response.id == Responses.ResponseId.SIGN_UP_RESPONSE_ID)
             {
-                //check if server responsed with success
-                if (!Helper.isFailed(response.messageJson))
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
                 {
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
 
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator);
+                    this.Close();
+                    mainMenuWindow.Show();
                 }
             }
         }
