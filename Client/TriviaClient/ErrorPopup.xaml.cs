@@ -19,14 +19,15 @@ namespace TriviaClient
     /// </summary>
     public partial class ErrorPopup : Window
     {
-        public ErrorPopup()
+        public ErrorPopup(string errorMsg)
         {
             InitializeComponent();
+            ErrorMessage.Text = errorMsg;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

@@ -32,5 +32,17 @@ namespace TriviaClient
                 this.messageJson = messageJson;
             }
         }
+
+        public class ErrorResponse
+        {
+            public STATUS status { get; set; }
+            public string message { get; set; }
+
+            public ErrorResponse(STATUS status, string message)
+            {
+                this.status = status;
+                this.message = message;
+            }
+        }
     }
 }

@@ -56,10 +56,16 @@ namespace TriviaClient
 
             if(response.id == Responses.ResponseId.LOGIN_RESPONSE_ID)
             {
-                //check if server responsed with success
-                if(!Helper.isFailed(response.messageJson))
+                //check if server responsed was failed
+                if(Helper.isFailed(response.messageJson))
                 {
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
 
+                    // Display error message
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+
+                    return;
                 }
             }
         }
@@ -70,7 +76,8 @@ namespace TriviaClient
             {
 
                 // Display error message
-                MessageBox.Show("Please enter both username and password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorPopup errorWindow = new ErrorPopup("Please enter both username and password.");
+                errorWindow.ShowDialog();
 
                 return true;
             }
