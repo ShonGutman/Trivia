@@ -48,5 +48,10 @@ namespace TriviaClient
         {
 
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

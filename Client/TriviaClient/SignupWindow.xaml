@@ -8,14 +8,16 @@
         Title="SignupWindow" Height="360" Width="649" Background="#F9F5F6">
 
     <Grid>
-        <Button  
+        <Button 
+            Name="backButton"
+            Click="backButton_Click"
             Content="Back" 
             Background="#F2BED1"
             Foreground="#F9F5F6"
             FontFamily ="Hadassah Friedlaender Bold"
-            FontSize="7"
-            Height="18"
-            Width="19"
+            FontSize="10"
+            Height="30"
+            Width="30"
             VerticalAlignment="Top"
             HorizontalAlignment="Left">
             <Button.Style>
@@ -40,6 +42,7 @@
                 </Style>
             </Button.Style>
         </Button>
+
 
         <StackPanel Orientation="Vertical">
             <TextBlock Text="Registration" 
