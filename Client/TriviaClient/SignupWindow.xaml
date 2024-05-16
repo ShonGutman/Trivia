@@ -17,7 +17,7 @@
             Foreground="#F2BED1"
         />
         <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+            <StackPanel Orientation="Vertical" Margin="20,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -47,6 +47,7 @@
 
                     <TextBox  
                     x:Name="UserName_Input"
+                    Foreground="Gray"                        
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Padding="0,5"
@@ -63,8 +64,41 @@
                     FontFamily="Hadassah Friedlaender Bold"
                     Foreground="#F2BED1"/>
 
+                    <Button 
+                        x:Name="passInfo"
+                        Click="passInfo_Click"
+                        ClickMode="Hover"
+                        Margin="67,0,108,42" Grid.RowSpan="2" Grid.Row="2"
+                        Content="?" 
+                        Background="#F2BED1"
+                        Foreground="#F9F5F6"
+                        FontFamily ="Hadassah Friedlaender Bold">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                            CornerRadius="50" Margin="0,0,13,0" RenderTransformOrigin="1.139,0.593">
+                                                <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#D14D72" TargetName="LoginBorder"  />
+                                                    <Setter Property="TextElement.Foreground" Value="#FCC8D1" TargetName="LoginBorder" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
                     <TextBox  
                     x:Name="Password_input"
+                    Foreground="Gray"                        
                     Grid.Row="3"
                     Padding="0,5"
                     Width="200"
@@ -84,6 +118,7 @@
 
                     <TextBox  
                     x:Name="ConfirmPassword_input"
+                    Foreground="Gray"                        
                     Grid.Row="3"
                     Grid.Column="2"
                     Margin="0,0,0,15"
@@ -103,7 +138,8 @@
 
                     <TextBox  
                     x:Name="Email_input"
-                    Grid.Row="5"                
+                    Foreground="Gray"                        
+                    Grid.Row="5"     
                     Margin="0,0,0,15"
                     Padding="0,5"
                     Width="195"
@@ -118,10 +154,13 @@
                     FontSize="14"
                     FontWeight="Bold"
                     FontFamily="Hadassah Friedlaender Bold"
+                        
                     Foreground="#F2BED1"/>
 
                     <TextBox  
                     x:Name="Phone_input"
+                    Foreground="Gray"
+                    Text="XXX-XXXXXXX"
                     Grid.Row="5"
                     Grid.Column="1"
                     Margin="0,0,0,15"
@@ -156,6 +195,7 @@
 
                     <TextBox  
                     x:Name="Street_input"
+                    Foreground="Gray"                        
                     Grid.Row="1"
                     Grid.Column="0"
                     Padding="0,5"
@@ -175,6 +215,7 @@
 
                     <TextBox  
                     x:Name="Apt_input"
+                    Foreground="Gray"                        
                     Grid.Row="1"
                     Grid.Column="1"
                     Padding="0,5"
@@ -194,6 +235,7 @@
 
                     <TextBox  
                     x:Name="City_input"
+                    Foreground="Gray"                        
                     Grid.Row="1"
                     Grid.Column="2"
                     Padding="0,5"
@@ -202,7 +244,7 @@
                     HorizontalAlignment="Right"/>
 
                 </Grid>
-        </StackPanel>
+            </StackPanel>
 
             <StackPanel Orientation="Vertical" Margin="10,0,20,0">
                 <TextBlock 
@@ -214,10 +256,10 @@
                     FontWeight="Bold"
                     FontFamily="Hadassah Friedlaender Bold"
                     Foreground="#F2BED1" Margin="5,0,0,0"/>
-                
+
                 <Calendar Height="167" Width="183"/>
             </StackPanel>
-        
+
         </StackPanel>
 
         <Button Name="SignupButton" 

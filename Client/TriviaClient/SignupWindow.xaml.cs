@@ -23,5 +23,10 @@ namespace TriviaClient
         {
             InitializeComponent();
         }
+
+        private void passInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
