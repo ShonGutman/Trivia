@@ -7,280 +7,26 @@
         mc:Ignorable="d"
         Title="SignupWindow" Height="360" Width="649" Background="#F9F5F6">
 
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="Registration" 
-            FontSize="45"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            FontWeight="Bold"
-            FontFamily="Hadassah Friedlaender Bold"
-            Foreground="#F2BED1"
-        />
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock 
-                    Text="User Name" 
-                    Grid.Row="0"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1"/>
-
-                    <TextBox  
-                    x:Name="UserName_Input"
-                    Foreground="Gray"                        
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Padding="0,5"
-                    Width="410"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Center" Margin="0,0,0,15"/>
-
-                    <TextBlock 
-                    Text="Password" 
-                    Grid.Row="2"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1"/>
-
-                    <Button 
-                        x:Name="passInfo"
-                        Click="passInfo_Click"
-                        ClickMode="Hover"
-                        Margin="67,0,108,42" Grid.RowSpan="2" Grid.Row="2"
-                        Content="?" 
-                        Background="#F2BED1"
-                        Foreground="#F9F5F6"
-                        FontFamily ="Hadassah Friedlaender Bold">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
-                            CornerRadius="50" Margin="0,0,13,0" RenderTransformOrigin="1.139,0.593">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#D14D72" TargetName="LoginBorder"  />
-                                                    <Setter Property="TextElement.Foreground" Value="#FCC8D1" TargetName="LoginBorder" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-
-                    <TextBox  
-                    x:Name="Password_input"
-                    Foreground="Gray"                        
-                    Grid.Row="3"
-                    Padding="0,5"
-                    Width="200"
-                    Margin="0,0,0,15"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Left"/>
-
-                    <TextBlock 
-                    Text="Confirm Password" 
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1" Margin="5,0,0,0"/>
-
-                    <TextBox  
-                    x:Name="ConfirmPassword_input"
-                    Foreground="Gray"                        
-                    Grid.Row="3"
-                    Grid.Column="2"
-                    Margin="0,0,0,15"
-                    Padding="0,5"
-                    Width="200"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Right"/>
-
-                    <TextBlock 
-                    Text="Email" 
-                    Grid.Row="4"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1"/>
-
-                    <TextBox  
-                    x:Name="Email_input"
-                    Foreground="Gray"                        
-                    Grid.Row="5"     
-                    Margin="0,0,0,15"
-                    Padding="0,5"
-                    Width="195"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Center"/>
-
-                    <TextBlock 
-                    Text="Phone Number" 
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                        
-                    Foreground="#F2BED1"/>
-
-                    <TextBox  
-                    x:Name="Phone_input"
-                    Foreground="Gray"
-                    Text="XXX-XXXXXXX"
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Margin="0,0,0,15"
-                    Padding="0,5"
-                    Width="200"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Right"/>
-                </Grid>
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock 
-                    Text="Street" 
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1" Margin="5,0,0,0"/>
-
-                    <TextBox  
-                    x:Name="Street_input"
-                    Foreground="Gray"                        
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Padding="0,5"
-                    Width="130"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Left"/>
-
-                    <TextBlock 
-                    Text="Apt" 
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1" Margin="5,0,0,0"/>
-
-                    <TextBox  
-                    x:Name="Apt_input"
-                    Foreground="Gray"                        
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Padding="0,5"
-                    Width="130"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Center"/>
-
-                    <TextBlock 
-                    Text="City" 
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1" Margin="5,0,0,0"/>
-
-                    <TextBox  
-                    x:Name="City_input"
-                    Foreground="Gray"                        
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Padding="0,5"
-                    Width="130"
-                    BorderThickness="0,0,0,1"
-                    HorizontalAlignment="Right"/>
-
-                </Grid>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical" Margin="10,0,20,0">
-                <TextBlock 
-                    Text="Birthday" 
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    HorizontalAlignment="Left"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    FontFamily="Hadassah Friedlaender Bold"
-                    Foreground="#F2BED1" Margin="5,0,0,0"/>
-
-                <Calendar Height="167" Width="183"/>
-            </StackPanel>
-
-        </StackPanel>
-
-        <Button Name="SignupButton" 
-            Click="SignupButton_Click"
-            Content="Signup" 
+    <Grid>
+        <Button  
+            Content="Back" 
             Background="#F2BED1"
             Foreground="#F9F5F6"
             FontFamily ="Hadassah Friedlaender Bold"
-            FontSize="15"
-            Margin="0,25"
-            Height="35"
-            Width="250">
+            FontSize="7"
+            Height="18"
+            Width="19"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
             <Button.Style>
-                <Style TargetType="Button">
+                <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
-                                    CornerRadius="16">
+                           CornerRadius="100">
                                     <ContentPresenter HorizontalAlignment="Center" 
-                                                    VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
@@ -295,5 +41,295 @@
             </Button.Style>
         </Button>
 
-    </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Registration" 
+            FontSize="45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontWeight="Bold"
+            FontFamily="Hadassah Friedlaender Bold"
+            Foreground="#F2BED1"
+        />
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock 
+                    Text="User Name" 
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1"/>
+
+                        <TextBox  
+                    x:Name="UserName_Input"
+                    Foreground="Gray"                        
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Padding="0,5"
+                    Width="410"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                        <TextBlock 
+                    Text="Password" 
+                    Grid.Row="2"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1"/>
+
+                        <Button 
+                        x:Name="passInfo"
+                        Click="passInfo_Click"
+                        ClickMode="Hover"
+                        Margin="67,0,108,42" Grid.RowSpan="2" Grid.Row="2"
+                        Content="?" 
+                        Background="#F2BED1"
+                        Foreground="#F9F5F6"
+                        FontFamily ="Hadassah Friedlaender Bold">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                            CornerRadius="50" Margin="0,0,13,0" RenderTransformOrigin="1.139,0.593">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#D14D72" TargetName="LoginBorder"  />
+                                                        <Setter Property="TextElement.Foreground" Value="#FCC8D1" TargetName="LoginBorder" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <TextBox  
+                    x:Name="Password_input"
+                    Foreground="Gray"                        
+                    Grid.Row="3"
+                    Padding="0,5"
+                    Width="200"
+                    Margin="0,0,0,15"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Left"/>
+
+                        <TextBlock 
+                    Text="Confirm Password" 
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+                        <TextBox  
+                    x:Name="ConfirmPassword_input"
+                    Foreground="Gray"                        
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="0,0,0,15"
+                    Padding="0,5"
+                    Width="200"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Right"/>
+
+                        <TextBlock 
+                    Text="Email" 
+                    Grid.Row="4"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1"/>
+
+                        <TextBox  
+                    x:Name="Email_input"
+                    Foreground="Gray"                        
+                    Grid.Row="5"     
+                    Margin="0,0,0,15"
+                    Padding="0,5"
+                    Width="195"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Center"/>
+
+                        <TextBlock 
+                    Text="Phone Number" 
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                        
+                    Foreground="#F2BED1"/>
+
+                        <TextBox  
+                    x:Name="Phone_input"
+                    Foreground="Gray"
+                    Text="XXX-XXXXXXX"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="0,0,0,15"
+                    Padding="0,5"
+                    Width="200"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock 
+                    Text="Street" 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+                        <TextBox  
+                    x:Name="Street_input"
+                    Foreground="Gray"                        
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Padding="0,5"
+                    Width="130"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Left"/>
+
+                        <TextBlock 
+                    Text="Apt" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+                        <TextBox  
+                    x:Name="Apt_input"
+                    Foreground="Gray"                        
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Padding="0,5"
+                    Width="130"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Center"/>
+
+                        <TextBlock 
+                    Text="City" 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+                        <TextBox  
+                    x:Name="City_input"
+                    Foreground="Gray"                        
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Padding="0,5"
+                    Width="130"
+                    BorderThickness="0,0,0,1"
+                    HorizontalAlignment="Right"/>
+
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="10,0,20,0">
+                    <TextBlock 
+                    Text="Birthday" 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    FontFamily="Hadassah Friedlaender Bold"
+                    Foreground="#F2BED1" Margin="5,0,0,0"/>
+
+                    <Calendar Height="167" Width="183"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <Button x:Name="SignupButton" 
+            Click="SignupButton_Click"
+            Content="Signup" 
+            Background="#F2BED1"
+            Foreground="#F9F5F6"
+            FontFamily ="Hadassah Friedlaender Bold"
+            FontSize="15"
+            Margin="0,25"
+            Height="35"
+            Width="250">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                                    CornerRadius="16">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#D14D72" TargetName="LoginBorder"  />
+                                            <Setter Property="TextElement.Foreground" Value="#FCC8D1" TargetName="LoginBorder" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+        </StackPanel>
+    </Grid>
 </Window>
