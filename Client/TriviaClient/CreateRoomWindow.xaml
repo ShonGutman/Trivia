@@ -161,6 +161,17 @@
             </Button.Style>
         </Button>
 
+        <Label
+            Name="UserLabel"
+            Content="Hello User!"
+            FontSize="20"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            FontFamily="Hadassah Friedlaender Bold"
+            FontWeight="SemiBold"
+            Foreground="#E6A4B4"
+        />
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
