@@ -15,26 +15,16 @@ using System.Windows.Shapes;
 namespace TriviaClient
 {
     /// <summary>
-    /// Interaction logic for RoomDataWindow.xaml
+    /// Interaction logic for HighscoresWindow.xaml
     /// </summary>
-    public partial class RoomDataWindow : Window
+    public partial class HighscoresWindow : Window
     {
-        public RoomDataWindow()
+        public HighscoresWindow()
         {
             InitializeComponent();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LeaveRoom_Click(object sender, RoutedEventArgs e)
         {
 
         }
