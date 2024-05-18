@@ -30,6 +30,12 @@ namespace TriviaClient
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
+            //stop because not all input is given
+            if (isInputEmpty())
+            {
+                return;
+            }
+
             string username = UserName_Input.Text;
             string password = Password_input.Text;
             string confirmPassword = ConfirmPassword_input.Text;
@@ -94,6 +100,25 @@ namespace TriviaClient
                 formattedDate = selectedDate.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             return formattedDate;
+        }
+
+        private bool isInputEmpty()
+        {
+            if (string.IsNullOrEmpty(UserName_Input.Text) || string.IsNullOrEmpty(Password_input.Text)
+                || string.IsNullOrEmpty(ConfirmPassword_input.Text) || string.IsNullOrEmpty(Email_input.Text)
+                || string.IsNullOrEmpty(Phone_input.Text) || string.IsNullOrEmpty(Street_input.Text)
+                || string.IsNullOrEmpty(Apt_input.Text) || string.IsNullOrEmpty(City_input.Text)
+                || !Calender_input.SelectedDate.HasValue)
+            {
+
+                // Display error message
+                ErrorPopup errorWindow = new ErrorPopup("Please fill all date");
+                errorWindow.ShowDialog();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
