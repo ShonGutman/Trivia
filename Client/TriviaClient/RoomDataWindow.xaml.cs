@@ -33,5 +33,10 @@ namespace TriviaClient
         {
 
         }
+
+        private void LeaveRoom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -82,9 +82,11 @@
                     <ListView Name="InfoList" Height="30" FontSize="17" Margin="5" Foreground="#FFEC76A1" FontFamily="Berlin Sans FB"></ListView>
                     <ListView Name="UsersList"  FontSize="15" Height="150" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5" Foreground="#FFE8B1BA" FontFamily="Cascadia Mono"></ListView>
 
-                    <Button Name="BackButton" Content="Close" Style="{StaticResource RoundedButtonStyle}" Click="BackButton_Click"></Button>
-                    <Button Name="StartButton" Content="Start Game" Style="{StaticResource RoundedButtonStyle}" Click="StartButton_Click"></Button>
-                </StackPanel>
+                    <Button Name="BackButton" Content="Close" Style="{StaticResource RoundedButtonStyle}" Click="BackButton_Click" Visibility="Collapsed"></Button>
+                    <Button Name="StartButton" Content="Start Game" Style="{StaticResource RoundedButtonStyle}" Click="StartButton_Click" Visibility="Collapsed"></Button>
+                    <Button Name="LeaveRoom" Content="Leave Room" Style="{StaticResource RoundedButtonStyle}" Click="LeaveRoom_Click" Visibility="Collapsed"></Button>
+
+            </StackPanel>
             </Grid>
     </Grid>
 </Window>
