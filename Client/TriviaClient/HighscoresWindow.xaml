@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="HighscoresWindow" Height="450" Width="550">
+        Title="HighscoresWindow" Height="250" Width="550">
     <Window.Resources>
         <Style x:Key="ExitButtonStyle" TargetType="Button">
             <Setter Property="FontSize" Value="25"/>
@@ -79,7 +79,9 @@
         <Grid>
             <StackPanel>
                 <TextBlock Text="Best Scores:" Foreground="#F2BED1" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" FontFamily="Hadassah Friedlaender Bold"/>
-                <Label Content="Label" Height="35" Width="490" Margin="10" FontFamily="Cascadia Code SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFC55877"/>
+                <Label x:Name="highscore1" Height="35" Width="490" Margin="10" FontFamily="Cascadia Code SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFC55877"/>
+                <Label x:Name="highscore2" Height="35" Width="490" Margin="10" FontFamily="Cascadia Code SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFC55877"/>
+                <Label x:Name="highscore3" Height="35" Width="490" Margin="10" FontFamily="Cascadia Code SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFC55877"/>
             </StackPanel>
         </Grid>
         <Button 
