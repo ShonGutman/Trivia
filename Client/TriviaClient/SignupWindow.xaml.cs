@@ -37,6 +37,8 @@ namespace TriviaClient
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
