@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="ErrorPopup" Height="175" Width="300" Background="#F9F5F6">
+        Title="ErrorPopup" Height="200" Width="350" Background="#F9F5F6">
 
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" Background="#F9F5F6" CornerRadius="5">

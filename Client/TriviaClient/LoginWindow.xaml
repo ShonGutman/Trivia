@@ -72,7 +72,7 @@
                 Foreground="#F2BED1"/>
             
             <TextBox  
-                Name="UserName_Input"
+                Name="userName_Input"
                 
                 Grid.Column="1"
                 Grid.Row="1"
@@ -92,6 +92,8 @@
                 Foreground="#F2BED1"/>
             
             <PasswordBox 
+                Name="password_Input"
+                
                 Grid.Row="3"
                 Padding="0,5"
                 Width="410"
