@@ -52,7 +52,7 @@ namespace TriviaClient
 
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void backButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

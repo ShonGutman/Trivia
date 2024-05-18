@@ -91,5 +91,10 @@ namespace TriviaClient
 
             return false;
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

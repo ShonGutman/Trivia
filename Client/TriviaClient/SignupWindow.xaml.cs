@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,6 +27,16 @@ namespace TriviaClient
             this.communicator = communicator;
             InitializeComponent();
         }
+
+
+        private void passInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
@@ -119,6 +129,7 @@ namespace TriviaClient
             }
 
             return false;
+
         }
     }
 }
