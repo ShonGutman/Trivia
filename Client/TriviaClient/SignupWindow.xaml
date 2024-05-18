@@ -295,7 +295,7 @@
                     FontFamily="Hadassah Friedlaender Bold"
                     Foreground="#F2BED1" Margin="5,0,0,0"/>
 
-                    <Calendar Height="167" Width="183"/>
+                    <Calendar Name ="Calender_input" Height="167" Width="183"/>
                 </StackPanel>
 
             </StackPanel>
