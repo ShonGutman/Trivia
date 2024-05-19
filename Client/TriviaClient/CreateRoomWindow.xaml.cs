@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,11 +32,55 @@ namespace TriviaClient
 
         private void SendInfo_Click(object sender, RoutedEventArgs e)
         {
+            //stop because not all input is given
+            if (isInputEmpty())
+            {
+                return;
+            }
 
+            string roomName = RoomName_input.Text;
+            uint playersNum = uint.Parse(playersNum_input.Text);
+            uint questionNum = uint.Parse(questionNum_input.Text);
+            uint timePerQuestion = uint.Parse(pNum_input.Text);
+
+            //create CreateRoomRequest
+            Requests.CreateRoomRequest request = new Requests.CreateRoomRequest(roomName, 
+                playersNum, questionNum, timePerQuestion);
+
+            //serialize object and make it fit to protocol
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            byte[] msg = Helper.fitToProtocol(json, (int)Requests.RequestId.CREATE_ROOM_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
+            MainMenuWindow window = new MainMenuWindow(communicator, username);
+            this.Close();
+            window.Show();
+        }
+
+
+        private bool isInputEmpty()
+        {
+            if (string.IsNullOrEmpty(RoomName_input.Text)
+                || !uint.TryParse(playersNum_input.Text, out uint num1)
+                || !uint.TryParse(questionNum_input.Text, out uint num2)
+                || !uint.TryParse(pNum_input.Text, out uint num3))
+            {
+                
+                // Display error message
+                ErrorPopup errorWindow = new ErrorPopup("Please fill all data with correct inforamtion");
+                errorWindow.ShowDialog();
+
+                return true;
+            }
+
+            return false;
 
         }
     }
