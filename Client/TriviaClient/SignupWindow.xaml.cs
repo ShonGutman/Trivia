@@ -53,7 +53,7 @@ namespace TriviaClient
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
-            //stop because not all input is given
+            //stop because not all input is given or date is illegal
             if (isInputEmpty() || !checkDate())
             {
                 return;
