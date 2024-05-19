@@ -19,14 +19,15 @@ namespace TriviaClient
     /// </summary>
     public partial class InfoWindow : Window
     {
-        public InfoWindow()
+        public InfoWindow(string infoMsg)
         {
             InitializeComponent();
+            InfoMessage.Text = infoMsg;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

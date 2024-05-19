@@ -94,7 +94,9 @@ namespace TriviaClient
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow(communicator);
+            this.Close();
+            mainWindow.Show();
         }
     }
 }

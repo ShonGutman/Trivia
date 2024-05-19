@@ -31,12 +31,23 @@ namespace TriviaClient
 
         private void passInfo_Click(object sender, RoutedEventArgs e)
         {
+            // Display info message for paasword
+            InfoWindow infoWindow = new InfoWindow("password meets the following criteria:\r\n\t " +
+                "* - Contains at least one number\r\n\t " +
+                "* - Contains at least one lowercase letter\r\n\t " +
+                "* - Contains at least one uppercase letter\r\n\t " +
+                "* - Contains at least one special character from the set [@!#$%^&*]\r\n\t " +
+                "* - Has a length of at least 8 characters");
+
+            infoWindow.ShowDialog();
 
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow(communicator);
+            this.Close();
+            mainWindow.Show();
         }
 
 
