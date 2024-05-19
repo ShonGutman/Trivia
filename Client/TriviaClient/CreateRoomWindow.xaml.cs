@@ -19,9 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class CreateRoomWindow : Window
     {
-        public CreateRoomWindow()
+        private Communicator communicator;
+        private string username;
+        public CreateRoomWindow(Communicator communicator, string username)
         {
+            this.communicator = communicator;
+            this.username = username;
             InitializeComponent();
+            UserLabel.Content = "Hello, " + username;
         }
 
         private void SendInfo_Click(object sender, RoutedEventArgs e)

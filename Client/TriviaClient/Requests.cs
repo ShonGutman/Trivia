@@ -13,7 +13,8 @@ namespace TriviaClient
         {
 	        LOGIN_REQUEST_ID = 1,
 	        SIGN_UP_REQUEST_ID = 2,
-	        ERROR_REQUEST_ID = 99
+            LOGOUT_REQUEST_ID = 3,
+            ERROR_REQUEST_ID = 99
         }
         public class LoginRequest
         {

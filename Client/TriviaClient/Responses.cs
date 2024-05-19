@@ -12,6 +12,7 @@ namespace TriviaClient
         {
             LOGIN_RESPONSE_ID = 1,
             SIGN_UP_RESPONSE_ID = 2,
+            LOGOUT_RESPONSE_ID = 3,
             GENERAL_ERROR_RESPONSE_ID = 99
         }
 

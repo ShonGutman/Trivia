@@ -105,7 +105,7 @@ namespace TriviaClient
 
                 else
                 {
-                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator);
+                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator, username);
                     this.Close();
                     mainMenuWindow.Show();
                 }

@@ -39,11 +39,11 @@ namespace TriviaClient
             }
 
             //get userName & password from field in gui
-            string userName = userName_Input.Text;
+            string username = userName_Input.Text;
             string password = password_Input.Password;
 
             //create a login request
-            Requests.LoginRequest request = new Requests.LoginRequest(userName, password);
+            Requests.LoginRequest request = new Requests.LoginRequest(username, password);
 
             //serialize object and make it fit to protocol
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
@@ -70,7 +70,7 @@ namespace TriviaClient
 
                 else
                 {
-                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator);
+                    MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator, username);
                     this.Close();
                     mainMenuWindow.Show();
                 }

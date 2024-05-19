@@ -19,9 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class HighscoresWindow : Window
     {
-        public HighscoresWindow()
+        private Communicator communicator;
+        private string username;
+        public HighscoresWindow(Communicator communicator, string username)
         {
+            this.communicator = communicator;
+            this.username = username;
             InitializeComponent();
+            UserLabel.Content = "Hello, " + username;
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)

@@ -19,9 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class JoinRoomWindow : Window
     {
-        public JoinRoomWindow()
+        private Communicator communicator;
+        private string username;
+        public JoinRoomWindow(Communicator communicator, string username)
         {
+            this.communicator = communicator;
+            this.username = username;
             InitializeComponent();
+            UserLabel.Content = "Hello, " + username;
         }
 
         private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)

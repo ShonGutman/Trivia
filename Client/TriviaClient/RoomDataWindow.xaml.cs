@@ -19,9 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class RoomDataWindow : Window
     {
-        public RoomDataWindow()
+        private Communicator communicator;
+        private string username;
+        public RoomDataWindow(Communicator communicator, string username)
         {
+            this.communicator = communicator;
+            this.username = username;
             InitializeComponent();
+            UserLabel.Content = "Hello, " + username;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
