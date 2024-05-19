@@ -54,7 +54,7 @@ namespace TriviaClient
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
             //stop because not all input is given
-            if (isInputEmpty())
+            if (isInputEmpty() || !checkDate())
             {
                 return;
             }
@@ -67,7 +67,7 @@ namespace TriviaClient
             string address = Street_input.Text + " " + Apt_input.Text + " " + City_input.Text;
             string birthday = getDate();
 
-            if(!password.Equals(confirmPassword))
+            if (!password.Equals(confirmPassword))
             {
 
                 //raise error popup response
@@ -78,8 +78,8 @@ namespace TriviaClient
             }
 
             //create a signup request
-            Requests.SignupRequest request = new Requests.SignupRequest(username, password, 
-                email, address, phone, birthday); 
+            Requests.SignupRequest request = new Requests.SignupRequest(username, password,
+                email, address, phone, birthday);
 
             //serialize object and make it fit to protocol
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
@@ -135,7 +135,7 @@ namespace TriviaClient
             {
 
                 // Display error message
-                ErrorPopup errorWindow = new ErrorPopup("Please fill all date");
+                ErrorPopup errorWindow = new ErrorPopup("Please fill all data");
                 errorWindow.ShowDialog();
 
                 return true;
@@ -143,6 +143,27 @@ namespace TriviaClient
 
             return false;
 
+        }
+
+        private bool checkDate()
+        {
+            // Check if the calendar input has a selected date
+            if (Calender_input.SelectedDate.HasValue)
+            {
+                DateTime selectedDate = Calender_input.SelectedDate.Value;
+                DateTime currentDate = DateTime.Now;
+
+                // Compare selected date to current date
+                if (selectedDate > currentDate)
+                {
+                    // Display error message
+                    ErrorPopup errorWindow = new ErrorPopup("You can't choose time in the future");
+                    errorWindow.ShowDialog();
+
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
