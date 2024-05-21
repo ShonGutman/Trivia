@@ -44,7 +44,7 @@ namespace TriviaClient
             uint timePerQuestion = uint.Parse(pNum_input.Text);
 
             //create CreateRoomRequest
-            Requests.CreateRoomRequest request = new Requests.CreateRoomRequest(roomName, 
+            Requests.CreateRoomRequest request = new Requests.CreateRoomRequest(roomName,
                 playersNum, questionNum, timePerQuestion);
 
             //serialize object and make it fit to protocol
@@ -55,6 +55,26 @@ namespace TriviaClient
             //send and scan msg from server
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead login response
+            if (response.id == Responses.ResponseId.CREATE_ROOM_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    //do nothing for now.
+                }
+            }
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)

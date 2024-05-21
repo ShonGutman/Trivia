@@ -56,10 +56,10 @@ namespace TriviaClient
 
         public class CreateRoomRequest
         {
-            string roomName { get; set; }
-            uint playersNum { get; set; }
-            uint questionNum { get; set; }
-            uint timePerQuestion { get; set; }
+            public string roomName { get; set; }
+            public uint playersNum { get; set; }
+            public uint questionNum { get; set; }
+            public uint timePerQuestion { get; set; }
 
             public CreateRoomRequest(string roomName, uint playersNum, uint questionNum, uint timePerQuestion)
             {

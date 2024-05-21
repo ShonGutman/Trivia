@@ -13,6 +13,13 @@ namespace TriviaClient
             LOGIN_RESPONSE_ID = 1,
             SIGN_UP_RESPONSE_ID = 2,
             LOGOUT_RESPONSE_ID = 3,
+            JOIN_ROOM_RESPONSE_ID = 4,
+            CREATE_ROOM_RESPONSE_ID = 5,
+            GET_ALL_ROOMS_RESPONSE_ID = 6,
+            GET_PLAYERS_IN_ROOM_RESPONSE_ID = 7,
+            GET_PERSONAL_SCORE_RESPONSE_ID = 8,
+            GET_HIGHEST_SCORE_RESPONSE_ID = 9,
+            LEAVE_ROOM_RESPONSE_ID = 10,
             GENERAL_ERROR_RESPONSE_ID = 99
         }
 
@@ -43,6 +50,34 @@ namespace TriviaClient
             {
                 this.status = status;
                 this.message = message;
+            }
+        }
+
+        public class HighScore
+        {
+            public int numGames { get; set; }
+            public int numRightAnswers { get; set; }
+            public int numWrongAnswers { get; set; }
+            public double averageTimeForAnswer { get; set; }
+
+            public HighScore(int numGames, int numRightAnswers, int numWrongAnswers, double averageTimeForAnswer)
+            {
+                this.numGames = numGames;
+                this.numRightAnswers = numRightAnswers;
+                this.numWrongAnswers = numWrongAnswers;
+                this.averageTimeForAnswer = averageTimeForAnswer;
+            }
+        }
+        public class PersonalStatsResponse
+        {
+
+            public int Status { get; set; }
+            public string HighScore { get; set; }
+
+            public PersonalStatsResponse(int status, string HighScore)
+            {
+                Status = status;
+                this.HighScore = HighScore;
             }
         }
     }
