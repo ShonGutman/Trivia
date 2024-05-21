@@ -27,14 +27,16 @@ namespace TriviaClient
             this.communicator = communicator;
             this.username = username;
             InitializeComponent();
-            UserLabel.Content = "Hello, " + username;
+            UserLabel.Content = username;
 
             setPersonalStatus();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainMenuWindow window = new MainMenuWindow(communicator, username);
+            this.Close();
+            window.Show();
         }
 
         private void setPersonalStatus()
