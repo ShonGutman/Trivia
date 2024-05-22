@@ -56,7 +56,7 @@ namespace TriviaClient
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
 
-            //check if server response is indead login response
+            //check if server response is indead create room response
             if (response.id == Responses.ResponseId.CREATE_ROOM_RESPONSE_ID)
             {
                 //check if server responsed was failed

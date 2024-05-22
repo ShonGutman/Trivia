@@ -110,7 +110,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse
 
     // Add data to the json object.
     jsonStats[STATUS_KEY] = personalStatsResponse.status;
-    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(personalStatsResponse).dump();
+    jsonStats[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse).dump();
 
     return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }

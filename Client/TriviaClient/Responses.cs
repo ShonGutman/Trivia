@@ -53,14 +53,14 @@ namespace TriviaClient
             }
         }
 
-        public class HighScore
+        public class UserStatistics
         {
             public int numGames { get; set; }
             public int numRightAnswers { get; set; }
             public int numWrongAnswers { get; set; }
             public double averageTimeForAnswer { get; set; }
 
-            public HighScore(int numGames, int numRightAnswers, int numWrongAnswers, double averageTimeForAnswer)
+            public UserStatistics(int numGames, int numRightAnswers, int numWrongAnswers, double averageTimeForAnswer)
             {
                 this.numGames = numGames;
                 this.numRightAnswers = numRightAnswers;
@@ -72,12 +72,12 @@ namespace TriviaClient
         {
 
             public int Status { get; set; }
-            public string HighScore { get; set; }
+            public string UserStatistics { get; set; }
 
-            public PersonalStatsResponse(int status, string HighScore)
+            public PersonalStatsResponse(int status, string UserStatistics)
             {
                 Status = status;
-                this.HighScore = HighScore;
+                this.UserStatistics = UserStatistics;
             }
         }
     }

@@ -47,7 +47,7 @@ namespace TriviaClient
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
 
-            //check if server response is indead login response
+            //check if server response is indead personal score response
             if (response.id == Responses.ResponseId.GET_PERSONAL_SCORE_RESPONSE_ID)
             {
                 //check if server responsed was failed
@@ -65,13 +65,13 @@ namespace TriviaClient
                 {
                     Responses.PersonalStatsResponse statsResponse = JsonConvert.DeserializeObject<Responses.PersonalStatsResponse>(response.messageJson);
 
-                    Responses.HighScore highScores = JsonConvert.DeserializeObject<Responses.HighScore>(statsResponse.HighScore);
+                    Responses.UserStatistics userStatistics = JsonConvert.DeserializeObject<Responses.UserStatistics>(statsResponse.UserStatistics);
 
                     //set lables
-                    numOfGames.Content = "number of games: " + highScores.numGames;
-                    numPfRightAns.Content = "number of right answers: " + highScores.numRightAnswers;
-                    numOfWrongAns.Content = "number of wrong answers: " + highScores.numWrongAnswers;
-                    AvgTimeForAns.Content = "average time for answer: " + highScores.averageTimeForAnswer;
+                    numOfGames.Content = "number of games: " + userStatistics.numGames;
+                    numPfRightAns.Content = "number of right answers: " + userStatistics.numRightAnswers;
+                    numOfWrongAns.Content = "number of wrong answers: " + userStatistics.numWrongAnswers;
+                    AvgTimeForAns.Content = "average time for answer: " + userStatistics.averageTimeForAnswer;
                 }
             }
         }

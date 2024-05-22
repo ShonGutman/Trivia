@@ -39,7 +39,7 @@ namespace TriviaClient
             communicator.sendMsg(msg);
             Responses.GeneralResponse response = communicator.receiveMsg();
 
-            //check if server response is indead login response
+            //check if server response is indead logout response
             if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
             {
                 //check if server responsed was failed
