@@ -6,10 +6,12 @@
 #include "IDatabase.h"
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
 
 // to avoid circular definition
 class LoginRequestHandler;
 class MenuRequestHandler;
+class RoomAdminRequestHandler;
 
 class RequestHandlerFactory
 {
