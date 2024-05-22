@@ -35,6 +35,7 @@ StatisticsManager& RequestHandlerFactory::getStatisticsManager()
     return this->_statisticsManager;
 }
 
-RoomManager& RequestHandlerFactory::createRoomAdminRequestHandler()
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(LoggedUser user)
 {
+    //memory must be deleted
 }

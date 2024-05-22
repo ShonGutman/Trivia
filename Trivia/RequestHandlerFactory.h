@@ -71,7 +71,7 @@ public:
 	 */
 	StatisticsManager& getStatisticsManager();
 
-	RoomManager& createRoomAdminRequestHandler();
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(LoggedUser user);
 
 private:
 	LoginManager& _loginManager;
