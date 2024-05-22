@@ -38,7 +38,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info, Logged
 	try
 	{
 		CloseRoomResponse response;
-		this->_roomManager.deleteRoom(this->_room.getRoomData().id);
+		RoomManager.deleteRoom(this->_room.getRoomData().id);
 
 		//SUCCESS reponse to close room
 		response.status = SUCCESS;
@@ -56,7 +56,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info, Logged
 		response.id = CLOSE_ROOM_RESPONSE_ID;
 
 		//assign to LoginHandler
-		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(user);
+		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
 		result.response = JsonResponsePacketSerializer::serializerResponse(response);
 	}
 
