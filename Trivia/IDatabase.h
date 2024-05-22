@@ -22,6 +22,8 @@ public:
 
 	virtual std::vector<Question> getQuestions(const int numOfQuestions) = 0;
 
+	virtual void createEmptyStatisticColumn(const string& username) = 0;
+
 	virtual float getPlayerAverageAnswerTime(const string& username) = 0;
 
 	virtual int  getNumOfCorrectAnswers(const string& username) = 0;
