@@ -43,6 +43,8 @@ public:
 	 */
 	MenuRequestHandler* createMenuRequestHandler();
 
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& gameRoom);
+
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.
 	 *
@@ -72,8 +74,6 @@ public:
 	 * @return A reference to the StatisticsManager instance.
 	 */
 	StatisticsManager& getStatisticsManager();
-
-	RoomAdminRequestHandler* createRoomAdminRequestHandler(LoggedUser user);
 
 private:
 	LoginManager& _loginManager;

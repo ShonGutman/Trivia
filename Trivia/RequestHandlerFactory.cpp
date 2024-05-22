@@ -20,6 +20,12 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
     return new MenuRequestHandler(*this);
 }
 
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(Room& gameRoom)
+{
+    //memory must be deleted
+    return new RoomAdminRequestHandler(*this, gameRoom);
+}
+
 LoginManager& RequestHandlerFactory::getLoginManager()
 {
     return this->_loginManager;
@@ -33,9 +39,4 @@ RoomManager& RequestHandlerFactory::getRoomManager()
 StatisticsManager& RequestHandlerFactory::getStatisticsManager()
 {
     return this->_statisticsManager;
-}
-
-RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(LoggedUser user)
-{
-    //memory must be deleted
 }

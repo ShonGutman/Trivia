@@ -12,21 +12,19 @@ class RequestHandlerFactory;
 class RoomAdminRequestHandler : public IRequestHandler
 {
 public:
-	RoomAdminRequestHandler(Room&, RoomManager*);
+	RoomAdminRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
 
 	bool isRequestRelevant(const RequestInfo& info) override;
 
-	RequestResult handleRequest(const RequestInfo& info, LoggedUser user);
+	RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
-	Room _room;
-	LoggedUser _user;
-	RoomManager& _roomManager;
+	Room& _room;
 	RequestHandlerFactory& _factoryHandler;
 
-	RequestResult closeRoom(const RequestInfo& info, LoggedUser user);
+	RequestResult closeRoom(const RequestInfo& info, LoggedUser& user);
 
-	RequestResult startGame(const RequestInfo& info);
+	RequestResult startGame(const RequestInfo& info, LoggedUser& user);
 
-	RequestResult getRoomState(const RequestInfo& info);
+	RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
 };
