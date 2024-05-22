@@ -34,3 +34,7 @@ StatisticsManager& RequestHandlerFactory::getStatisticsManager()
 {
     return this->_statisticsManager;
 }
+
+RoomManager& RequestHandlerFactory::createRoomAdminRequestHandler()
+{
+}
