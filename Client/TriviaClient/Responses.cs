@@ -80,5 +80,7 @@ namespace TriviaClient
                 this.UserStatistics = UserStatistics;
             }
         }
+
+    public class
     }
 }
