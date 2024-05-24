@@ -43,7 +43,14 @@ void Room::removeUser(const LoggedUser& user)
 
 std::set<LoggedUser> Room::getAllUsers() const
 {
-	return _users;
+	// Create a new set to hold all users
+	std::set<LoggedUser> allUsers = _users;
+
+	// Insert the room admin into the set
+	allUsers.insert(_roomAdmin);
+
+	// Return the new set containing all users and the admin
+	return allUsers;
 }
 
 LoggedUser Room::getRoomAdmin() const

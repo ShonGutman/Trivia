@@ -7,11 +7,13 @@
 #include "LoginRequestHandler.h"
 #include "MenuRequestHandler.h"
 #include "RoomAdminRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 
 // to avoid circular definition
 class LoginRequestHandler;
 class MenuRequestHandler;
 class RoomAdminRequestHandler;
+class RoomMemberRequestHandler;
 
 class RequestHandlerFactory
 {
@@ -43,7 +45,19 @@ public:
 	 */
 	MenuRequestHandler* createMenuRequestHandler();
 
+	/**
+	 * Creates a new RoomAdminRequestHandler instance.
+	 *
+	 * This function creates a new RoomAdminRequestHandler instance with the given Room object
+	 * and returns a pointer to it. Memory management is the responsibility of the caller,
+	 * and the created object must be deleted when no longer needed.
+	 *
+	 * @param gameRoom Reference to the Room object.
+	 * @return A pointer to the newly created RoomAdminRequestHandler instance.
+	 */
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& gameRoom);
+
+	RoomMemberRequestHandler* creaeteRoomMemberRequestHandler();
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.

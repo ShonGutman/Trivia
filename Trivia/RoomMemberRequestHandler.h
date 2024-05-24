@@ -2,18 +2,17 @@
 
 #include "Room.h"
 #include "RoomManager.h"
-#include "LoggedUser.h"
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
 
 // to avoid circular definition
 class RequestHandlerFactory;
 
-class RoomAdminRequestHandler : public IRequestHandler
+class RoomMemberRequestHandler : IRequestHandler
 {
 public:
     //CTOR//
-    RoomAdminRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
+	RoomMemberRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
 
     /**
      * Checks if the given request is relevant to this handler.
@@ -45,30 +44,17 @@ private:
     RequestHandlerFactory& _factoryHandler; ///< Reference to the RequestHandlerFactory.
 
     /**
-     * Handles the request to close the room.
+     * Handles the request to leave the room.
      *
-     * This function handles the request to close the room, represented by a RequestInfo object,
-     * from the given LoggedUser. It processes the request and returns a RequestResult object
-     * containing the result of handling the request.
+     * This function processes the request from a user to leave the room specified in the RequestInfo object.
+     * It updates the state of the room accordingly, removing the user from the room's list of participants.
+     * If the user was the last participant in the room, the room is deleted.
      *
-     * @param info The RequestInfo object containing request details.
-     * @param user The LoggedUser object representing the user making the request.
-     * @return A RequestResult object containing the result of handling the request.
+     * @param info The RequestInfo object containing details of the request, including the room ID.
+     * @param user The LoggedUser object representing the user who is leaving the room.
+     * @return A RequestResult object indicating the result of the operation:
      */
-    RequestResult closeRoom(const RequestInfo& info, LoggedUser& user);
-
-    /**
-     * Handles the request to start the game.
-     *
-     * This function handles the request to start the game, represented by a RequestInfo object,
-     * from the given LoggedUser. It processes the request and returns a RequestResult object
-     * containing the result of handling the request.
-     *
-     * @param info The RequestInfo object containing request details.
-     * @param user The LoggedUser object representing the user making the request.
-     * @return A RequestResult object containing the result of handling the request.
-     */
-    RequestResult startGame(const RequestInfo& info, LoggedUser& user);
+    RequestResult leaveRoom(const RequestInfo& info, LoggedUser& user);
 
     /**
      * Handles the request to get the state of the room.
