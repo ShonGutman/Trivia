@@ -69,6 +69,11 @@ public:
 	 */
 	const RoomData getRoomData() const;
 
+	/**
+	 * changes room to be active
+	 */
+	void makeRoomActive();
+
 private:
 	RoomData _metaData;
 	std::set<LoggedUser> _users;

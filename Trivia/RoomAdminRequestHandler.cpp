@@ -51,11 +51,78 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info, Logged
 	{
 		ErrorResponse response;
 
-		//FAILED reponse to login
+		//FAILED reponse to closing room
 		response.message = e.what();
 		response.id = CLOSE_ROOM_RESPONSE_ID;
 
-		//assign to LoginHandler
+		//assign to roomAdminHandler
+		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
+		result.response = JsonResponsePacketSerializer::serializerResponse(response);
+	}
+
+	return result;
+}
+
+RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info, LoggedUser& user)
+{
+	RequestResult result;
+
+	RoomManager& RoomManager = _factoryHandler.getRoomManager();
+
+	try
+	{
+		StartGameResponse response;
+		_room.makeRoomActive();
+
+		//SUCCESS reponse to opening room
+		response.status = SUCCESS;
+
+		//assign to RoomAdminHandler in the meanwhile CHANGE TO GAME HANDLER IN THE FUTURE
+		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
+		result.response = JsonResponsePacketSerializer::serializerResponse(response);
+	}
+	catch (const std::exception& e)
+	{
+		ErrorResponse response;
+
+		//FAILED reponse to closing room
+		response.message = e.what();
+		response.id = CLOSE_ROOM_RESPONSE_ID;
+
+		//assign to menu since the creation did not succsed
+		result.newHandler = _factoryHandler.createMenuRequestHandler();
+		result.response = JsonResponsePacketSerializer::serializerResponse(response);
+	}
+}
+
+RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, LoggedUser& user)
+{
+	RequestResult result;
+
+	RoomManager& RoomManager = _factoryHandler.getRoomManager();
+
+	try
+	{
+		GetRoomStatusResponse response;
+
+		//SUCCESS reponse to room status
+		response.status = SUCCESS;
+		response.players = RoomManager.getRoom(_room.getRoomData().id).getAllUsers();
+		response.hasGameBegun = RoomManager.getRoom(_room.getRoomData().id).getRoomData().isActive;
+
+		//assign to RoomAdminHandler since there were no changes 
+		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
+		result.response = JsonResponsePacketSerializer::serializerResponse(response);
+	}
+	catch (const std::exception& e)
+	{
+		ErrorResponse response;
+
+		//FAILED reponse to room status
+		response.message = e.what();
+		response.id = GET_ROOM_STATE_RESPONSE_ID;
+
+		//assign to RoomAdminHandler since there were no changes 
 		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
 		result.response = JsonResponsePacketSerializer::serializerResponse(response);
 	}

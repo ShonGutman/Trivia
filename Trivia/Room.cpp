@@ -55,3 +55,8 @@ const RoomData Room::getRoomData() const
 {
 	return _metaData;
 }
+
+void Room::makeRoomActive()
+{
+	this->_metaData.id = true;
+}
