@@ -76,11 +76,21 @@ namespace TriviaClient
 
             public PersonalStatsResponse(int status, string UserStatistics)
             {
-                Status = status;
+                this.Status = status;
                 this.UserStatistics = UserStatistics;
             }
         }
 
-    public class
+    public class HigheseScores
+        {
+            public int Status { get; set; }
+            public string HighScore { get; set; }
+
+            public HigheseScores(int status, string HighScore)
+            {
+                this.Status = status;
+                this.HighScore = HighScore;
+            }
+        }
     }
 }

@@ -63,6 +63,29 @@ namespace TriviaClient
 
                 else
                 {
+                    Responses.HigheseScores highScoresResponse = JsonConvert.DeserializeObject<Responses.HigheseScores>(response.messageJson);
+
+                    Dictionary<string, int> scores = JsonConvert.DeserializeObject<Dictionary<string, int>>(highScoresResponse.HighScore);
+
+                    // Get the top 3 pairs sorted by int value in descending order
+                    var top3Pairs = scores.OrderByDescending(kvp => kvp.Value).Take(3).ToList();
+
+
+                    if (top3Pairs.Count > 0)
+                    {
+                        highscore1.Content = top3Pairs[0].Key + " : " + top3Pairs[0].Value;
+                    }
+
+                    else if (top3Pairs.Count > 1)
+                    {
+                        highscore2.Content = top3Pairs[1].Key + " : " + top3Pairs[1].Value;
+                    }
+
+                    else if (top3Pairs.Count > 2)
+                    {
+                        highscore3.Content = top3Pairs[2].Key + " : " + top3Pairs[2].Value;
+                    }
+
 
                 }
 
