@@ -15,10 +15,10 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& info, L
     switch (info.id)
     {
     case LEAVE_ROOM_REQUEST_ID:
-        return this->leaveRoom(info, user);
+        return leaveRoom(info, user);
         break;
     case GET_ROOM_STATE_REQUEST_ID:
-        return this->getRoomState(info, user);
+        return getRoomState(info, user);
         break;
     default:
         throw std::runtime_error("Illegal option!");
@@ -36,7 +36,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info, Logge
         LeaveRoomResponse response;
 
         // Remove the user from the room
-        roomManager.getRoom(_room.getRoomData().id).removeUser(user);
+        _room.removeUser(user);
 
         //SUCCESS reponse to leave room
         response.status = SUCCESS;
@@ -54,7 +54,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info, Logge
         response.id = LEAVE_ROOM_RESPONSE_ID;
 
         //assign to roomAdminHandler
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(this->_room);
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
@@ -72,11 +72,11 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
         GetRoomStatusResponse response;
 
         response.status = SUCCESS;
-        response.players = roomManager.getRoom(_room.getRoomData().id).getAllUsers();
-        response.hasGameBegun = roomManager.getRoom(_room.getRoomData().id).getRoomData().isActive;
+        response.players = _room.getAllUsers();
+        response.hasGameBegun = _room.getRoomData().isActive;
 
         //assign to RoomAdminHandler since there were no changes 
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(this->_room);
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
     catch (const std::exception& e)
@@ -88,7 +88,7 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
         response.id = GET_ROOM_STATE_RESPONSE_ID;
 
         //assign to roomAdminHandler
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(this->_room);
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
