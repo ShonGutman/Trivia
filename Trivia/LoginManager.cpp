@@ -25,6 +25,7 @@ void LoginManager::signup(const string& username, const string& password, const 
 	if (!_database->doesUserExists(username))
 	{
 		_database->signup(username, password, email, address, phoneNumber, birthday);
+		_database->createEmptyStatisticColumn(username);
 		locker.unlock();
 
 		//lock the mutex - to protect _loggedUsers (shared variable)

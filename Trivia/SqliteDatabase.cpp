@@ -52,13 +52,21 @@ std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 	return questionsVector;
 }
 
+void SqliteDatabase::createEmptyStatisticColumn(const string& username)
+{
+	string sqlStatement = R"(insert into statistics values ("{}", 0, 0, 0, 0.0);)";
+	sqlStatement = format(sqlStatement, { username });
+
+	preformSqlRequest(sqlStatement);
+}
+
 float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 {
-	float avgAnsTime = 0;
+	double avgAnsTime = 0;
 	string sqlStatement = R"(select avgAnsTime from statistics where username = "{}";)";
 	sqlStatement = format(sqlStatement, { username });
 
-	preformSqlRequest(sqlStatement, callbackFloat, &avgAnsTime);
+	preformSqlRequest(sqlStatement, callbackDouble, &avgAnsTime);
 
 	return avgAnsTime;
 }
@@ -328,7 +336,7 @@ int SqliteDatabase::callbackQuestion(void* data, int argc, char** argv, char** a
 	return 0;
 }
 
-int SqliteDatabase::callbackFloat(void* data, int argc, char** argv, char** azColName)
+int SqliteDatabase::callbackDouble(void* data, int argc, char** argv, char** azColName)
 {
 	if (argc > 0 && argv[0]) {
 		double* result = static_cast<double*>(data);
