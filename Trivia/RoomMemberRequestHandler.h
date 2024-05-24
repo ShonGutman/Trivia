@@ -8,7 +8,7 @@
 // to avoid circular definition
 class RequestHandlerFactory;
 
-class RoomMemberRequestHandler : IRequestHandler
+class RoomMemberRequestHandler : public IRequestHandler
 {
 public:
     //CTOR//
