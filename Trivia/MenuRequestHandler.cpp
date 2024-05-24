@@ -115,7 +115,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
-        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(roomManger.getRoom(request.roomID));
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
     }
@@ -146,15 +146,17 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
     try
     {
         CreateRoomResponse response;
+        
+        unsigned int roomId = roomManger.getNextRoomId();
 
-        roomManger.createRoom(user, RoomData(roomManger.getNextRoomId(), request.roomName, request.maxPlayers,
+        roomManger.createRoom(user, RoomData(roomId, request.roomName, request.maxPlayers,
         request.numOfQuestionsInGame, request.timePerQuestion));
 
         //SUCCESS reponse to createRoom
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
-        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.newHandler = _factoryHandler.createRoomAdminRequestHandler(roomManger.getRoom(roomId));
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
     }

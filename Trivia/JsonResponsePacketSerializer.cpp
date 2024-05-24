@@ -41,14 +41,36 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response
     return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(CloseRoomResponse& response)
 {
-    json jsonLeaveRoom;
+    json jsonCloseRoom;
 
     // Add data to the json object.
-    jsonLeaveRoom[STATUS_KEY] = response.status;
+    jsonCloseRoom[STATUS_KEY] = response.status;
 
-    return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
+    return fitBuffToProtocol(jsonCloseRoom.dump(), CLOSE_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(StartGameResponse& response)
+{
+    json jsonStartRoom;
+
+    // Add data to the json object.
+    jsonStartRoom[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonStartRoom.dump(), START_GAME_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(GetRoomStatusResponse& response)
+{
+    json jsonRoomStatus;
+
+    // Add data to the json object.
+    jsonRoomStatus[STATUS_KEY] = response.status;
+    jsonRoomStatus[HAS_GAME_BEGUN_KEY] = response.hasGameBegun;
+    jsonRoomStatus[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.players);
+
+    return fitBuffToProtocol(jsonRoomStatus.dump(), GET_ROOM_STATE_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& response)
@@ -93,18 +115,18 @@ Buffer JsonResponsePacketSerializer::serializerResponse(CreateRoomResponse& resp
     return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& highscoreResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& response)
 {
     json jsonHighScore;
 
     // Add data to the json object.
-    jsonHighScore[STATUS_KEY] = highscoreResponse.status;
-    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(highscoreResponse.highScores).dump();
+    jsonHighScore[STATUS_KEY] = response.status;
+    jsonHighScore[HIGHSCORES_KEY] = convertObjectToJson(response.highScores).dump();
 
     return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse& personalStatsResponse)
+Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse& response)
 {
     json jsonStats;
 
@@ -113,6 +135,16 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse
     jsonStats[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse).dump();
 
     return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
+{
+    json jsonLeaveRoom;
+
+    // Add data to the json object.
+    jsonLeaveRoom[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
