@@ -33,12 +33,12 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info, Logged
 {
 	RequestResult result;
 
-	RoomManager& RoomManager = _factoryHandler.getRoomManager();
+	RoomManager& roomManager = _factoryHandler.getRoomManager();
 
 	try
 	{
 		CloseRoomResponse response;
-		RoomManager.deleteRoom(this->_room.getRoomData().id);
+		roomManager.deleteRoom(this->_room.getRoomData().id);
 
 		//SUCCESS reponse to close room
 		response.status = SUCCESS;
@@ -67,7 +67,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info, Logged
 {
 	RequestResult result;
 
-	RoomManager& RoomManager = _factoryHandler.getRoomManager();
+	RoomManager& roomManager = _factoryHandler.getRoomManager();
 
 	try
 	{
@@ -99,7 +99,7 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, Log
 {
 	RequestResult result;
 
-	RoomManager& RoomManager = _factoryHandler.getRoomManager();
+	RoomManager& roomManager = _factoryHandler.getRoomManager();
 
 	try
 	{
@@ -107,8 +107,8 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, Log
 
 		//SUCCESS reponse to room status
 		response.status = SUCCESS;
-		response.players = RoomManager.getRoom(_room.getRoomData().id).getAllUsers();
-		response.hasGameBegun = RoomManager.getRoom(_room.getRoomData().id).getRoomData().isActive;
+		response.players = roomManager.getRoom(_room.getRoomData().id).getAllUsers();
+		response.hasGameBegun = roomManager.getRoom(_room.getRoomData().id).getRoomData().isActive;
 
 		//assign to RoomAdminHandler since there were no changes 
 		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(this->_room);
