@@ -12,19 +12,59 @@ class RequestHandlerFactory;
 class RoomAdminRequestHandler : public IRequestHandler
 {
 public:
-	RoomAdminRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
+    /**
+     * Constructs a new RoomAdminRequestHandler.
+     *
+     * @param factory Reference to the RequestHandlerFactory.
+     * @param gameRoom Reference to the Room object.
+     */
+    RoomAdminRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
 
-	bool isRequestRelevant(const RequestInfo& info) override;
+    /**
+     * Checks if the given request is relevant to this handler.
+     *
+     * @param info The RequestInfo object containing request details.
+     * @return true if the request is relevant, false otherwise.
+     */
+    bool isRequestRelevant(const RequestInfo& info) override;
 
-	RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
+    /**
+     * Handles the given request.
+     *
+     * @param info The RequestInfo object containing request details.
+     * @param user The LoggedUser object representing the user making the request.
+     * @return A RequestResult object containing the result of handling the request.
+     */
+    RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
-	Room& _room;
-	RequestHandlerFactory& _factoryHandler;
+    Room& _room; ///< Reference to the Room object.
+    RequestHandlerFactory& _factoryHandler; ///< Reference to the RequestHandlerFactory.
 
-	RequestResult closeRoom(const RequestInfo& info, LoggedUser& user);
+    /**
+     * Handles the request to close the room.
+     *
+     * @param info The RequestInfo object containing request details.
+     * @param user The LoggedUser object representing the user making the request.
+     * @return A RequestResult object containing the result of handling the request.
+     */
+    RequestResult closeRoom(const RequestInfo& info, LoggedUser& user);
 
-	RequestResult startGame(const RequestInfo& info, LoggedUser& user);
+    /**
+     * Handles the request to start the game.
+     *
+     * @param info The RequestInfo object containing request details.
+     * @param user The LoggedUser object representing the user making the request.
+     * @return A RequestResult object containing the result of handling the request.
+     */
+    RequestResult startGame(const RequestInfo& info, LoggedUser& user);
 
-	RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
+    /**
+     * Handles the request to get the state of the room.
+     *
+     * @param info The RequestInfo object containing request details.
+     * @param user The LoggedUser object representing the user making the request.
+     * @return A RequestResult object containing the result of handling the request.
+     */
+    RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
 };
