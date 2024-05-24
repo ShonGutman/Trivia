@@ -26,6 +26,12 @@ RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(Ro
     return new RoomAdminRequestHandler(*this, gameRoom);
 }
 
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(Room& gameRoom)
+{
+    //memory must be deleted
+    return new RoomMemberRequestHandler(*this, gameRoom);
+}
+
 LoginManager& RequestHandlerFactory::getLoginManager()
 {
     return this->_loginManager;

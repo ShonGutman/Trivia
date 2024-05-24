@@ -57,7 +57,17 @@ public:
 	 */
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& gameRoom);
 
-	RoomMemberRequestHandler* creaeteRoomMemberRequestHandler();
+	/**
+	* Creates a new RoomMemberRequestHandler instance.
+	*
+	* This function creates a new RoomMemberRequestHandler instance with the given Room object
+	* and returns a pointer to it. Memory management is the responsibility of the caller,
+	* and the created object must be deleted when no longer needed.
+	*
+	* @param gameRoom Reference to the Room object.
+	* @return A pointer to the newly created RoomMemberRequestHandler instance.
+	*/
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& gameRoom);
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.
