@@ -108,7 +108,6 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
 
     try
     {
-        //NOTE
         JoinRoomResponse response;
         roomManger.getRoom(request.roomID).addUser(user);
 
@@ -116,7 +115,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
-        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(roomManger.getRoom(request.roomID));
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
     }
