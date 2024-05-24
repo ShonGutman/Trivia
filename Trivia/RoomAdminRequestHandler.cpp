@@ -93,6 +93,8 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info, Logged
 		result.newHandler = _factoryHandler.createMenuRequestHandler();
 		result.response = JsonResponsePacketSerializer::serializerResponse(response);
 	}
+
+	return result;
 }
 
 RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, LoggedUser& user)
