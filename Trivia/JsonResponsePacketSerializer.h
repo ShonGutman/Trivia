@@ -17,21 +17,21 @@ using json = nlohmann::json;
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
 #define ROOM_ADMIN_KEY "roomAdmin"
 #define USER_STATISTICS_KEY "UserStatistics"
-#define HIGHSCORES_KEY "HighScores"
+#define HIGHSCORES_KEY "HighScore"
 
-#define ROOM_ID_KEY "room id"
-#define ROOM_NAME_KEY "room name"
-#define MAX_PLAYERS_IN_ROOM_KEY "max players"
-#define NUM_OF_QUESTIONS_IN_GAME_KEY "num of questions in game"
-#define TINE_PER_QUESTION_KEY "time per question"
-#define IS_ACTIVE_KEY "is active"
+#define ROOM_ID_KEY "roomId"
+#define ROOM_NAME_KEY "roomName"
+#define MAX_PLAYERS_IN_ROOM_KEY "playersNum"
+#define NUM_OF_QUESTIONS_IN_GAME_KEY "questionNum"
+#define TINE_PER_QUESTION_KEY "timePerQuestion"
+#define IS_ACTIVE_KEY "isActive"
 
 
 
-#define NUMBER_OF_GAMES_KEY "number of games"
-#define NUMBER_OF_RIGHT_ANS_KEY "number of right answers"
-#define NUMBER_OF_WRONG_ANS_KEY "number of wrong answers"
-#define AVG_TIME_FOR_ANS_KEY "average time for answer"
+#define NUMBER_OF_GAMES_KEY "numGames"
+#define NUMBER_OF_RIGHT_ANS_KEY "numRightAnswers"
+#define NUMBER_OF_WRONG_ANS_KEY "numWrongAnswers"
+#define AVG_TIME_FOR_ANS_KEY "averageTimeForAnswer"
 
 #define HAS_GAME_BEGUN_KEY "has game begun"
 #define PLAYERS_IN_ROOM_KEY "players in room"

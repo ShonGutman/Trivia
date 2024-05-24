@@ -21,8 +21,11 @@ Buffer Helper::getMsgFromSocket(SOCKET clientSocket, const unsigned int bytesNum
 	//convert string to buffer
 	Buffer msgBuffer(msgString.begin(), msgString.end());
 
-	//remove allocated memory
-	delete msg;
+	if (msg != "")
+	{
+		//remove allocated memory
+		delete msg;
+	}
 
 	return msgBuffer;
 }
@@ -39,8 +42,11 @@ Buffer Helper::getLengthFromSocket(SOCKET clientSocket)
 		msgBuffer.push_back(msg[i]);
 	}
 
-	//remove allocated memory
-	delete msg;
+	if (msg != "")
+	{
+		//remove allocated memory
+		delete msg;
+	}
 
 	return msgBuffer;
 

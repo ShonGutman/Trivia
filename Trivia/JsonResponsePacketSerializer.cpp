@@ -131,8 +131,8 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse
     json jsonStats;
 
     // Add data to the json object.
-    jsonStats[STATUS_KEY] = response.status;
-    jsonStats[HIGHSCORES_KEY] = convertObjectToJson(response).dump();
+    jsonStats[STATUS_KEY] = personalStatsResponse.status;
+    jsonStats[USER_STATISTICS_KEY] = convertObjectToJson(personalStatsResponse).dump();
 
     return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }
@@ -250,14 +250,9 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, int>& scoresMap)
 {
-    json convortedJson;
-
-    for (auto const &object : scoresMap)
-    {
-        convortedJson[object.first] = convortedJson[object.second]; // first = name, sec = high score
-    }
-
-    return convortedJson;
+    //convert map to json
+    // first = name, sec = high score
+    return json(scoresMap);
 }
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)
