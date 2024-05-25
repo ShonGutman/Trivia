@@ -76,12 +76,12 @@ namespace TriviaClient
                         highscore1.Content = top3Pairs[0].Key + " : " + top3Pairs[0].Value;
                     }
 
-                    else if (top3Pairs.Count > 1)
+                    if (top3Pairs.Count > 1)
                     {
                         highscore2.Content = top3Pairs[1].Key + " : " + top3Pairs[1].Value;
                     }
 
-                    else if (top3Pairs.Count > 2)
+                    if (top3Pairs.Count > 2)
                     {
                         highscore3.Content = top3Pairs[2].Key + " : " + top3Pairs[2].Value;
                     }
