@@ -24,10 +24,12 @@ namespace TriviaClient
         private Communicator communicator;
         private string username;
         private BackgroundWorker background_worker = new BackgroundWorker();
+        private List<RoomData> rooms;
         public JoinRoomWindow(Communicator communicator, string username)
         {
             this.communicator = communicator;
             this.username = username;
+            rooms = new List<RoomData>();
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
 
@@ -59,9 +61,9 @@ namespace TriviaClient
         {
             while (!background_worker.CancellationPending)
             {
-                List<RoomData> reponse = QueryAllRooms();
+                rooms = QueryAllRooms();
 
-                background_worker.ReportProgress(0, reponse);
+                background_worker.ReportProgress(0, rooms);
 
                 // Wait for 2 seconds before the next request
                 Thread.Sleep(2000);

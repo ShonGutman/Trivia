@@ -72,7 +72,9 @@ namespace TriviaClient
 
                 else
                 {
-                    //do nothing for now.
+                    RoomDataWindow window = new RoomDataWindow(communicator, username);
+                    this.Close();
+                    window.Show();
                 }
             }
         }
