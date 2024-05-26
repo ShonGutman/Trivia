@@ -92,5 +92,18 @@ namespace TriviaClient
                 this.HighScore = HighScore;
             }
         }
+
+        public class AllRooms
+        {
+            public int Status { get; set; }
+            public List<RoomData> Rooms { get; set; }
+
+            public AllRooms(int status, List<RoomData> Rooms)
+            {
+                Status = status;
+                this.Rooms = Rooms;
+            }
+        }
     }
+
 }
