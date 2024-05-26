@@ -29,6 +29,7 @@ namespace TriviaClient
             this.username = username;
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
+
         }
 
         private void Signout_Click(object sender, RoutedEventArgs e)
