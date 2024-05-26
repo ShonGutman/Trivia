@@ -51,7 +51,33 @@ namespace TriviaClient
         {
 
         }
-        
+
+        public List<RoomData> QueryAllRooms()
+        {
+
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.GET_ALL_ROOMS_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+
+
+            try
+            {
+
+                Responses.AllRooms allRoomsResponse = JsonConvert.DeserializeObject<Responses.AllRooms>(response.messageJson);
+                return allRoomsResponse.Rooms;
+            }
+
+            catch
+            {
+                return null;
+            }
+
+
+        }
+
 
         public void startRefreshTread()
         {
