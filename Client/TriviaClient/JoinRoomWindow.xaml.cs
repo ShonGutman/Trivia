@@ -35,6 +35,39 @@ namespace TriviaClient
 
         }
 
+        private void background_worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void background_worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            if (e.UserState is List<RoomData> allRooms)
+            {
+                List<string> names = new List<string>();
+                foreach (RoomData roomData in allRooms)
+                {
+                    names.Add(roomData.ToString());
+                }
+
+                RoomsList.ItemsSource = names;
+            }
+
+        }
+
+        private void background_worker_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            while (!background_worker.CancellationPending)
+            {
+                List<RoomData> reponse = QueryAllRooms();
+
+                background_worker.ReportProgress(0, reponse);
+
+                // Wait for 2 seconds before the next request
+                Thread.Sleep(2000);
+            }
+        }
+
 
 
         private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
