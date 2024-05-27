@@ -88,6 +88,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse
 {
     json jsonGetPlayersInRoom;
 
+    jsonGetPlayersInRoom[STATUS_KEY] = response.status;
     jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom);
 
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);

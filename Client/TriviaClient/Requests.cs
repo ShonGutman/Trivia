@@ -70,11 +70,11 @@ namespace TriviaClient
             }
         }
 
-        public class GetAllPlayersInRoom
+        public class RoomRequest
         {
             public uint roomId { get; set; }
 
-            public GetAllPlayersInRoom(uint roomId)
+            public RoomRequest(uint roomId)
             {
                 this.roomId = roomId;
             }

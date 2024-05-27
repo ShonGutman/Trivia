@@ -23,6 +23,7 @@ namespace TriviaClient
     {
         private Communicator communicator;
         private string username;
+        private uint selctedRoomId = 0;
         private BackgroundWorker background_worker_get_rooms = new BackgroundWorker();
         private BackgroundWorker background_worker_get_players = new BackgroundWorker();
         public JoinRoomWindow(Communicator communicator, string username)
@@ -36,51 +37,6 @@ namespace TriviaClient
 
         }
 
-        private void background_worker_get_rooms_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
-        {
-
-        }
-
-        private void background_worker_get_rooms_ProgressChanged(object? sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState is List<RoomData> allRooms)
-            {
-                RoomsList.ItemsSource = allRooms;
-            }
-
-        }
-
-        private void background_worker_get_rooms_DoWork(object? sender, DoWorkEventArgs e)
-        {
-            while (!background_worker_get_rooms.CancellationPending)
-            {
-                List<RoomData> rooms = QueryAllRooms();
-
-                background_worker_get_rooms.ReportProgress(0, rooms);
-
-                // Wait for 2 seconds before the next request
-                Thread.Sleep(2000);
-            }
-        }
-
-
-
-        private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (background_worker_get_players.IsBusy)
-            {
-                background_worker_get_players.CancelAsync();
-            }
-
-            RoomData room = (RoomData)RoomsList.SelectedItem;
-
-            playersLable.Visibility = Visibility.Visible;
-
-            startRefreshPlayersTgread(room.roomId);
-
-            PlayerList.Visibility = Visibility.Visible;
-        }
-
         private void JoinRoom_Click(object sender, RoutedEventArgs e)
         {
 
@@ -88,7 +44,18 @@ namespace TriviaClient
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            if(background_worker_get_players.IsBusy)
+            {
+                background_worker_get_players.CancelAsync();
+            }
+            if(background_worker_get_rooms.IsBusy)
+            {
+                background_worker_get_rooms.CancelAsync();
+            }
 
+            MainMenuWindow window = new MainMenuWindow(communicator, username);
+            this.Close();
+            window.Show();
         }
 
         public List<RoomData> QueryAllRooms()
@@ -117,10 +84,55 @@ namespace TriviaClient
 
         }
 
+        private void background_worker_get_rooms_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void background_worker_get_rooms_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            if (e.UserState is List<RoomData> allRooms)
+            {
+                RoomsList.ItemsSource = allRooms;
+            }
+
+        }
+
+        private void background_worker_get_rooms_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            while (!background_worker_get_rooms.CancellationPending)
+            {
+                List<RoomData> rooms = QueryAllRooms();
+
+                background_worker_get_rooms.ReportProgress(0, rooms);
+
+                // Wait for 4 seconds before the next request
+                Thread.Sleep(4000);
+            }
+        }
+
+
+
+        private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            RoomData room = (RoomData)RoomsList.SelectedItem;
+
+            playersLable.Visibility = Visibility.Visible;
+
+            if (room != null)
+            {
+                selctedRoomId = room.roomId;
+                startRefreshPlayersThread();
+            }
+
+            PlayerList.Visibility = Visibility.Visible;
+        }
+
         public List<string> QueryAllPlayersInRoom(uint roomId)
         {
             //create CreateRoomRequest
-            Requests.GetAllPlayersInRoom request = new Requests.GetAllPlayersInRoom(roomId);
+            Requests.RoomRequest request = new Requests.RoomRequest(roomId);
 
             //serialize object and make it fit to protocol
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
@@ -149,36 +161,6 @@ namespace TriviaClient
         }
 
 
-        public void startRefreshRoomsThread()
-        {
-            background_worker_get_rooms.DoWork += background_worker_get_rooms_DoWork;
-            background_worker_get_rooms.ProgressChanged += background_worker_get_rooms_ProgressChanged;
-            background_worker_get_rooms.RunWorkerCompleted += background_worker_get_rooms_RunWorkerCompleted;
-
-            background_worker_get_rooms.WorkerSupportsCancellation = true;
-            background_worker_get_rooms.WorkerReportsProgress = true;
-
-            if (!background_worker_get_rooms.IsBusy)
-            {
-                background_worker_get_rooms.RunWorkerAsync();
-            }
-        }
-
-        public void startRefreshPlayersTgread(uint roomId)
-        {
-            background_worker_get_players.DoWork += background_worker_get_players_DoWork;
-            background_worker_get_players.ProgressChanged += background_worker_get_players_ProgressChanged;
-            background_worker_get_players.RunWorkerCompleted += background_worker_get_players_RunWorkerCompleted;
-
-            background_worker_get_players.WorkerSupportsCancellation = true;
-            background_worker_get_players.WorkerReportsProgress = true;
-
-            if (!background_worker_get_players.IsBusy)
-            {
-                background_worker_get_players.RunWorkerAsync(roomId);
-            }
-        }
-
         private void background_worker_get_players_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
 
@@ -196,13 +178,45 @@ namespace TriviaClient
         {
             while (!background_worker_get_rooms.CancellationPending)
             {
-                List<string> players = QueryAllPlayersInRoom((uint)e.Argument);
+                List<string> players = QueryAllPlayersInRoom(selctedRoomId);
 
-                background_worker_get_rooms.ReportProgress(0, players);
+                background_worker_get_players.ReportProgress(0, players);
 
-                // Wait for 4 seconds before the next request
-                Thread.Sleep(4000);
+                // Wait for a third of a second before the next request
+                Thread.Sleep(300);
             }
+        }
+
+        public void startRefreshRoomsThread()
+        {
+            background_worker_get_rooms.DoWork += background_worker_get_rooms_DoWork;
+            background_worker_get_rooms.ProgressChanged += background_worker_get_rooms_ProgressChanged;
+            background_worker_get_rooms.RunWorkerCompleted += background_worker_get_rooms_RunWorkerCompleted;
+
+            background_worker_get_rooms.WorkerSupportsCancellation = true;
+            background_worker_get_rooms.WorkerReportsProgress = true;
+
+            if (!background_worker_get_rooms.IsBusy)
+            {
+                background_worker_get_rooms.RunWorkerAsync();
+            }
+        }
+
+        public void startRefreshPlayersThread()
+        {
+            background_worker_get_players.DoWork += background_worker_get_players_DoWork;
+            background_worker_get_players.ProgressChanged += background_worker_get_players_ProgressChanged;
+            background_worker_get_players.RunWorkerCompleted += background_worker_get_players_RunWorkerCompleted;
+
+            background_worker_get_players.WorkerSupportsCancellation = true;
+            background_worker_get_players.WorkerReportsProgress = true;
+
+            if (!background_worker_get_players.IsBusy)
+            {
+                background_worker_get_players.RunWorkerAsync();
+            }
+
+
         }
     }
 }
