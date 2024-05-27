@@ -69,5 +69,15 @@ namespace TriviaClient
                 this.timePerQuestion = timePerQuestion;
             }
         }
+
+        public class GetAllPlayersInRoom
+        {
+            public uint roomId { get; set; }
+
+            public GetAllPlayersInRoom(uint roomId)
+            {
+                this.roomId = roomId;
+            }
+        }
     }
 }

@@ -25,12 +25,10 @@ namespace TriviaClient
         private string username;
         private BackgroundWorker background_worker_get_rooms = new BackgroundWorker();
         private BackgroundWorker background_worker_get_players = new BackgroundWorker();
-        private List<RoomData> rooms;
         public JoinRoomWindow(Communicator communicator, string username)
         {
             this.communicator = communicator;
             this.username = username;
-            rooms = new List<RoomData>();
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
 
@@ -56,7 +54,7 @@ namespace TriviaClient
         {
             while (!background_worker_get_rooms.CancellationPending)
             {
-                rooms = QueryAllRooms();
+                List<RoomData> rooms = QueryAllRooms();
 
                 background_worker_get_rooms.ReportProgress(0, rooms);
 
@@ -69,9 +67,16 @@ namespace TriviaClient
 
         private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (background_worker_get_players.IsBusy)
+            {
+                background_worker_get_players.CancelAsync();
+            }
+
             RoomData room = (RoomData)RoomsList.SelectedItem;
 
             playersLable.Visibility = Visibility.Visible;
+
+            startRefreshPlayersTgread(room.roomId);
 
             PlayerList.Visibility = Visibility.Visible;
         }
@@ -112,6 +117,37 @@ namespace TriviaClient
 
         }
 
+        public List<string> QueryAllPlayersInRoom(uint roomId)
+        {
+            //create CreateRoomRequest
+            Requests.GetAllPlayersInRoom request = new Requests.GetAllPlayersInRoom(roomId);
+
+            //serialize object and make it fit to protocol
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            byte[] msg = Helper.fitToProtocol(json, (int)Requests.RequestId.GET_PLAYERS_IN_ROOM_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+
+
+            try
+            {
+
+                Responses.AllPllayers allPlayers = JsonConvert.DeserializeObject<Responses.AllPllayers>(response.messageJson);
+                return allPlayers.PlayersInRoom;
+            }
+
+            catch
+            {
+                return null;
+            }
+
+
+        }
+
 
         public void startRefreshRoomsThread()
         {
@@ -128,7 +164,7 @@ namespace TriviaClient
             }
         }
 
-        public void startRefreshPlayersTgread()
+        public void startRefreshPlayersTgread(uint roomId)
         {
             background_worker_get_players.DoWork += background_worker_get_players_DoWork;
             background_worker_get_players.ProgressChanged += background_worker_get_players_ProgressChanged;
@@ -139,7 +175,7 @@ namespace TriviaClient
 
             if (!background_worker_get_players.IsBusy)
             {
-                background_worker_get_players.RunWorkerAsync();
+                background_worker_get_players.RunWorkerAsync(roomId);
             }
         }
 
@@ -150,12 +186,23 @@ namespace TriviaClient
 
         private void background_worker_get_players_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.UserState is List<string> allPlayers)
+            {
+                PlayerList.ItemsSource = allPlayers;
+            }
         }
 
         private void background_worker_get_players_DoWork(object? sender, DoWorkEventArgs e)
         {
-            throw new NotImplementedException();
+            while (!background_worker_get_rooms.CancellationPending)
+            {
+                List<string> players = QueryAllPlayersInRoom((uint)e.Argument);
+
+                background_worker_get_rooms.ReportProgress(0, players);
+
+                // Wait for 4 seconds before the next request
+                Thread.Sleep(4000);
+            }
         }
     }
 }

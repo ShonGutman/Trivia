@@ -105,6 +105,18 @@ namespace TriviaClient
             }
 
         }
+
+        public class AllPllayers
+        {
+            public int Status { get; set; }
+            public List<string> PlayersInRoom { get; set; }
+
+            public AllPllayers(int status, List<string> PlayersInRoom)
+            {
+                Status = status;
+                this.PlayersInRoom = PlayersInRoom;
+            }
+        }
     }
 
 }
