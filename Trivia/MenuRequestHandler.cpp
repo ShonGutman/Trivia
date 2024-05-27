@@ -224,7 +224,6 @@ RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
         GetPlayersInRoomResponse response;
 
         //retrieve data about the users
-        response.roomAdmin = roomManger.getRoom(request.roomID).getRoomAdmin();
         response.playersInRoom = roomManger.getRoom(request.roomID).getAllUsers();
 
         //SUCCESS reponse to getAllPlayersInRoom
