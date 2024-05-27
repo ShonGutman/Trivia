@@ -21,15 +21,27 @@ namespace TriviaClient
     {
         private Communicator communicator;
         private string username;
-        public RoomDataWindow(Communicator communicator, string username)
+        public RoomDataWindow(Communicator communicator, string username, bool isAdmin)
         {
             this.communicator = communicator;
             this.username = username;
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
+
+            if(isAdmin)
+            {
+                StartButton.Visibility = Visibility.Visible;
+                CloseButton.Visibility = Visibility.Visible;
+            }
+
+            else
+            {
+                LeaveRoom.Visibility = Visibility.Visible;
+            }
+
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

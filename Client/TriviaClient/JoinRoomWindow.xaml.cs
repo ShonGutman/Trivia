@@ -23,7 +23,7 @@ namespace TriviaClient
     {
         private Communicator communicator;
         private string username;
-        private uint selctedRoomId = 0;
+        private RoomData selctedRoom;
         private BackgroundWorker background_worker_get_rooms = new BackgroundWorker();
         private BackgroundWorker background_worker_get_players = new BackgroundWorker();
         public JoinRoomWindow(Communicator communicator, string username)
@@ -33,13 +33,54 @@ namespace TriviaClient
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
 
+            selctedRoom = new RoomData(0, null, 0, 0, 0, false);
+
             startRefreshRoomsThread();
 
         }
 
         private void JoinRoom_Click(object sender, RoutedEventArgs e)
         {
+            if(selctedRoom.roomId == 0)
+            {
+                ErrorPopup error = new ErrorPopup("Please select a room to join!");
+                error.Show();
+                return;
+            }
 
+            //create CreateRoomRequest
+            Requests.RoomRequest request = new Requests.RoomRequest(selctedRoom.roomId);
+
+            //serialize object and make it fit to protocol
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            byte[] msg = Helper.fitToProtocol(json, (int)Requests.RequestId.JOIN_ROOM_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead join room response
+            if (response.id == Responses.ResponseId.JOIN_ROOM_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    RoomDataWindow window = new RoomDataWindow(communicator, username, false);
+                    this.Close();
+                    window.Show();
+                }
+            }
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -122,7 +163,7 @@ namespace TriviaClient
 
             if (room != null)
             {
-                selctedRoomId = room.roomId;
+                selctedRoom.roomId = room.roomId;
                 startRefreshPlayersThread();
             }
 
@@ -178,7 +219,7 @@ namespace TriviaClient
         {
             while (!background_worker_get_rooms.CancellationPending)
             {
-                List<string> players = QueryAllPlayersInRoom(selctedRoomId);
+                List<string> players = QueryAllPlayersInRoom(selctedRoom.roomId);
 
                 background_worker_get_players.ReportProgress(0, players);
 
