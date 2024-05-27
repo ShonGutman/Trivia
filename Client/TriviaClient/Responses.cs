@@ -103,6 +103,7 @@ namespace TriviaClient
                 Status = status;
                 this.Rooms = Rooms;
             }
+
         }
     }
 

@@ -82,15 +82,32 @@
                     FontFamily="Hadassah Friedlaender Bold"
                     Foreground="#F2BED1" 
                     FontSize="20"/>
-                <ListBox 
-                    Name="RoomsList" 
-                    Height="30" 
-                    HorizontalContentAlignment="Center" 
-                    Width="300"
-                    FontSize="17" 
-                    SelectionChanged="RoomsList_SelectionChanged"/>
+                
+                <ListBox Name="RoomsList"
+         Height="30"
+         HorizontalContentAlignment="Center"
+         Width="300"
+         FontSize="17"
+         SelectionChanged="RoomsList_SelectionChanged">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding roomName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
 
-                <Label 
+
+
+                <Label
+                    Name="playersLable"
                     Content="Players In Room:" 
                     HorizontalAlignment="Center" 
                     Foreground="#FCC8D1" 

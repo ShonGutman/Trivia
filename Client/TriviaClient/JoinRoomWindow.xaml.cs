@@ -23,7 +23,8 @@ namespace TriviaClient
     {
         private Communicator communicator;
         private string username;
-        private BackgroundWorker background_worker = new BackgroundWorker();
+        private BackgroundWorker background_worker_get_rooms = new BackgroundWorker();
+        private BackgroundWorker background_worker_get_players = new BackgroundWorker();
         private List<RoomData> rooms;
         public JoinRoomWindow(Communicator communicator, string username)
         {
@@ -33,37 +34,31 @@ namespace TriviaClient
             InitializeComponent();
             UserLabel.Content = "Hello, " + username;
 
-            startRefreshTread();
+            startRefreshRoomsThread();
 
         }
 
-        private void background_worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        private void background_worker_get_rooms_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
 
         }
 
-        private void background_worker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        private void background_worker_get_rooms_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             if (e.UserState is List<RoomData> allRooms)
             {
-                List<string> names = new List<string>();
-                foreach (RoomData roomData in allRooms)
-                {
-                    names.Add(roomData.ToString());
-                }
-
-                RoomsList.ItemsSource = names;
+                RoomsList.ItemsSource = allRooms;
             }
 
         }
 
-        private void background_worker_DoWork(object? sender, DoWorkEventArgs e)
+        private void background_worker_get_rooms_DoWork(object? sender, DoWorkEventArgs e)
         {
-            while (!background_worker.CancellationPending)
+            while (!background_worker_get_rooms.CancellationPending)
             {
                 rooms = QueryAllRooms();
 
-                background_worker.ReportProgress(0, rooms);
+                background_worker_get_rooms.ReportProgress(0, rooms);
 
                 // Wait for 2 seconds before the next request
                 Thread.Sleep(2000);
@@ -74,7 +69,11 @@ namespace TriviaClient
 
         private void RoomsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            RoomData room = (RoomData)RoomsList.SelectedItem;
 
+            playersLable.Visibility = Visibility.Visible;
+
+            PlayerList.Visibility = Visibility.Visible;
         }
 
         private void JoinRoom_Click(object sender, RoutedEventArgs e)
@@ -114,19 +113,49 @@ namespace TriviaClient
         }
 
 
-        public void startRefreshTread()
+        public void startRefreshRoomsThread()
         {
-            background_worker.DoWork += background_worker_DoWork;
-            background_worker.ProgressChanged += background_worker_ProgressChanged;
-            background_worker.RunWorkerCompleted += background_worker_RunWorkerCompleted;
+            background_worker_get_rooms.DoWork += background_worker_get_rooms_DoWork;
+            background_worker_get_rooms.ProgressChanged += background_worker_get_rooms_ProgressChanged;
+            background_worker_get_rooms.RunWorkerCompleted += background_worker_get_rooms_RunWorkerCompleted;
 
-            background_worker.WorkerSupportsCancellation = true;
-            background_worker.WorkerReportsProgress = true;
+            background_worker_get_rooms.WorkerSupportsCancellation = true;
+            background_worker_get_rooms.WorkerReportsProgress = true;
 
-            if (!background_worker.IsBusy)
+            if (!background_worker_get_rooms.IsBusy)
             {
-                background_worker.RunWorkerAsync();
+                background_worker_get_rooms.RunWorkerAsync();
             }
+        }
+
+        public void startRefreshPlayersTgread()
+        {
+            background_worker_get_players.DoWork += background_worker_get_players_DoWork;
+            background_worker_get_players.ProgressChanged += background_worker_get_players_ProgressChanged;
+            background_worker_get_players.RunWorkerCompleted += background_worker_get_players_RunWorkerCompleted;
+
+            background_worker_get_players.WorkerSupportsCancellation = true;
+            background_worker_get_players.WorkerReportsProgress = true;
+
+            if (!background_worker_get_players.IsBusy)
+            {
+                background_worker_get_players.RunWorkerAsync();
+            }
+        }
+
+        private void background_worker_get_players_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void background_worker_get_players_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void background_worker_get_players_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
