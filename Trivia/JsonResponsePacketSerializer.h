@@ -15,7 +15,6 @@ using json = nlohmann::json;
 #define MESSAGE_KEY "message"
 #define ROOMS_KEY "Rooms"
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
-#define ROOM_ADMIN_KEY "roomAdmin"
 #define USER_STATISTICS_KEY "UserStatistics"
 #define HIGHSCORES_KEY "HighScore"
 
