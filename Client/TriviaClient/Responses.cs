@@ -20,6 +20,9 @@ namespace TriviaClient
             GET_PERSONAL_SCORE_RESPONSE_ID = 8,
             GET_HIGHEST_SCORE_RESPONSE_ID = 9,
             LEAVE_ROOM_RESPONSE_ID = 10,
+            CLOSE_ROOM_RESPONSE_ID = 11,
+            START_GAME_RESPONSE_ID = 12,
+            GET_ROOM_STATE_RESPONSE_ID = 13,
             GENERAL_ERROR_RESPONSE_ID = 99
         }
 
@@ -114,6 +117,22 @@ namespace TriviaClient
             public AllPllayers(int status, List<string> PlayersInRoom)
             {
                 Status = status;
+                this.PlayersInRoom = PlayersInRoom;
+            }
+        }
+
+
+        public class RoomStatus
+        {
+            public int Status { get; set; }
+            public bool hasGameBegun { get; set; }
+
+            public List<string> PlayersInRoom { get; set; }
+
+            public RoomStatus(int status, bool hasGameBegun, List<string> PlayersInRoom)
+            {
+                Status = status;
+                this.hasGameBegun = hasGameBegun;
                 this.PlayersInRoom = PlayersInRoom;
             }
         }
