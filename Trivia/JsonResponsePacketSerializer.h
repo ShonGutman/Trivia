@@ -32,7 +32,7 @@ using json = nlohmann::json;
 #define NUMBER_OF_WRONG_ANS_KEY "numWrongAnswers"
 #define AVG_TIME_FOR_ANS_KEY "averageTimeForAnswer"
 
-#define HAS_GAME_BEGUN_KEY "has game begun"
+#define HAS_GAME_BEGUN_KEY "hasGameBegun"
 
 
 
