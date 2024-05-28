@@ -12,7 +12,7 @@ class RoomMemberRequestHandler : public IRequestHandler
 {
 public:
     //CTOR//
-	RoomMemberRequestHandler(RequestHandlerFactory& factory, Room& gameRoom);
+	RoomMemberRequestHandler(RequestHandlerFactory& factory, int gameRoomID);
 
     /**
      * Checks if the given request is relevant to this handler.
@@ -40,7 +40,7 @@ public:
     RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
-    Room& _room; ///< Reference to the Room object.
+    int _roomID; ///< ID to the Room object.
     RequestHandlerFactory& _factoryHandler; ///< Reference to the RequestHandlerFactory.
 
     /**
