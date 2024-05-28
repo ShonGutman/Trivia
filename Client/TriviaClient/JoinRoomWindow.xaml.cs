@@ -89,6 +89,7 @@ namespace TriviaClient
             {
                 background_worker_get_players.CancelAsync();
             }
+
             if(background_worker_get_rooms.IsBusy)
             {
                 background_worker_get_rooms.CancelAsync();
@@ -135,6 +136,20 @@ namespace TriviaClient
             if (e.UserState is List<RoomData> allRooms)
             {
                 RoomsList.ItemsSource = allRooms;
+            }
+
+            else if(e.UserState is null)
+            {
+                selctedRoom.roomId = 0;
+                RoomsList.ItemsSource = null;
+
+                playersLable.Visibility = Visibility.Hidden;
+                PlayerList.Visibility = Visibility.Hidden;
+
+                if (background_worker_get_players.IsBusy)
+                {
+                    background_worker_get_players.CancelAsync();
+                }
             }
 
         }
