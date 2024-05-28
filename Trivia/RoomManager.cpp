@@ -54,6 +54,36 @@ Room& RoomManager::getRoom(const unsigned int roomID)
 	return _rooms.at(roomID);
 }
 
+void RoomManager::removeUserFromAllRooms(const LoggedUser& user)
+{
+	std::vector<int> roomsToDelete;
+
+	for (auto& pair : _rooms)
+	{
+		try
+		{
+			pair.second.removeUser(user);
+		}
+		catch (const std::exception&)
+		{
+			//if remove failed it means user isnt a member of room. no need to handle anything
+
+			//check if user is the admi
+			if (pair.second.getRoomAdmin() == user)
+			{
+				roomsToDelete.push_back(pair.first);
+			}
+		}
+
+	}
+
+	for (const auto& it : roomsToDelete)
+	{
+		//delete all rooms that relate to admin
+		deleteRoom(it);
+	}
+}
+
 const int RoomManager::getNextRoomId() const
 {
 	return RoomManager::_amountOfRoomsEverJoined + 1;

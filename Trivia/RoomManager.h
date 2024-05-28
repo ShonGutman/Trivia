@@ -64,6 +64,13 @@ public:
 	Room& getRoom(const unsigned int roomID);
 
 	/*
+	* removes the user from all rooms it is inside + if it owns one it also deletes that room
+	* 
+	* @param user - user to remove from all rooms
+	*/
+	void removeUserFromAllRooms(const LoggedUser& user);
+
+	/*
 	* Gets ID of the next room (in order to maintaine unique id)
 	* 
 	* @return: a number of the next room id to be added
