@@ -116,10 +116,10 @@ namespace TriviaClient
         {
             if (e.UserState is Responses.ErrorResponse errorResponse)
             {
+                background_worker_get_players.CancelAsync();
+
                 ErrorPopup popup = new ErrorPopup("Room was closed!");
                 popup.ShowDialog();
-
-                background_worker_get_players.CancelAsync();
 
                 //move to menu
                 MainMenuWindow window = new MainMenuWindow(communicator, username);
