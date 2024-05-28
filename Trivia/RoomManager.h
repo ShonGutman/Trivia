@@ -2,6 +2,7 @@
 
 #include "Room.h"
 #include <map>
+#include <string>
 #include <vector>
 
 class RoomManager

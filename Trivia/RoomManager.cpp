@@ -1,5 +1,7 @@
 #include "RoomManager.h"
 
+#define NUM_QUESTIONS 10
+
 //init num of rooms joined to be zero at the start
 int RoomManager::_amountOfRoomsEverJoined = 0;
 
@@ -11,6 +13,12 @@ RoomManager& RoomManager::get()
 
 void RoomManager::createRoom(const LoggedUser& roomAdmin, const RoomData& data)
 {
+
+	if (data.numOfQuestionsInGame > NUM_QUESTIONS)
+	{ 
+		throw std::runtime_error("Questions limit in game is: " + std::to_string(NUM_QUESTIONS));
+	}
+
 	//create new room
 	auto result = _rooms.insert({ data.id, Room(data, roomAdmin) });
 
