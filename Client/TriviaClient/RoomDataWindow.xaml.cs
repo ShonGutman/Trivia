@@ -48,7 +48,33 @@ namespace TriviaClient
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.CLOSE_ROOM_REQUEST_ID);
 
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead logout response
+            if (response.id == Responses.ResponseId.CLOSE_ROOM_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    MainMenuWindow mainWindow = new MainMenuWindow(communicator, username);
+                    this.Close();
+                    mainWindow.Show();
+                }
+            }
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -58,7 +84,33 @@ namespace TriviaClient
 
         private void LeaveRoom_Click(object sender, RoutedEventArgs e)
         {
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LEAVE_ROOM_REQUEST_ID);
 
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead leave room response
+            if (response.id == Responses.ResponseId.LEAVE_ROOM_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    MainMenuWindow mainWindow = new MainMenuWindow(communicator, username);
+                    this.Close();
+                    mainWindow.Show();
+                }
+            }
         }
 
         public object QueryAllPlayers()
