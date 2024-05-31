@@ -79,7 +79,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& res
 
     // Add data to the json object.
     jsonRoom[STATUS_KEY] = response.status;
-    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms).dump();
+    jsonRoom[ROOMS_KEY] = convertObjectToJson(response.rooms);
 
     return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
 }
@@ -88,9 +88,8 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse
 {
     json jsonGetPlayersInRoom;
 
-    // Add data to the json object.
-    jsonGetPlayersInRoom[ROOM_ADMIN_KEY] = response.roomAdmin.getName();
-    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom).dump();;
+    jsonGetPlayersInRoom[STATUS_KEY] = response.status;
+    jsonGetPlayersInRoom[PLAYERS_IN_ROOM_KEY] = convertObjectToJson(response.playersInRoom);
 
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
 }
@@ -227,7 +226,7 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
         currentRoom[IS_ACTIVE_KEY] = roomVec[i].isActive;
 
         // Adds the currentRoom to the json of rooms.
-        convortedJson[i] = currentRoom.dump();
+        convortedJson[i] = currentRoom;
     }
 
     return convortedJson;

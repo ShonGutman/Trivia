@@ -63,7 +63,6 @@ typedef struct GetPlayersInRoomResponse
 {
 	STATUS status;
 	std::set<LoggedUser> playersInRoom;
-	LoggedUser roomAdmin;
 }GetPlayersInRoomResponse;
 
 typedef struct GetHighscoreResponse

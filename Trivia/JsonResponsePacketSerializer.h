@@ -15,7 +15,6 @@ using json = nlohmann::json;
 #define MESSAGE_KEY "message"
 #define ROOMS_KEY "Rooms"
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
-#define ROOM_ADMIN_KEY "roomAdmin"
 #define USER_STATISTICS_KEY "UserStatistics"
 #define HIGHSCORES_KEY "HighScore"
 
@@ -33,8 +32,7 @@ using json = nlohmann::json;
 #define NUMBER_OF_WRONG_ANS_KEY "numWrongAnswers"
 #define AVG_TIME_FOR_ANS_KEY "averageTimeForAnswer"
 
-#define HAS_GAME_BEGUN_KEY "has game begun"
-#define PLAYERS_IN_ROOM_KEY "players in room"
+#define HAS_GAME_BEGUN_KEY "hasGameBegun"
 
 
 

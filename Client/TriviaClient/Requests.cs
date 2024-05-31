@@ -20,6 +20,10 @@ namespace TriviaClient
             GET_PLAYERS_IN_ROOM_REQUEST_ID = 7,
             GET_PERSONAL_SCORE_REQUEST_ID = 8,
             GET_HIGHEST_SCORE_REQUEST_ID = 9,
+            LEAVE_ROOM_REQUEST_ID = 10,
+            CLOSE_ROOM_REQUEST_ID = 11,
+            START_GAME_REQUEST_ID = 12,
+            GET_ROOM_STATE_REQUEST_ID = 13,
             ERROR_REQUEST_ID = 99
         }
         public class LoginRequest
@@ -67,6 +71,16 @@ namespace TriviaClient
                 this.playersNum = playersNum;
                 this.questionNum = questionNum;
                 this.timePerQuestion = timePerQuestion;
+            }
+        }
+
+        public class RoomRequest
+        {
+            public uint roomId { get; set; }
+
+            public RoomRequest(uint roomId)
+            {
+                this.roomId = roomId;
             }
         }
     }

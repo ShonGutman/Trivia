@@ -115,7 +115,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info, const Logged
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(roomManger.getRoom(request.roomID));
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(request.roomID);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
     }
@@ -156,7 +156,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info, const Logg
         response.status = SUCCESS;
 
         //assign to MenuHandler (for the time being) 
-        result.newHandler = _factoryHandler.createRoomAdminRequestHandler(roomManger.getRoom(roomId));
+        result.newHandler = _factoryHandler.createRoomAdminRequestHandler(roomId);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
 
     }
@@ -223,8 +223,7 @@ RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
     {
         GetPlayersInRoomResponse response;
 
-        //retrieve data about the users and the admin
-        response.roomAdmin = roomManger.getRoom(request.roomID).getRoomAdmin();
+        //retrieve data about the users
         response.playersInRoom = roomManger.getRoom(request.roomID).getAllUsers();
 
         //SUCCESS reponse to getAllPlayersInRoom

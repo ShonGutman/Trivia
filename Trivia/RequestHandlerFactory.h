@@ -52,10 +52,10 @@ public:
 	 * and returns a pointer to it. Memory management is the responsibility of the caller,
 	 * and the created object must be deleted when no longer needed.
 	 *
-	 * @param gameRoom Reference to the Room object.
+	 * @param gameRoomID id to the Room object.
 	 * @return A pointer to the newly created RoomAdminRequestHandler instance.
 	 */
-	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& gameRoom);
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(int gameRoomID);
 
 	/**
 	* Creates a new RoomMemberRequestHandler instance.
@@ -64,10 +64,10 @@ public:
 	* and returns a pointer to it. Memory management is the responsibility of the caller,
 	* and the created object must be deleted when no longer needed.
 	*
-	* @param gameRoom Reference to the Room object.
+	* @param gameRoomID id to the Room object.
 	* @return A pointer to the newly created RoomMemberRequestHandler instance.
 	*/
-	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& gameRoom);
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(int gameRoomID);
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.

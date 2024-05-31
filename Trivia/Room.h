@@ -48,6 +48,7 @@ public:
 	 */
 	void removeUser(const LoggedUser& user);
 
+
 	/**
 	 * Retrieves all users currently in the room.
 	 *

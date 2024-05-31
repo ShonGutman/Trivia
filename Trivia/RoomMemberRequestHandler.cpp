@@ -1,7 +1,7 @@
 #include "RoomMemberRequestHandler.h"
 
-RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& factory, Room& gameRoom)
-    : _factoryHandler(factory), _room(gameRoom)
+RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& factory, int gameRoomID)
+    : _factoryHandler(factory), _roomID(gameRoomID)
 {
 }
 
@@ -36,7 +36,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info, Logge
         LeaveRoomResponse response;
 
         // Remove the user from the room
-        _room.removeUser(user);
+        roomManager.getRoom(_roomID).removeUser(user);
 
         //SUCCESS reponse to leave room
         response.status = SUCCESS;
@@ -54,7 +54,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info, Logge
         response.id = LEAVE_ROOM_RESPONSE_ID;
 
         //assign to roomAdminHandler
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_roomID);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
@@ -72,23 +72,23 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
         GetRoomStatusResponse response;
 
         response.status = SUCCESS;
-        response.players = _room.getAllUsers();
-        response.hasGameBegun = _room.getRoomData().isActive;
+        response.players = roomManager.getRoom(_roomID).getAllUsers();
+        response.hasGameBegun = roomManager.getRoom(_roomID).getRoomData().isActive;
 
         //assign to RoomAdminHandler since there were no changes 
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
+        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_roomID);
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
     catch (const std::exception& e)
     {
         ErrorResponse response;
 
-        //FAILED reponse to closing room
-        response.message = e.what();
+        //FAILED reponse to state room
+        response.message = "there is error with room";
         response.id = GET_ROOM_STATE_RESPONSE_ID;
 
-        //assign to roomAdminHandler
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_room);
+        //assign to menu
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 
