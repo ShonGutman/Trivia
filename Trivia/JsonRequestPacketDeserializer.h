@@ -17,6 +17,7 @@ using json = nlohmann::json;
 #define MAX_PLAYERS_IN_ROOM_KEY "playersNum"
 #define NUM_OF_QUESTIONS_IN_GAME_KEY "questionNum"
 #define TINE_PER_QUESTION_KEY "timePerQuestion"
+#define ANSWER_ID_KEY "answerID"
 
 
 #define SIZE_BYTE 8
@@ -80,6 +81,17 @@ public:
 	 * @return A CreateRoomRequest object deserialized from the buffer.
 	 */
 	static CreateRoomRequest deserializeCreateRoomRequest(const Buffer& buffer);
+
+	/**
+	 * Deserialize a buffer into a SubmitAnswerRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a SubmitAnswerRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A SubmitAnswerRequest object deserialized from the buffer.
+	 */
+	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const Buffer& buffer);
 
 private:
 
