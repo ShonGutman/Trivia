@@ -116,31 +116,39 @@ namespace TriviaClient
         public object QueryAllPlayers()
         {
 
-            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.GET_ROOM_STATE_REQUEST_ID);
-
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
-
-            //check if server response is indead room status response
-            if (response.id == Responses.ResponseId.GET_ROOM_STATE_RESPONSE_ID)
+            try
             {
-                //check if server responsed was failed
-                if (Helper.isFailed(response.messageJson))
+                byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.GET_ROOM_STATE_REQUEST_ID);
+
+                //send and scan msg from server
+                communicator.sendMsg(msg);
+                Responses.GeneralResponse response = communicator.receiveMsg();
+
+                //check if server response is indead room status response
+                if (response.id == Responses.ResponseId.GET_ROOM_STATE_RESPONSE_ID)
                 {
+                    //check if server responsed was failed
+                    if (Helper.isFailed(response.messageJson))
+                    {
 
-                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+                        Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
 
-                    return errorResponse;
+                        return errorResponse;
+                    }
+
+                    else
+                    {
+                        return JsonConvert.DeserializeObject<Responses.RoomStatus>(response.messageJson);
+                    }
                 }
 
-                else
-                {
-                    return JsonConvert.DeserializeObject<Responses.RoomStatus>(response.messageJson);
-                }
+                return null;
             }
 
-            return null;
+            catch (Exception e) 
+            {
+                return new Responses.ErrorResponse(Responses.STATUS.FAIL, e.Message);
+            }
         }
 
         public void startRefreshPlayersThread()
