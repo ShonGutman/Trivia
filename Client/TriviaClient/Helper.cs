@@ -18,10 +18,19 @@ namespace TriviaClient
         /// <returns> true if fail, false if not</returns>
         public static bool isFailed(string jsonMsg)
         {
+            
+            try
+            {
+                JObject jsonObject = JObject.Parse(jsonMsg);
 
-        JObject jsonObject = JObject.Parse(jsonMsg);
+                return (int)jsonObject["status"] == (int)Responses.STATUS.FAIL;
+            }
 
-        return (int)jsonObject["status"] == (int)Responses.STATUS.FAIL;
+            catch
+            {
+                return false;
+            }
+
         }
 
         /// <summary>

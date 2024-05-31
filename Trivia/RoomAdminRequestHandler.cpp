@@ -124,8 +124,8 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, Log
 		response.message = e.what();
 		response.id = GET_ROOM_STATE_RESPONSE_ID;
 
-		//assign to RoomAdminHandler since there were no changes 
-		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(_roomID);
+		//assign to menu
+		result.newHandler = _factoryHandler.createMenuRequestHandler();
 		result.response = JsonResponsePacketSerializer::serializerResponse(response);
 	}
 

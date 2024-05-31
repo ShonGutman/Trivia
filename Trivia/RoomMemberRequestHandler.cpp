@@ -83,12 +83,12 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
     {
         ErrorResponse response;
 
-        //FAILED reponse to closing room
-        response.message = e.what();
+        //FAILED reponse to state room
+        response.message = "there is error with room";
         response.id = GET_ROOM_STATE_RESPONSE_ID;
 
-        //assign to roomAdminHandler
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_roomID);
+        //assign to menu
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
 

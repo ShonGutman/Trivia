@@ -202,7 +202,7 @@ namespace TriviaClient
                 background_worker_get_players.ReportProgress(0, serverResponse);
 
                 // Wait for a half of a second before the next request
-                Thread.Sleep(500);
+                Thread.Sleep(700);
             }
         }
     }
