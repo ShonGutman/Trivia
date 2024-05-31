@@ -23,6 +23,10 @@ typedef enum : unsigned int {
 	CLOSE_ROOM_RESPONSE_ID = 11,
 	START_GAME_RESPONSE_ID = 12,
 	GET_ROOM_STATE_RESPONSE_ID = 13,
+	LEAVE_GAME_RESPONSE_ID = 14,
+	GET_QUESTION_RESPONSE_ID = 15,
+	SUBMIT_ANSWER_RESPONSE_ID = 16,
+	GET_GAME_RESULTS_RESPONSE_ID = 17,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -111,3 +115,14 @@ typedef struct GetRoomStatusResponse
 	bool hasGameBegun = false;
 	std::set<LoggedUser> players;
 }GetRoomStatusResponse;
+
+typedef struct LeaveGameResponse
+{
+	STATUS status;
+}LeaveGameResponse;
+
+typedef struct SubmitAnswerResponse
+{
+	STATUS status;
+	unsigned int correctAnswerID;
+}SubmitAnswerResponse;
