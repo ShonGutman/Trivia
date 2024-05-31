@@ -147,7 +147,7 @@ namespace TriviaClient
 
             catch (Exception e) 
             {
-                return new Responses.ErrorResponse(Responses.STATUS.FAIL, e.Message);
+                return null;
             }
         }
 
