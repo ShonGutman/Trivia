@@ -27,6 +27,10 @@ typedef enum : unsigned int
 	CLOSE_ROOM_REQUEST_ID = 11,
 	START_GAME_REQUEST_ID = 12,
 	GET_ROOM_STATE_REQUEST_ID = 13,
+	LEAVE_GAME_REQUEST_ID = 14,
+	GET_QUESTION_REQUEST_ID = 15,
+	SUBMIT_ANSWER_REQUEST_ID = 16,
+	GET_GAME_RESULT_REQUEST_ID = 17,
 	ERROR_REQUEST_ID = 99
 }RequestId;
 
@@ -79,4 +83,9 @@ struct CreateRoomRequest
 	unsigned int maxPlayers;
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
+};
+
+struct SubmitAnswerRequest
+{
+	unsigned int answerID;
 };
