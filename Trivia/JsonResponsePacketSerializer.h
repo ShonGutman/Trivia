@@ -13,10 +13,12 @@ using json = nlohmann::json;
 
 #define STATUS_KEY "status"
 #define MESSAGE_KEY "message"
+#define USERNAME_KEY "username"
 #define ROOMS_KEY "Rooms"
 #define PLAYERS_IN_ROOM_KEY "PlayersInRoom"
 #define USER_STATISTICS_KEY "UserStatistics"
 #define HIGHSCORES_KEY "HighScore"
+
 
 #define ROOM_ID_KEY "roomId"
 #define ROOM_NAME_KEY "roomName"
@@ -26,15 +28,17 @@ using json = nlohmann::json;
 #define IS_ACTIVE_KEY "isActive"
 
 
-
 #define NUMBER_OF_GAMES_KEY "numGames"
 #define NUMBER_OF_RIGHT_ANS_KEY "numRightAnswers"
 #define NUMBER_OF_WRONG_ANS_KEY "numWrongAnswers"
 #define AVG_TIME_FOR_ANS_KEY "averageTimeForAnswer"
 #define HAS_GAME_BEGUN_KEY "hasGameBegun"
 
+
+#define CORRECT_ANSWER_ID "correctAnswerID"
 #define QUESTION_KEY "question"
 #define ALL_ANSWERS_KEY "answers"
+#define GAME_RESULTS_KEY "results"
 
 
 
@@ -178,6 +182,26 @@ public:
 	*/
 	static Buffer serializerResponse(const GetQuestionResponse& response);
 
+	/*
+	* Serializes a SubmitAnswerResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The SubmitAnswerResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(const SubmitAnswerResponse& response);
+
+	/*
+	* Serializes a GetGameResultResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The GetGameResultResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(const GetGameResultResponse& response);
+
 
 private:
 	/*
@@ -209,6 +233,14 @@ private:
 	 * @return A JSON object representing the converted RoomData objects.
 	 */
 	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<RoomData>& roomVec);
+
+	/**
+	 * Converts a vector of PlayerResults objects into a JSON object.
+	 *
+	 * @param resultVec The vector containing PlayerResults objects to be converted.
+	 * @return A JSON object representing the converted PlayerResults objects.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::vector<PlayerResults>& resultVec);
 
 	/**
 	 * Converts a set of LoggedUser into a JSON array.

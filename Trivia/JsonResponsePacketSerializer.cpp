@@ -168,6 +168,28 @@ Buffer JsonResponsePacketSerializer::serializerResponse(const GetQuestionRespons
     return fitBuffToProtocol(jsonQuestion.dump(), GET_QUESTION_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializerResponse(const SubmitAnswerResponse& response)
+{
+    json jsonsubmitAnswer;
+
+    // Add data to the json object.
+    jsonsubmitAnswer[STATUS_KEY] = response.status;
+    jsonsubmitAnswer[CORRECT_ANSWER_ID] = response.correctAnswerID;
+
+    return fitBuffToProtocol(jsonsubmitAnswer.dump(), SUBMIT_ANSWER_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetGameResultResponse& response)
+{
+    json jsonGameResults;
+
+    // Add data to the json object.
+    jsonGameResults[STATUS_KEY] = response.status;
+    jsonGameResults[GAME_RESULTS_KEY] = convertObjectToJson(response.results);
+
+    return fitBuffToProtocol(jsonGameResults.dump(), GET_GAME_RESULTS_RESPONSE_ID);
+}
+
 Buffer JsonResponsePacketSerializer::decToBin(const unsigned int decNum)
 {
     //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
@@ -249,6 +271,25 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 
         // Adds the currentRoom to the json of rooms.
         convortedJson[i] = currentRoom;
+    }
+
+    return convortedJson;
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<PlayerResults>& resultVec)
+{
+    json convortedJson, currentResult;
+
+    for (int i = 0; i < resultVec.size(); i++)
+    {
+        // Adds the data to the currentResult to the json
+        currentResult[USERNAME_KEY] = resultVec[i].username;
+        currentResult[NUMBER_OF_RIGHT_ANS_KEY] = resultVec[i].numRightAns;
+        currentResult[NUMBER_OF_WRONG_ANS_KEY] = resultVec[i].numWrongAns;
+        currentResult[AVG_TIME_FOR_ANS_KEY] = resultVec[i].avgTimeForAns;
+
+        // Adds the currentResult to the json of results.
+        convortedJson[i] = currentResult;
     }
 
     return convortedJson;
