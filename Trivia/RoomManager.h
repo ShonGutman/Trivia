@@ -2,6 +2,7 @@
 
 #include "Room.h"
 #include <map>
+#include <string>
 #include <vector>
 
 class RoomManager
@@ -62,6 +63,13 @@ public:
 	 * @throws std::out_of_range if the room with the specified ID does not exist.
 	 */
 	Room& getRoom(const unsigned int roomID);
+
+	/*
+	* removes the user from all rooms it is inside + if it owns one it also deletes that room
+	* 
+	* @param user - user to remove from all rooms
+	*/
+	void removeUserFromAllRooms(const LoggedUser& user);
 
 	/*
 	* Gets ID of the next room (in order to maintaine unique id)

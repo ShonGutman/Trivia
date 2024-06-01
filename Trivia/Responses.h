@@ -20,6 +20,9 @@ typedef enum : unsigned int {
 	GET_PERSONAL_SCORE_RESPONSE_ID = 8,
 	GET_HIGHEST_SCORE_RESPONSE_ID = 9,
 	LEAVE_ROOM_RESPONSE_ID = 10,
+	CLOSE_ROOM_RESPONSE_ID = 11,
+	START_GAME_RESPONSE_ID = 12,
+	GET_ROOM_STATE_RESPONSE_ID = 13,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -50,11 +53,6 @@ struct ErrorResponse
 	std::string message;
 }typedef ErrorResponse;
 
-typedef struct LeaveRoomResponse
-{
-	STATUS status;
-}LeaveRoomResponse;
-
 typedef struct GetAllRoomsResponse
 {
 	STATUS status;
@@ -65,22 +63,21 @@ typedef struct GetPlayersInRoomResponse
 {
 	STATUS status;
 	std::set<LoggedUser> playersInRoom;
-	LoggedUser roomAdmin;
 }GetPlayersInRoomResponse;
 
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	std::map<std::string, int> highScores; // std::string for the name, int for the high score
+	std::map<std::string, int> highScores; // std::string for the name, int for the score
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	int numberOfGames;
-	int numRightAns;
-	int numWrongAns;
-	double avgTimeForAns;
+	int numberOfGames = 0;
+	int numRightAns = 0;
+	int numWrongAns = 0;
+	double avgTimeForAns = 0;
 }GetPersonalStatsResponse;
 
 typedef struct JoinRoomResponse
@@ -92,3 +89,25 @@ typedef struct CreateRoomResponse
 {
 	STATUS status;
 }CreateRoomResponse;
+
+typedef struct LeaveRoomResponse
+{
+	STATUS status;
+}LeaveRoomResponse;
+
+typedef struct CloseRoomResponse
+{
+	STATUS status;
+}CloseRoomResponse;
+
+typedef struct StartGameResponse
+{
+	STATUS status;
+}StartGameResponse;
+
+typedef struct GetRoomStatusResponse
+{
+	STATUS status;
+	bool hasGameBegun = false;
+	std::set<LoggedUser> players;
+}GetRoomStatusResponse;

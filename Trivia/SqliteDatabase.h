@@ -71,7 +71,14 @@ public:
 	 * @param numOfQuestions The number of questions to retrieve. Defaults to NUM_QUESTIONS if not specified.
 	 * @return A vector of Question objects retrieved from the database.
 	 */
-	virtual std::vector<Question> getQuestions(const int numOfQuestions = NUM_QUESTIONS) override;
+	std::vector<Question> getQuestions(const int numOfQuestions = NUM_QUESTIONS) override;
+
+	/**
+	* creates a new column in statistics table for user
+	* 
+	* @param user to create new column with 0 in values
+	*/
+	void createEmptyStatisticColumn(const string& username) override;
 
 	/**
 	* Retrieves the average answer time for a player.
@@ -79,7 +86,7 @@ public:
 	* @param username The username of the player.
 	* @return The average answer time of the player.
 	*/
-	virtual float getPlayerAverageAnswerTime(const string& username) override;
+	float getPlayerAverageAnswerTime(const string& username) override;
 
 	/**
 	 * Retrieves the number of correct answers for a player.
@@ -87,7 +94,7 @@ public:
 	 * @param username The username of the player.
 	 * @return The number of correct answers of the player.
 	 */
-	virtual int getNumOfCorrectAnswers(const string& username) override;
+	int getNumOfCorrectAnswers(const string& username) override;
 
 	/**
 	 * Retrieves the number of worng answers for a player.
@@ -95,7 +102,7 @@ public:
 	 * @param username The username of the player.
 	 * @return The number of worng answers of the player.
 	 */
-	virtual int getNumOfWrongAnswers(const string& username) override;
+	int getNumOfWrongAnswers(const string& username) override;
 
 	/**
 	 * Retrieves the total number of answers (correct and incorrect) for a player.
@@ -103,7 +110,7 @@ public:
 	 * @param username The username of the player.
 	 * @return The total number of answers of the player.
 	 */
-	virtual int getNumOfTotalAnswers(const string& username) override;
+	int getNumOfTotalAnswers(const string& username) override;
 
 	/**
 	 * Retrieves the number of games played by a player.
@@ -111,7 +118,7 @@ public:
 	 * @param username The username of the player.
 	 * @return The number of games played by the player.
 	 */
-	virtual int getNumOfPlayerGames(const string& username) override;
+	int getNumOfPlayerGames(const string& username) override;
 
 	/**
 	 * Retrieves the score of a player.
@@ -119,14 +126,14 @@ public:
 	 * @param username The username of the player.
 	 * @return The score of the player.
 	 */
-	virtual int getPlayerScore(const string& username) override;
+	int getPlayerScore(const string& username) override;
 
 	/**
 	 * Retrieves the highscores.
 	 *
 	 * @return A map containing username as string and their corresponding scores, representing the highscores.
 	 */
-	virtual std::map<std::string, int> getHighscores() override;
+	std::map<std::string, int> getHighscores() override;
 
 
 private:
@@ -194,7 +201,7 @@ private:
 
 	static int callbackNumber(void* data, int argc, char** argv, char** azColName);
 	static int callbackQuestion(void* data, int argc, char** argv, char** azColName);
-	static int callbackFloat(void* data, int argc, char** argv, char** azColName);
+	static int callbackDouble(void* data, int argc, char** argv, char** azColName);
 	static int callbackHighScoresMap(void* data, int argc, char** argv, char** azColName);
 
 

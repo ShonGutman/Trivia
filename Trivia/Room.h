@@ -48,6 +48,7 @@ public:
 	 */
 	void removeUser(const LoggedUser& user);
 
+
 	/**
 	 * Retrieves all users currently in the room.
 	 *
@@ -68,6 +69,11 @@ public:
 	 * @return Roomdata with all data to know about the room.
 	 */
 	const RoomData getRoomData() const;
+
+	/**
+	 * changes room to be active
+	 */
+	void makeRoomActive();
 
 private:
 	RoomData _metaData;

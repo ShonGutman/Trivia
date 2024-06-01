@@ -20,6 +20,18 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
     return new MenuRequestHandler(*this);
 }
 
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(int gameRoomID)
+{
+    //memory must be deleted
+    return new RoomAdminRequestHandler(*this, gameRoomID);
+}
+
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(int gameRoomID)
+{
+    //memory must be deleted
+    return new RoomMemberRequestHandler(*this, gameRoomID);
+}
+
 LoginManager& RequestHandlerFactory::getLoginManager()
 {
     return this->_loginManager;

@@ -129,8 +129,11 @@ void Communicator::handleNewClient(SOCKET clientSocket)
 			//log out the user
 			if (user.isInitialized())
 			{
-				LoginManager& manager = _factory->getLoginManager();
-				manager.logout(user.getName());
+				RoomManager& roomManager = _factory->getRoomManager();
+				roomManager.removeUserFromAllRooms(user);
+
+				LoginManager& loginManager = _factory->getLoginManager();
+				loginManager.logout(user.getName());
 			}
 
 			//end client socket & thread
