@@ -118,9 +118,9 @@ int SqliteDatabase::getPlayerScore(const string& username)
 	return score;
 }
 
-std::map<std::string, int> SqliteDatabase::getHighscores()
+std::map<std::string, unsigned int> SqliteDatabase::getHighscores()
 {
-	std::map<std::string, int> highscoreList;
+	std::map<std::string, unsigned int> highscoreList;
 	std::string sqlStatement = R"(select username, numOfRightAns from statistics;)";
 	preformSqlRequest(sqlStatement, callbackHighScoresMap, &highscoreList);
 
@@ -348,7 +348,7 @@ int SqliteDatabase::callbackDouble(void* data, int argc, char** argv, char** azC
 int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, char** azColName)
 {
 	// Cast the data pointer back to the map type
-	std::map<std::string, int>* resultMap = static_cast<std::map<std::string, int>*>(data);
+	std::map<std::string, unsigned int>* resultMap = static_cast<std::map<std::string, unsigned int>*>(data);
 	std::string username = "";
 	int numOfRightAns = 0;
 
