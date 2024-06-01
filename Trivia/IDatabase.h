@@ -36,7 +36,7 @@ public:
 
 	virtual int  getPlayerScore(const string& username) = 0;
 
-	virtual std::map<std::string, int> getHighscores() = 0;
+	virtual std::map<std::string, unsigned int> getHighscores() = 0;
 
 protected:
 

@@ -133,7 +133,7 @@ public:
 	 *
 	 * @return A map containing username as string and their corresponding scores, representing the highscores.
 	 */
-	std::map<std::string, int> getHighscores() override;
+	std::map<std::string, unsigned int> getHighscores() override;
 
 
 private:
