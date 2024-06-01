@@ -73,6 +73,16 @@ Buffer JsonResponsePacketSerializer::serializerResponse(const GetRoomStatusRespo
     return fitBuffToProtocol(jsonRoomStatus.dump(), GET_ROOM_STATE_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializerResponse(const LeaveGameResponse& response)
+{
+    json jsonLeaveGame;
+
+    // Add data to the json object.
+    jsonLeaveGame[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLeaveGame.dump(), LEAVE_GAME_RESPONSE_ID);
+}
+
 Buffer JsonResponsePacketSerializer::serializerResponse(const GetAllRoomsResponse& response)
 {
     json jsonRoom;
@@ -144,6 +154,18 @@ Buffer JsonResponsePacketSerializer::serializerResponse(const LeaveRoomResponse&
     jsonLeaveRoom[STATUS_KEY] = response.status;
 
     return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetQuestionResponse& response)
+{
+    json jsonQuestion;
+
+    // Add data to the json object.
+    jsonQuestion[STATUS_KEY] = response.status;
+    jsonQuestion[QUESTION_KEY] = response.question;
+    jsonQuestion[ALL_ANSWERS_KEY] = convertObjectToJson(response.answers);
+
+    return fitBuffToProtocol(jsonQuestion.dump(), GET_QUESTION_RESPONSE_ID);
 }
 
 Buffer JsonResponsePacketSerializer::decToBin(const unsigned int decNum)
@@ -247,11 +269,18 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 }
 
 
-nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, int>& scoresMap)
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, unsigned int>& scoresMap)
 {
     //convert map to json
     // first = name, sec = high score
     return json(scoresMap);
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<unsigned int, std::string>& answers)
+{
+    //convert map to json
+    // first = answer id, sec = answer
+    return json(answers);
 }
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)

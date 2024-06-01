@@ -31,8 +31,10 @@ using json = nlohmann::json;
 #define NUMBER_OF_RIGHT_ANS_KEY "numRightAnswers"
 #define NUMBER_OF_WRONG_ANS_KEY "numWrongAnswers"
 #define AVG_TIME_FOR_ANS_KEY "averageTimeForAnswer"
-
 #define HAS_GAME_BEGUN_KEY "hasGameBegun"
+
+#define QUESTION_KEY "question"
+#define ALL_ANSWERS_KEY "answers"
 
 
 
@@ -133,7 +135,6 @@ public:
 	* @param response The CloseRoomResponse object to be serialized.
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
-
 	static Buffer serializerResponse(const CloseRoomResponse& response);
 
 	/*
@@ -144,7 +145,6 @@ public:
 	* @param response The StartGameResponse object to be serialized.
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
-
 	static Buffer serializerResponse(const StartGameResponse& response);
 
 	/*
@@ -156,8 +156,27 @@ public:
 	* @param response The GetRoomStatusResponse object to be serialized.
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
-
 	static Buffer serializerResponse(const GetRoomStatusResponse& response);
+
+	/*
+	* Serializes a LeaveGameResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The LeaveGameResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(const LeaveGameResponse& response);
+
+	/*
+	* Serializes a GetQuestionResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The GetQuestionResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(const GetQuestionResponse& response);
 
 
 private:
@@ -205,7 +224,15 @@ private:
 	 * @param scoresMap The map containing strings to be converted.
 	 * @return A JSON array representing the converted strings.
 	 */
-	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::map<std::string, int>& scoresMap);
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::map<std::string, unsigned int>& scoresMap);
+
+	/**
+	 * Converts a map of int and strings into a JSON array.
+	 *
+	 * @param answers The map containing the id of the answers and the answers to be converted.
+	 * @return A JSON array representing the converted strings.
+	 */
+	static nlohmann::json_abi_v3_11_3::json convertObjectToJson(const std::map<unsigned int, std::string>& answers);
 
 	/**
 	 * Converts a struct of GetPersonalStatsResponse into a JSON array.
