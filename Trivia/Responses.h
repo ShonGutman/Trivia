@@ -78,9 +78,9 @@ typedef struct GetHighscoreResponse
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	int numberOfGames = 0;
-	int numRightAns = 0;
-	int numWrongAns = 0;
+	unsigned int numberOfGames = 0;
+	unsigned int numRightAns = 0;
+	unsigned int numWrongAns = 0;
 	double avgTimeForAns = 0;
 }GetPersonalStatsResponse;
 
@@ -126,3 +126,25 @@ typedef struct SubmitAnswerResponse
 	STATUS status;
 	unsigned int correctAnswerID;
 }SubmitAnswerResponse;
+
+typedef struct GetQuestionResponse
+{
+	STATUS status;
+	std::string question;
+	std::map<unsigned int, std::string> answers;
+
+}GetQuestionResponse;
+
+typedef struct PlayerResults
+{
+	std::string username;
+	unsigned int numRightAns = 0;
+	unsigned int numWrongAns = 0;
+	double avgTimeForAns = 0;
+}PlayerResults;
+
+typedef struct GetGameResultResponse
+{
+	STATUS status;
+	std::vector<PlayerResults> results;
+}GetGameResultResponse;
