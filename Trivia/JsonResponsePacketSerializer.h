@@ -44,28 +44,28 @@ public:
 	* @param response: The ErrorResponse& object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(ErrorResponse& response);
+	static Buffer serializerResponse(const ErrorResponse& response);
 
 	/*
 	* Serializes a login response into a binary buffer.
 	* @param response: The LoginResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(LoginResponse& response);
+	static Buffer serializerResponse(const LoginResponse& response);
 
 	/*
 	* Serializes a signup response into a binary buffer.
 	* @param response: The SignupResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(SignupResponse& response);
+	static Buffer serializerResponse(const SignupResponse& response);
 
 	/*
 	* Serializes a logout response into a binary buffer.
 	* @param response: The LogoutResponse object to be serialized.
 	* @return: The binary buffer containing the serialized response.
 	*/
-	static Buffer serializerResponse(LogoutResponse& response);
+	static Buffer serializerResponse(const LogoutResponse& response);
 
 	/**
 	 * Serializes a GetRoomResponse into a Buffer.
@@ -73,7 +73,7 @@ public:
 	 * @param response The GetRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetAllRoomsResponse& response);
+	static Buffer serializerResponse(const GetAllRoomsResponse& response);
 
 	/**
 	 * Serializes a GetPlayersInRoomResponse into a Buffer.
@@ -81,7 +81,7 @@ public:
 	 * @param response The GetPlayersInRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetPlayersInRoomResponse& response);
+	static Buffer serializerResponse(const GetPlayersInRoomResponse& response);
 
 	/**
 	 * Serializes a JoinRoomResponse into a Buffer.
@@ -89,7 +89,7 @@ public:
 	 * @param response The JoinRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(JoinRoomResponse& response);
+	static Buffer serializerResponse(const JoinRoomResponse& response);
 
 	/**
 	 * Serializes a CreateRoomResponse into a Buffer.
@@ -97,7 +97,7 @@ public:
 	 * @param response The CreateRoomResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(CreateRoomResponse& response);
+	static Buffer serializerResponse(const CreateRoomResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -105,7 +105,7 @@ public:
 	 * @param highscoreResponse The HighscoreResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetHighscoreResponse& response);
+	static Buffer serializerResponse(const GetHighscoreResponse& response);
 
 	/**
 	 * Serializes Highscore and PersonalStats responses into a Buffer.
@@ -113,7 +113,7 @@ public:
 	 * @param personalStatsResponse The PersonalStatsResponse to serialize.
 	 * @return A Buffer containing the serialized data.
 	 */
-	static Buffer serializerResponse(GetPersonalStatsResponse& response);
+	static Buffer serializerResponse(const GetPersonalStatsResponse& response);
 
 	/*
 	* Serializes a LeaveRoomResponse object into a buffer for transmission. It constructs a JSON object
@@ -123,7 +123,7 @@ public:
 	* @param response The LeaveRoomResponse object to be serialized.
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
-	static Buffer serializerResponse(LeaveRoomResponse& response);
+	static Buffer serializerResponse(const LeaveRoomResponse& response);
 
 	/*
 	* Serializes a CloseRoomResponse object into a buffer for transmission. It constructs a JSON object
@@ -134,7 +134,7 @@ public:
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
 
-	static Buffer serializerResponse(CloseRoomResponse& response);
+	static Buffer serializerResponse(const CloseRoomResponse& response);
 
 	/*
 	* Serializes a StartGameResponse object into a buffer for transmission. It constructs a JSON object
@@ -145,7 +145,7 @@ public:
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
 
-	static Buffer serializerResponse(StartGameResponse& response);
+	static Buffer serializerResponse(const StartGameResponse& response);
 
 	/*
 	* Serializes a GetRoomStatusResponse object into a buffer for transmission. It constructs a JSON object
@@ -157,8 +157,7 @@ public:
 	* @return Buffer containing the serialized response ready for transmission.
 	*/
 
-	static Buffer serializerResponse(GetRoomStatusResponse& response);
-
+	static Buffer serializerResponse(const GetRoomStatusResponse& response);
 
 
 private:
@@ -167,14 +166,14 @@ private:
 	* @param decNum: The decimal number to be converted to binary.
 	* @return: The binary buffer containing the binary representation of the decimal number.
 	*/
-	static Buffer decToBin(unsigned int decNum);
+	static Buffer decToBin(const unsigned int decNum);
 
 	/*
 	* Converts a string to its binary representation.
 	* @param str: The string to be converted to binary.
 	* @return: The binary buffer containing the binary representation of the string.
 	*/
-	static Buffer strToBin(std::string str);
+	static Buffer strToBin(const std::string& str);
 
 	/*
 	* Fits a message and a code into a binary buffer according to the protocol.
@@ -182,7 +181,7 @@ private:
 	* @param code: The code representing the message type.
 	* @return: The binary buffer containing the message and code formatted according to the protocol.
 	*/
-	static Buffer fitBuffToProtocol(std::string msg, ResponseId code);
+	static Buffer fitBuffToProtocol(const std::string& msg, const ResponseId code);
 
 	/**
 	 * Converts a vector of RoomData objects into a JSON object.
