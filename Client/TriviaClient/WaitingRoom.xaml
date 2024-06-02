@@ -1,0 +1,26 @@
+﻿<Window x:Class="TriviaClient.WaitingRoom"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TriviaClient"
+        mc:Ignorable="d"
+        Title="WaitingRoom" Height="400" Width="400">
+
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock 
+                Text="Waiting for players to finish..." 
+                FontFamily ="Hadassah Friedlaender Bold" 
+                FontSize="40" 
+                HorizontalAlignment="Center" 
+                TextWrapping="Wrap" 
+                Foreground="#FFFC8DAE" Height="135" Width="250" TextAlignment="Center"/>
+
+            <Image Source="pictures/pink_clock.png" 
+               Stretch="Fill" 
+               HorizontalAlignment="Center"
+               Height="200" Width="200"/>
+        </StackPanel>
+    </Grid>
+</Window>
