@@ -26,7 +26,7 @@ void GameManager::createGame(const Room& room)
 	std::set<LoggedUser> usersInGame = room.getAllUsers();
 	Game game = Game(_database->getQuestions(room.getRoomData().numOfQuestionsInGame),
 		std::vector<LoggedUser>(usersInGame.begin(), usersInGame.end()),
-			_amountOfGamesCreated);
+			_amountOfGamesCreated++);
 
 	_games.push_back(game);
 }
