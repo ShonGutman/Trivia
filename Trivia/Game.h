@@ -26,6 +26,8 @@ class Game
 {
 public:
 
+	Game(std::vector<Question> questions, std::vector<LoggedUser> users, unsigned int GameID);
+
 	/*
 	* Retrieves the current question for the specified user if the user is still playing.
 	* It iterates through the players map to find the user and checks if they are still playing.
@@ -35,7 +37,7 @@ public:
 	* @return The current question assigned to the user.
 	* @throws std::runtime_error If the user is not found in the players map or is not still playing.
 	*/
-	Question getQuestionForUser(const LoggedUser& user) const;
+	Question getQuestionForUser(const LoggedUser& user);
 
 	/*
 	* Removes the specified user from the game by marking them as no longer playing.
@@ -62,6 +64,8 @@ public:
 	* @throws std::runtime_error If the user is not found or is not playing.
 	*/
 	void submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
+
+	unsigned int getGameID() const;
 
 
 private:

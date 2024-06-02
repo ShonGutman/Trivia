@@ -1,12 +1,28 @@
 #include "Game.h"
 
-Question Game::getQuestionForUser(const LoggedUser& user) const
+Game::Game(std::vector<Question> questions, std::vector<LoggedUser> users, unsigned int GameID)
+{
+}
+
+Question Game::getQuestionForUser(const LoggedUser& user)
 {
 	for (auto& it : _players)
 	{
 		if (it.user == user && it.isStillPlaying)
 		{
-			return it.playerGameData.currentQuestion;
+			//increase question ID by one and check if player reached the limit of questions
+			if (++it.currentQuestionID == _questions.size())
+			{
+				it.isStillPlaying = false;
+				_numOfPlayersStillPlaying--;
+			}
+
+			//change the question to the player and increase the question ID
+			else
+			{
+				it.playerGameData.currentQuestion = _questions[it.currentQuestionID++];
+				return it.playerGameData.currentQuestion;
+			}
 		}
 	}
 
@@ -56,23 +72,15 @@ void Game::submitAnswer(const LoggedUser& user, const unsigned int answerID, con
 				it.playerGameData.numWrongAns++;
 			}
 
-			//increase question ID by one and check if player reached the limit of questions
-			if (++it.currentQuestionID == _questions.size())
-			{
-				it.isStillPlaying = false;
-				_numOfPlayersStillPlaying--;
-			}
-
-			//change the question to the player and increase the question ID
-			else
-			{
-				it.playerGameData.currentQuestion = _questions[it.currentQuestionID++];
-			}
-
 			return;
 		}
 	}
 		throw std::runtime_error("User isn't playing. can't submit answer");
+}
+
+unsigned int Game::getGameID() const
+{
+	return _gameID;
 }
 
 double Game::addToAvg(const double avg, const unsigned int size, const double addedValue)
