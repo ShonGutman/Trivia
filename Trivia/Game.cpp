@@ -5,7 +5,7 @@ Game::Game(const std::vector<Question> questions, const std::vector<LoggedUser> 
 {
 	for (size_t i = 0; i < _numOfPlayersStillPlaying; i++)
 	{
-		_players.push_back(playerGame(users[i], questions[0]));
+		_players.push_back(playerGame(users[i]));
 	}
 }
 

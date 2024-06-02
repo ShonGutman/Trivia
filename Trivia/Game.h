@@ -28,10 +28,10 @@ struct playerGame
 	unsigned int currentQuestionID = 0;
 	bool isStillPlaying = true;
 
-	playerGame(LoggedUser user, Question question)
+	playerGame(LoggedUser user)
 	{
 		user = user;
-		playerGameData = GameData(question);
+		playerGameData = GameData();
 	}
 };
 
