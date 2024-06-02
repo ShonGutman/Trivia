@@ -84,7 +84,7 @@
 
                 <Button Name="CloseButton" Content="Close" Style="{StaticResource RoundedButtonStyle}" Click="CloseButton_Click" Visibility="Collapsed"></Button>
                     <Button Name="StartButton" Content="Start Game" Style="{StaticResource RoundedButtonStyle}" Click="StartButton_Click" Visibility="Collapsed"></Button>
-                    <Button Name="LeaveRoom" Content="Leave Room" Style="{StaticResource RoundedButtonStyle}" Click="LeaveRoom_Click" Visibility="Collapsed"></Button>
+                <Button Name="LeaveRoom" Content="Leave Room" Style="{StaticResource RoundedButtonStyle}" Click="LeaveRoom_Click" Margin="10,40,10,10" Visibility="Collapsed"></Button>
 
             </StackPanel>
             </Grid>

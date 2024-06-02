@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="JoinRoomWindow" Height="450" Width="800" Background="#F9F5F6">
+        Title="JoinRoomWindow" Height="500" Width="800" Background="#F9F5F6">
 
     <Window.Resources>
         <Style x:Key="ExitButtonStyle" TargetType="Button">
@@ -84,27 +84,26 @@
                     FontSize="20"/>
                 
                 <ListBox Name="RoomsList"
-         Height="30"
-         HorizontalContentAlignment="Center"
-         Width="300"
-         FontSize="17"
-         SelectionChanged="RoomsList_SelectionChanged">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding roomName}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-
-
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Height="100"
+                    HorizontalContentAlignment="Center"
+                    Width="300"
+                    FontSize="17"
+                    SelectionChanged="RoomsList_SelectionChanged">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding roomName}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
 
                 <Label
                     Name="playersLable"
@@ -118,9 +117,10 @@
 
                 <ListView 
                     Name="PlayerList" 
-                    Height="30" 
                     HorizontalContentAlignment="Center" 
                     Width="300" FontSize="17" 
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Height="100"
                     Visibility="Hidden"/>
 
                 <Label 
@@ -133,7 +133,7 @@
                     Visibility="Hidden"/>
                 
             </StackPanel>
-            <StackPanel Margin="40">
+            <StackPanel Margin="20">
                 <Button Content="Join Room" Style="{StaticResource RoundedButtonStyle}" Click="JoinRoom_Click"/>
                 <Button Content="Back" Style="{StaticResource ExitButtonStyle}" Click="ExitButton_Click"/>
             </StackPanel>
