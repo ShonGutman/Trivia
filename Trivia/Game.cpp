@@ -56,6 +56,7 @@ void Game::removePlayer(const LoggedUser& user)
 
 void Game::submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion)
 {
+
 	for (auto& it : _players)
 	{
 		if (it.user == user && it.isStillPlaying)

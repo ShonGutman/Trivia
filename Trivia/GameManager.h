@@ -3,6 +3,7 @@
 #include<vector>
 #include "Game.h"
 #include "IDatabase.h"
+#include "Room.h"
 
 class GameManager
 {
@@ -19,6 +20,9 @@ public:
 	GameManager(const GameManager& other) = delete;
 	GameManager& operator=(const GameManager& other) = delete;
 
+	Game& getGame(unsigned int gameID);
+
+	void createGame(const Room& room);
 
 
 private:
