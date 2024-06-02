@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
 
 class Question
 {
@@ -51,4 +52,5 @@ private:
     std::string _question;               // The question text
     std::vector<std::string> _incorrects;  // Vector containing incorrect answers
     std::string _correctAnswer;     // The correct answer
+    unsigned int _correctAnserID;
 };
