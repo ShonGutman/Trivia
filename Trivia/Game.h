@@ -12,6 +12,13 @@ struct GameData
 	unsigned int numWrongAns = 0;
 	double avgTimeForAns = 0;
 
+	GameData() = default;
+
+	GameData(Question question)
+	{
+		currentQuestion = question;
+	}
+
 };
 
 struct playerGame
@@ -20,24 +27,33 @@ struct playerGame
 	GameData playerGameData;
 	unsigned int currentQuestionID = 0;
 	bool isStillPlaying = true;
+
+	playerGame(LoggedUser user, Question question)
+	{
+		user = user;
+		playerGameData = GameData(question);
+	}
 };
 
 class Game
 {
 public:
 
-	Game(std::vector<Question> questions, std::vector<LoggedUser> users, unsigned int GameID);
+	//CTOR of class Game //
+	Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID);
 
 	/*
-	* Retrieves the current question for the specified user if the user is still playing.
+	* Retrieves the next question for the specified user, updating their game status accordingly.
 	* It iterates through the players map to find the user and checks if they are still playing.
-	* If found, it returns the current question assigned to the user.
+	* If found, it increments the user's current question ID and checks if they have reached the question limit.
+	* If the user has reached the limit, they are marked as no longer playing. If not, the next question is assigned
+	* to the user and returned. If the user is not found or is not playing, an exception is thrown.
 	*
-	* @param user The logged-in user for whom the question is to be retrieved.
-	* @return The current question assigned to the user.
-	* @throws std::runtime_error If the user is not found in the players map or is not still playing.
+	* @param user The logged-in user requesting the next question.
+	* @return The next question assigned to the user.
+	* @throws std::runtime_error If the user is not found or is not playing.
 	*/
-	Question getQuestionForUser(const LoggedUser& user);
+	Question getNextQuestionForUser(const LoggedUser& user);
 
 	/*
 	* Removes the specified user from the game by marking them as no longer playing.
@@ -51,11 +67,10 @@ public:
 	void removePlayer(const LoggedUser& user);
 
 	/*
-	* Submits an answer for the specified user, updates their game data, and progresses to the next question.
+	* Submits an answer for the specified user, updates their game data, and progresses to the next question if applicable.
 	* It iterates through the players map to find the user and checks if they are still playing.
 	* If found, it verifies if the submitted answer is correct, updates the average time for answering questions,
-	* and increments the count of right or wrong answers accordingly. It then either progresses to the next question
-	* or marks the user as no longer playing if they have reached the question limit.
+	* and increments the count of right or wrong answers accordingly.
 	* If the user is not found or is not playing, an exception is thrown.
 	*
 	* @param user The logged-in user submitting the answer.
@@ -65,6 +80,11 @@ public:
 	*/
 	void submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
 
+	/*
+	* Retrieves the ID of the game.
+	*
+	* @return The ID of the game.
+	*/
 	unsigned int getGameID() const;
 
 

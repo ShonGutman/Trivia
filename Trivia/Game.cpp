@@ -1,10 +1,15 @@
 #include "Game.h"
 
-Game::Game(std::vector<Question> questions, std::vector<LoggedUser> users, unsigned int GameID)
+Game::Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID)
+	:_questions(questions), _gameID(GameID), _numOfPlayersStillPlaying(users.size())
 {
+	for (size_t i = 0; i < _numOfPlayersStillPlaying; i++)
+	{
+		_players.push_back(playerGame(users[i], questions[0]));
+	}
 }
 
-Question Game::getQuestionForUser(const LoggedUser& user)
+Question Game::getNextQuestionForUser(const LoggedUser& user)
 {
 	for (auto& it : _players)
 	{
