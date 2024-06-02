@@ -158,6 +158,7 @@
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Communicator.h" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="JsonRequestPacketDeserializer.cpp" />
     <ClCompile Include="JsonResponsePacketSerializer.cpp" />
