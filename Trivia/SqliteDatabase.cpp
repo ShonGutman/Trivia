@@ -44,7 +44,7 @@ void SqliteDatabase::signup(const string& username, const string& password, cons
 std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 {
 	std::vector<Question> questionsVector;
-	string sqlStatement = "select * from questions where ROWID <= {};";
+	string sqlStatement = "select * from questions order by random() limit {};";
 	sqlStatement = format(sqlStatement, { std::to_string(numOfQuestions) });
 
 	preformSqlRequest(sqlStatement, callbackQuestion, &questionsVector);
