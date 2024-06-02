@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using TriviaClient.Responses;
 
 namespace TriviaClient
 {
@@ -164,6 +166,18 @@ namespace TriviaClient
                 }
             }
             return true;
+        }
+
+        private void phoneInfo_Click(object sender, RoutedEventArgs e)
+        {
+            // Display info message for paasword
+            InfoWindow infoWindow = new InfoWindow("phone number must adhere to the standard format\r\n\t " +
+                "* - Starts with '0'.\r\n\t " +
+                "* - Followed by 1 or 2 digits representing the area code(X)\r\n\t " +
+                "* - Optionally followed by a hyphen '-'\r\n\t " +
+                "* - Followed by 7 digits representing the local phone number(XXXXXXX)");
+
+            infoWindow.ShowDialog();
         }
     }
 }
