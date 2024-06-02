@@ -33,7 +33,12 @@ std::vector<std::string> Question::getPossibleAnswers() const
 	return this->_incorrects;
 }
 
-std::string Question::getCorrentAnswer() const
+unsigned int Question::getCorrectAnserID() const
+{
+	return this->_correctAnserID;
+}
+
+std::string Question::getCorrectAnswer() const
 {
 	return this->_question;
 }
