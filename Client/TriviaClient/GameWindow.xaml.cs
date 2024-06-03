@@ -19,9 +19,14 @@ namespace TriviaClient
     /// </summary>
     public partial class GameWindow : Window
     {
-        public GameWindow()
+        private Communicator communicator;
+        private string username;
+        public GameWindow(Communicator communicator, string username)
         {
             InitializeComponent();
+            this.communicator = communicator;
+            this.username = username;
+            UserLabel.Content = "Hello, " + username;
         }
 
         private void Ans1_Click(object sender, RoutedEventArgs e)
@@ -46,7 +51,9 @@ namespace TriviaClient
 
         private void EXIT_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow(communicator);
+            this.Close();
+            mainWindow.Show();
         }
     }
 }
