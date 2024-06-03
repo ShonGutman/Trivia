@@ -9,19 +9,7 @@ GameManager& GameManager::get(IDatabase* database)
 	return instance;
 }
 
-Game& GameManager::getGame(unsigned int gameID)
-{
-	for (auto& it : _games)
-	{
-		if (it.getGameID() == gameID)
-		{
-			return it;
-		}
-	}
-	throw std::runtime_error("There is no game with given ID");
-}
-
-void GameManager::createGame(const Room& room)
+Game& GameManager::createGame(const Room& room)
 {
 	std::set<LoggedUser> usersInGame = room.getAllUsers();
 	Game game = Game(_database->getQuestions(room.getRoomData().numOfQuestionsInGame),
@@ -29,6 +17,7 @@ void GameManager::createGame(const Room& room)
 			_amountOfGamesCreated++);
 
 	_games.push_back(game);
+	return _games.back();
 }
 
 GameManager::GameManager(IDatabase* database)
