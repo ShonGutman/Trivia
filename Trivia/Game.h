@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <map>
+#include <mutex>
 #include "Question.h"
 #include "LoggedUser.h"
 
