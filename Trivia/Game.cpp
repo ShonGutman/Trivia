@@ -1,5 +1,7 @@
 #include "Game.h"
 
+static std::mutex _playingPlayersMutex;
+
 Game::Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID)
 	:_questions(questions), _gameID(GameID), _numOfPlayersStillPlaying(users.size())
 {
@@ -19,6 +21,9 @@ Question Game::getNextQuestionForUser(const LoggedUser& user)
 			if (++it.currentQuestionID == _questions.size())
 			{
 				it.isStillPlaying = false;
+
+				//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
+				std::lock_guard<std::mutex> locker(_playingPlayersMutex);
 				_numOfPlayersStillPlaying--;
 			}
 
@@ -44,6 +49,8 @@ void Game::removePlayer(const LoggedUser& user)
 			//make user not playing anymore
 			it.isStillPlaying = false;
 
+			//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
+			std::lock_guard<std::mutex> locker(_playingPlayersMutex);
 			//decrease amount of playing players
 			_numOfPlayersStillPlaying--;
 
