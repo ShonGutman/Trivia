@@ -1,6 +1,6 @@
 #include "RoomMemberRequestHandler.h"
 
-RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& factory, int gameRoomID)
+RoomMemberRequestHandler::RoomMemberRequestHandler(RequestHandlerFactory& factory, const unsigned int gameRoomID)
     : _factoryHandler(factory), _roomID(gameRoomID)
 {
 }

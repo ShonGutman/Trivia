@@ -20,16 +20,21 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
     return new MenuRequestHandler(*this);
 }
 
-RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(int gameRoomID)
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(const unsigned int gameRoomID)
 {
     //memory must be deleted
     return new RoomAdminRequestHandler(*this, gameRoomID);
 }
 
-RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(int gameRoomID)
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(const unsigned int gameRoomID)
 {
     //memory must be deleted
     return new RoomMemberRequestHandler(*this, gameRoomID);
+}
+
+GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(const Room& room)
+{
+    return new GameRequestHandler(*this, room);
 }
 
 LoginManager& RequestHandlerFactory::getLoginManager()
@@ -45,4 +50,9 @@ RoomManager& RequestHandlerFactory::getRoomManager()
 StatisticsManager& RequestHandlerFactory::getStatisticsManager()
 {
     return this->_statisticsManager;
+}
+
+GameManager& RequestHandlerFactory::getGameManager()
+{
+    return this->_gameManager;
 }

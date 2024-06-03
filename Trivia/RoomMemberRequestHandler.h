@@ -12,7 +12,7 @@ class RoomMemberRequestHandler : public IRequestHandler
 {
 public:
     //CTOR//
-	RoomMemberRequestHandler(RequestHandlerFactory& factory, int gameRoomID);
+	RoomMemberRequestHandler(RequestHandlerFactory& factory, const unsigned int gameRoomID);
 
     /**
      * Checks if the given request is relevant to this handler.
