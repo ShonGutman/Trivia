@@ -71,7 +71,18 @@ public:
 	*/
 	RoomMemberRequestHandler* createRoomMemberRequestHandler(const unsigned int gameRoomID);
 
-	GameRequestHandler* createGameRequestHandler(const Room& room);
+	/**
+	* Creates a new createGameRequestHandler instance.
+	*
+	* This function creates a new createGameRequestHandler instance with the given Room and Game objects
+	* and returns a pointer to it. Memory management is the responsibility of the caller,
+	* and the created object must be deleted when no longer needed.
+	*
+	* @param room the Room of the GameRequest object.
+	* @param game the Game of the GameRequest object.
+	* @return A pointer to the newly created createGameRequestHandler instance.
+	*/
+	GameRequestHandler* createGameRequestHandler(Room& room, Game& game);
 
 	/**
 	 * Retrieves the LoginManager instance associated with the RequestHandlerFactory.

@@ -12,10 +12,11 @@ class GameRequestHandler : public IRequestHandler
 {
 public:
 
-	GameRequestHandler(RequestHandlerFactory& factory, const Room& room);
+	GameRequestHandler(RequestHandlerFactory& factory, Room& room, Game& game);
 
 private:
 
 	Game& _game;
 	Room& _room;
+	RequestHandlerFactory& _factoryHandler;
 };

@@ -32,9 +32,10 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
     return new RoomMemberRequestHandler(*this, gameRoomID);
 }
 
-GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(const Room& room)
+GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(Room& room, Game& game)
 {
-    return new GameRequestHandler(*this, room);
+    //memory must be deleted
+    return new GameRequestHandler(*this, room, game);
 }
 
 LoginManager& RequestHandlerFactory::getLoginManager()
