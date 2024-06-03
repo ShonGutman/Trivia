@@ -4,7 +4,8 @@ RequestHandlerFactory::RequestHandlerFactory(IDatabase* database)
     : _database(database),
     _loginManager(LoginManager::get(database)),
     _roomManager(RoomManager::get()),
-    _statisticsManager(StatisticsManager::get(database))
+    _statisticsManager(StatisticsManager::get(database)),
+    _gameManager(GameManager::get(database))
 {
 }
 
@@ -32,10 +33,10 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
     return new RoomMemberRequestHandler(*this, gameRoomID);
 }
 
-GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(Room& room, Game& game)
+GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(Game& game)
 {
     //memory must be deleted
-    return new GameRequestHandler(*this, room, game);
+    return new GameRequestHandler(*this, game);
 }
 
 LoginManager& RequestHandlerFactory::getLoginManager()

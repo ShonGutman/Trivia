@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <condition_variable>
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
 
@@ -12,11 +13,17 @@ class GameRequestHandler : public IRequestHandler
 {
 public:
 
-	GameRequestHandler(RequestHandlerFactory& factory, Room& room, Game& game);
+	//CTOR//
+	GameRequestHandler(RequestHandlerFactory& factory, Game& game);
+
+	bool isRequestRelevant(const RequestInfo& info) override;
+
+	RequestResult handleRequest(const RequestInfo& info, LoggedUser& user) override;
 
 private:
 
+	RequestResult leaveGame(const RequestInfo& info, const LoggedUser& user);
+
 	Game& _game;
-	Room& _room;
 	RequestHandlerFactory& _factoryHandler;
 };
