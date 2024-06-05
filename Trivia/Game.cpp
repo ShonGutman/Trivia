@@ -2,7 +2,7 @@
 
 static std::mutex _playingPlayersMutex;
 
-Game::Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID)
+Game::Game(const std::vector<Question>& questions, const std::vector<LoggedUser>& users, const unsigned int GameID)
 	:_questions(questions), _gameID(GameID), _numOfPlayersStillPlaying(users.size())
 {
 	for (size_t i = 0; i < _numOfPlayersStillPlaying; i++)
