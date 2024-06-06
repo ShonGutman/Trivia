@@ -26,7 +26,7 @@ struct playerGame
 {
 	LoggedUser user;
 	GameData playerGameData;
-	unsigned int currentQuestionID = 0;
+	unsigned int NextQuestionID = 0;
 	bool isStillPlaying = true;
 
 	playerGame(LoggedUser user)
@@ -43,17 +43,7 @@ public:
 	//CTOR of class Game //
 	Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID);
 
-	/*
-	* Retrieves the next question for the specified user, updating their game status accordingly.
-	* It iterates through the players map to find the user and checks if they are still playing.
-	* If found, it increments the user's current question ID and checks if they have reached the question limit.
-	* If the user has reached the limit, they are marked as no longer playing. If not, the next question is assigned
-	* to the user and returned. If the user is not found or is not playing, an exception is thrown.
-	*
-	* @param user The logged-in user requesting the next question.
-	* @return The next question assigned to the user.
-	* @throws std::runtime_error If the user is not found or is not playing.
-	*/
+
 	Question getNextQuestionForUser(const LoggedUser& user);
 
 	/*
@@ -77,9 +67,12 @@ public:
 	* @param user The logged-in user submitting the answer.
 	* @param answerID The ID of the answer submitted by the user.
 	* @param timeForQuestion The time taken by the user to answer the question.
+	* @return the id of the correct answer
 	* @throws std::runtime_error If the user is not found or is not playing.
 	*/
-	void submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
+	unsigned int submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
+
+	unsigned int FinishedGame(const LoggedUser& user);
 
 	/*
 	* Retrieves the ID of the game.
