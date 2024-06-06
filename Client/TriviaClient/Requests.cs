@@ -11,8 +11,8 @@ namespace TriviaClient
 
        public enum RequestId : uint
         {
-	        LOGIN_REQUEST_ID = 1,
-	        SIGN_UP_REQUEST_ID = 2,
+            LOGIN_REQUEST_ID = 1,
+            SIGN_UP_REQUEST_ID = 2,
             LOGOUT_REQUEST_ID = 3,
             JOIN_ROOM_REQUEST_ID = 4,
             CREATE_ROOM_REQUEST_ID = 5,
@@ -24,6 +24,10 @@ namespace TriviaClient
             CLOSE_ROOM_REQUEST_ID = 11,
             START_GAME_REQUEST_ID = 12,
             GET_ROOM_STATE_REQUEST_ID = 13,
+            LEAVE_GAME_REQUEST_ID = 14,
+            GET_QUESTION_REQUEST_ID = 15,
+            SUBMIT_ANSWER_REQUEST_ID = 16,
+            GET_GAME_RESULT_REQUEST_ID = 17,
             ERROR_REQUEST_ID = 99
         }
         public class LoginRequest
