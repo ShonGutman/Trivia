@@ -24,6 +24,12 @@ private:
 
 	RequestResult leaveGame(const RequestInfo& info, const LoggedUser& user);
 
+	RequestResult getQuestion(const RequestInfo& info, const LoggedUser& user);
+
+	RequestResult submitAnswer(const RequestInfo& info, const LoggedUser& user);
+
+	RequestResult finishedGame(const RequestInfo& info, const LoggedUser& user);
+
 	Game& _game;
 	RequestHandlerFactory& _factoryHandler;
 };

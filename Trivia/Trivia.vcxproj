@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FinishedPlayingException.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRequestHandler.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="MenuRequestHandler.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="RegexHelper.h" />
+    <ClInclude Include="RemoveDataManager.h" />
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="Responses.h" />
