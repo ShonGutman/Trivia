@@ -66,6 +66,7 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
     RequestResult result;
 
     RoomManager& roomManager = _factoryHandler.getRoomManager();
+    GameManager& gameManager = _factoryHandler.getGameManager();
 
     try
     {
@@ -75,10 +76,22 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info, Lo
         response.players = roomManager.getRoom(_roomID).getAllUsers();
         response.hasGameBegun = roomManager.getRoom(_roomID).getRoomData().isActive;
 
-        //assign to RoomAdminHandler since there were no changes 
-        result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_roomID);
+        //assign to RoomAdminHandler since there were no changes
+        
+        if (response.hasGameBegun)
+        {
+            Game& game = gameManager.getGame(_roomID);
+            result.newHandler = _factoryHandler.createGameRequestHandler(game);
+        }
+
+        else
+        {
+            result.newHandler = _factoryHandler.createRoomMemberRequestHandler(_roomID);
+        }
+
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
+
     catch (const std::exception& e)
     {
         ErrorResponse response;
