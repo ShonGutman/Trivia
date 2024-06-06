@@ -135,6 +135,8 @@ public:
 	 */
 	std::map<std::string, unsigned int> getHighscores() override;
 
+	void updateStatistics(const std::vector<PlayerResults>& Gameresults) override;
+
 
 private:
 
@@ -221,6 +223,8 @@ private:
 	* @return formatted string
 	*/
 	static string format(string fmt, std::vector<string> args);
+
+	double calculateTotalAverage(const double avg1, const unsigned int numGames1, const double avg2, const unsigned int numGames2);
 
 	sqlite3* _db;
 };
