@@ -203,7 +203,7 @@ RequestResult GameRequestHandler::getResults(const RequestInfo& info)
 
     //lock the mutex - to wait until all threads finished
     std::unique_lock<std::mutex> locker(_resultsMutex);
-    //wait until being notified
+    //wait until being notified (all players finished / left the game)
     _resultsCond.wait(locker, [&]() {return _game.isFinished(); });
 
     try
