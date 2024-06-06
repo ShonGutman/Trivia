@@ -127,6 +127,32 @@ std::map<std::string, unsigned int> SqliteDatabase::getHighscores()
 	return highscoreList;
 }
 
+void SqliteDatabase::updateStatistics(const std::vector<PlayerResults>& Gameresults)
+{
+	for (auto& it : Gameresults)
+	{
+		//calculate the new avg of total answers
+		const double currentAvg = getPlayerAverageAnswerTime(it.username);
+		const unsigned int totalAnswers = getNumOfTotalAnswers(it.username);
+
+		const double newAvg = calculateTotalAverage(currentAvg, totalAnswers, it.avgTimeForAns, it.numRightAns + it.numWrongAns);
+
+		//body of the sqlRequest to set to user
+		std::string sqlStatement = R"(UPDATE statistics
+				SET numOfGames = numOfGames + {},
+				numOfRightAns = numOfRightAns + {},
+				numOfWrongAns = numOfWrongAns + {},
+				avgAnsTime = {}
+				WHERE username = {};)";
+
+		//preform the request with needed data
+		sqlStatement = format(sqlStatement, { std::to_string(it.numRightAns + it.numWrongAns),
+			std::to_string(it.numRightAns), std::to_string(it.numWrongAns), std::to_string(newAvg), it.username });
+
+		preformSqlRequest(sqlStatement);
+	}
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
@@ -384,4 +410,10 @@ string SqliteDatabase::format(string fmt, std::vector<string> args)
 	}
 	ss << fmt;
 	return ss.str();
+}
+
+double SqliteDatabase::calculateTotalAverage(const double avg1, const unsigned int numGames1, const double avg2, const unsigned int numGames2)
+{
+	double totalSum = (avg1 * numGames1) + (avg2 * numGames2);
+	return totalSum / (numGames1 + numGames2);
 }

@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 #include "Question.h"
+#include "PlayerResults.h"
 
 using std::string;
 
@@ -37,6 +38,8 @@ public:
 	virtual int  getPlayerScore(const string& username) = 0;
 
 	virtual std::map<std::string, unsigned int> getHighscores() = 0;
+
+	virtual void updateStatistics(const std::vector<PlayerResults>& Gameresults) = 0;
 
 protected:
 

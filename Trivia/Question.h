@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <string>
 #include <random>
 
@@ -37,9 +38,9 @@ public:
     /**
      * Getter method to retrieve the possible answers.
      *
-     * @return A vector containing the possible answers.
+     * @return A map containing id leading to an answer. one of which is correct
      */
-    std::vector<std::string> getPossibleAnswers() const;
+    std::map<unsigned int, std::string> getPossibleAnswers() const;
 
     /**
      * Getter method to retrieve the correct answer.

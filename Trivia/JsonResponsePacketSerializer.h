@@ -202,6 +202,16 @@ public:
 	*/
 	static Buffer serializerResponse(const GetGameResultResponse& response);
 
+	/*
+	* Serializes a FinishedGameResponse object into a buffer for transmission. It constructs a JSON object
+	* containing the response status and then converts it to a string representation. Finally, it adjusts
+	* the buffer to fit the protocol requirements and returns it.
+	*
+	* @param response The FinishedGameResponse object to be serialized.
+	* @return Buffer containing the serialized response ready for transmission.
+	*/
+	static Buffer serializerResponse(const FinishedGameResponse& response);
+
 
 private:
 	/*

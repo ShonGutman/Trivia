@@ -17,7 +17,9 @@ using json = nlohmann::json;
 #define MAX_PLAYERS_IN_ROOM_KEY "playersNum"
 #define NUM_OF_QUESTIONS_IN_GAME_KEY "questionNum"
 #define TINE_PER_QUESTION_KEY "timePerQuestion"
+
 #define ANSWER_ID_KEY "answerID"
+#define ANSWER_RESPONSE_TIME "timeForAnswer"
 
 
 #define SIZE_BYTE 8

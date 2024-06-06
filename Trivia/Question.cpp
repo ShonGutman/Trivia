@@ -28,9 +28,21 @@ std::string Question::getQuestion() const
 	return this->_question;
 }
 
-std::vector<std::string> Question::getPossibleAnswers() const
+std::map<unsigned int, std::string> Question::getPossibleAnswers() const
 {
-	return this->_incorrects;
+	std::map<unsigned int, std::string> answers;
+	unsigned int i = 1;
+
+	for (auto& it : _incorrects)
+	{
+		if (i != _correctAnserID)
+		{
+			answers.insert({ i++, it });
+		}
+	}
+
+	answers.insert({ _correctAnserID, _correctAnswer });
+	return answers;
 }
 
 unsigned int Question::getCorrectAnserID() const

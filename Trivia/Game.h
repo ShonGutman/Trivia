@@ -5,6 +5,7 @@
 #include <mutex>
 #include "Question.h"
 #include "LoggedUser.h"
+#include "PlayerResults.h"
 
 struct GameData
 {
@@ -22,17 +23,23 @@ struct GameData
 
 };
 
-struct playerGame
+struct PlayerGame
 {
 	LoggedUser user;
 	GameData playerGameData;
-	unsigned int currentQuestionID = 0;
+	unsigned int NextQuestionID = 0;
 	bool isStillPlaying = true;
 
-	playerGame(LoggedUser user)
+	PlayerGame(LoggedUser user)
 	{
 		user = user;
 		playerGameData = GameData();
+	}
+
+	operator PlayerResults() const
+	{
+		return PlayerResults(user.getName(), this->playerGameData.numRightAns,
+			this->playerGameData.numWrongAns, this->playerGameData.avgTimeForAns);
 	}
 };
 
@@ -43,16 +50,15 @@ public:
 	//CTOR of class Game //
 	Game(const std::vector<Question>& questions, const std::vector<LoggedUser>& users, const unsigned int GameID);
 
+
 	/*
-	* Retrieves the next question for the specified user, updating their game status accordingly.
-	* It iterates through the players map to find the user and checks if they are still playing.
-	* If found, it increments the user's current question ID and checks if they have reached the question limit.
-	* If the user has reached the limit, they are marked as no longer playing. If not, the next question is assigned
-	* to the user and returned. If the user is not found or is not playing, an exception is thrown.
+	* Retrieves the next question for the specified user if they are still playing and have not reached the end of the questions.
+	* It iterates through the players to find the user, verifies they are still playing, and assigns the next question to them.
+	* If the user has no more questions or is not found, an exception is thrown.
 	*
 	* @param user The logged-in user requesting the next question.
 	* @return The next question assigned to the user.
-	* @throws std::runtime_error If the user is not found or is not playing.
+	* @throws std::runtime_error If the user is not found, is not playing, or has no more questions.
 	*/
 	Question getNextQuestionForUser(const LoggedUser& user);
 
@@ -60,6 +66,7 @@ public:
 	* Removes the specified user from the game by marking them as no longer playing.
 	* It iterates through the players map to find the user and checks if they are still playing.
 	* If found, it updates their status to not playing and decreases the count of players still playing.
+	* This operation is protected by a mutex to ensure thread safety.
 	* If the user does not exist or is not found, an exception is thrown.
 	*
 	* @param user The logged-in user to be removed from the game.
@@ -77,9 +84,22 @@ public:
 	* @param user The logged-in user submitting the answer.
 	* @param answerID The ID of the answer submitted by the user.
 	* @param timeForQuestion The time taken by the user to answer the question.
+	* @return the id of the correct answer
 	* @throws std::runtime_error If the user is not found or is not playing.
 	*/
-	void submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
+	unsigned int submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion);
+
+	/*
+	* Marks the specified user as having finished the game if they have answered all questions.
+	* It iterates through the players to find the user and checks if they are still playing.
+	* If the user has answered all questions, they are marked as not playing, and the count of players still playing is decremented.
+	* This operation is protected by a mutex to ensure thread safety.
+	*
+	* @param user The logged-in user to be marked as finished.
+	* @return The updated number of players still playing.
+	* @throws std::runtime_error If the user does not exist or is not found.
+	*/
+	unsigned int FinishedGame(const LoggedUser& user);
 
 	/*
 	* Retrieves the ID of the game.
@@ -87,6 +107,22 @@ public:
 	* @return The ID of the game.
 	*/
 	unsigned int getGameID() const;
+
+	/*
+	* Checks if the game has finished by verifying if there are no players still playing.
+	* This operation is protected by a mutex to ensure thread safety while accessing the shared variable.
+	*
+	* @return True if no players are still playing, otherwise false.
+	*/
+	bool isFinished() const;
+
+	/*
+	* Retrieves the results of the game for all players.
+	* It iterates through the players and collects their results into a vector.
+	*
+	* @return A vector containing the results of all players in the game.
+	*/
+	std::vector<PlayerResults> getGameResults() const;
 
 
 private:
@@ -102,7 +138,7 @@ private:
 	double addToAvg(const double avg, const unsigned int size, const double addedValue);
 
 	std::vector<Question> _questions;
-	std::vector<playerGame> _players;
+	std::vector<PlayerGame> _players;
 	unsigned int _gameID;
 	unsigned int _numOfPlayersStillPlaying;
 };

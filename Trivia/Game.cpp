@@ -7,7 +7,7 @@ Game::Game(const std::vector<Question>& questions, const std::vector<LoggedUser>
 {
 	for (size_t i = 0; i < _numOfPlayersStillPlaying; i++)
 	{
-		_players.push_back(playerGame(users[i]));
+		_players.push_back(PlayerGame(users[i]));
 	}
 }
 
@@ -17,20 +17,10 @@ Question Game::getNextQuestionForUser(const LoggedUser& user)
 	{
 		if (it.user == user && it.isStillPlaying)
 		{
-			//increase question ID by one and check if player reached the limit of questions
-			if (++it.currentQuestionID == _questions.size())
-			{
-				it.isStillPlaying = false;
-
-				//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
-				std::lock_guard<std::mutex> locker(_playingPlayersMutex);
-				_numOfPlayersStillPlaying--;
-			}
-
 			//change the question to the player and increase the question ID
-			else
+			if(it.NextQuestionID < _questions.size())
 			{
-				it.playerGameData.currentQuestion = _questions[it.currentQuestionID++];
+				it.playerGameData.currentQuestion = _questions[it.NextQuestionID++];
 				return it.playerGameData.currentQuestion;
 			}
 		}
@@ -61,7 +51,7 @@ void Game::removePlayer(const LoggedUser& user)
 	throw std::runtime_error("User doesn't exist in game, can't remove him!");
 }
 
-void Game::submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion)
+unsigned int Game::submitAnswer(const LoggedUser& user, const unsigned int answerID, const double timeForQuestion)
 {
 
 	for (auto& it : _players)
@@ -85,15 +75,53 @@ void Game::submitAnswer(const LoggedUser& user, const unsigned int answerID, con
 				it.playerGameData.numWrongAns++;
 			}
 
-			return;
+			return it.playerGameData.currentQuestion.getCorrectAnserID();
 		}
 	}
 		throw std::runtime_error("User isn't playing. can't submit answer");
 }
 
+unsigned int Game::FinishedGame(const LoggedUser& user)
+{
+	for (auto& it : _players)
+	{
+		if (it.user == user && it.isStillPlaying)
+		{
+			//check if player reached the limit of questions
+			if (it.NextQuestionID == _questions.size())
+			{
+				it.isStillPlaying = false;
+
+				//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
+				std::lock_guard<std::mutex> locker(_playingPlayersMutex);
+				return --_numOfPlayersStillPlaying;
+			}
+		}
+	}
+}
+
 unsigned int Game::getGameID() const
 {
 	return _gameID;
+}
+
+bool Game::isFinished() const
+{
+	//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
+	std::lock_guard<std::mutex> locker(_playingPlayersMutex);
+	return 0 == _numOfPlayersStillPlaying;
+}
+
+std::vector<PlayerResults> Game::getGameResults() const
+{
+	std::vector<PlayerResults> results;
+
+	for (auto& it : _players)
+	{
+		results.push_back((PlayerResults)it);
+	}
+
+	return results;
 }
 
 double Game::addToAvg(const double avg, const unsigned int size, const double addedValue)
