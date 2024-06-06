@@ -87,7 +87,7 @@ unsigned int Game::FinishedGame(const LoggedUser& user)
 	{
 		if (it.user == user && it.isStillPlaying)
 		{
-			//increase question ID by one and check if player reached the limit of questions
+			//check if player reached the limit of questions
 			if (it.NextQuestionID == _questions.size())
 			{
 				it.isStillPlaying = false;
