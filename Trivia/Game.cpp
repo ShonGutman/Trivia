@@ -105,6 +105,25 @@ unsigned int Game::getGameID() const
 	return _gameID;
 }
 
+bool Game::isFinished() const
+{
+	//lock the mutex - to protect _numOfPlayersStillPlaying (shared var)
+	std::lock_guard<std::mutex> locker(_playingPlayersMutex);
+	return 0 == _numOfPlayersStillPlaying;
+}
+
+std::vector<PlayerResults> Game::getGameResults() const
+{
+	std::vector<PlayerResults> results;
+
+	for (auto& it : _players)
+	{
+		results.push_back((PlayerResults)it);
+	}
+
+	return results;
+}
+
 double Game::addToAvg(const double avg, const unsigned int size, const double addedValue)
 {
 	return (avg * size + addedValue) / (size + 1);

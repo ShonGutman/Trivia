@@ -5,6 +5,7 @@
 #include <mutex>
 #include "Question.h"
 #include "LoggedUser.h"
+#include "PlayerResults.h"
 
 struct GameData
 {
@@ -33,6 +34,12 @@ struct playerGame
 	{
 		user = user;
 		playerGameData = GameData();
+	}
+
+	operator PlayerResults() const
+	{
+		return PlayerResults(user.getName(), this->playerGameData.numRightAns,
+			this->playerGameData.numWrongAns, this->playerGameData.avgTimeForAns);
 	}
 };
 
@@ -80,6 +87,10 @@ public:
 	* @return The ID of the game.
 	*/
 	unsigned int getGameID() const;
+
+	bool isFinished() const;
+
+	std::vector<PlayerResults> getGameResults() const;
 
 
 private:
