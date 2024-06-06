@@ -56,16 +56,14 @@ private:
      */
     RequestResult leaveRoom(const RequestInfo& info, LoggedUser& user);
 
-    /**
-     * Handles the request to get the state of the room.
-     *
-     * This function handles the request to get the state of the room, represented by a RequestInfo object,
-     * from the given LoggedUser. It processes the request and returns a RequestResult object
-     * containing the result of handling the request.
-     *
-     * @param info The RequestInfo object containing request details.
-     * @param user The LoggedUser object representing the user making the request.
-     * @return A RequestResult object containing the result of handling the request.
-     */
+    /*
+    * Retrieves the state of the room, including the list of players and whether the game has begun.
+    * It retrieves the room and game data and constructs a response containing the room state.
+    * If the game has begun, it assigns the game request handler; otherwise, it assigns the room member request handler.
+    *
+    * @param info The request information.
+    * @param user The logged-in user requesting the room state.
+    * @return RequestResult containing the response and the next handler to be used.
+    */
     RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
 };
