@@ -23,14 +23,14 @@ struct GameData
 
 };
 
-struct playerGame
+struct PlayerGame
 {
 	LoggedUser user;
 	GameData playerGameData;
 	unsigned int NextQuestionID = 0;
 	bool isStillPlaying = true;
 
-	playerGame(LoggedUser user)
+	PlayerGame(LoggedUser user)
 	{
 		user = user;
 		playerGameData = GameData();
@@ -138,7 +138,7 @@ private:
 	double addToAvg(const double avg, const unsigned int size, const double addedValue);
 
 	std::vector<Question> _questions;
-	std::vector<playerGame> _players;
+	std::vector<PlayerGame> _players;
 	unsigned int _gameID;
 	unsigned int _numOfPlayersStillPlaying;
 };
