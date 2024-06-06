@@ -2,6 +2,7 @@
 
 #include<vector>
 #include <mutex>
+#include <algorithm>
 #include "Game.h"
 #include "IDatabase.h"
 #include "Room.h"
@@ -29,6 +30,10 @@ public:
 	*/
 	Game& createGame(const Room& room);
 
+	Game& getGame(const unsigned int id);
+
+	void deleteGame(const unsigned int id);
+
 
 private:
 
@@ -37,6 +42,4 @@ private:
 	IDatabase* _database;
 
 	std::vector<Game> _games;
-
-	static int _amountOfGamesCreated;
 };
