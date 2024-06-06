@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include "Room.h"
+#include "PlayerResults.h"
 
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
@@ -136,13 +137,6 @@ typedef struct GetQuestionResponse
 
 }GetQuestionResponse;
 
-typedef struct PlayerResults
-{
-	std::string username;
-	unsigned int numRightAns = 0;
-	unsigned int numWrongAns = 0;
-	double avgTimeForAns = 0;
-}PlayerResults;
 
 typedef struct GetGameResultResponse
 {
