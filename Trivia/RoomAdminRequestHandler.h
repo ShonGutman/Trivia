@@ -1,5 +1,7 @@
 #pragma once
 
+#include <thread>
+#include <chrono>
 #include "Room.h"
 #include "RoomManager.h"
 #include "LoggedUser.h"
@@ -83,4 +85,7 @@ private:
      * @return A RequestResult object containing the result of handling the request.
      */
     RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
+
+
+    void deleteDataThread(const unsigned int id, const unsigned int timeInSeconds);
 };
