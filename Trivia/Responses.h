@@ -26,7 +26,8 @@ typedef enum : unsigned int {
 	LEAVE_GAME_RESPONSE_ID = 14,
 	GET_QUESTION_RESPONSE_ID = 15,
 	SUBMIT_ANSWER_RESPONSE_ID = 16,
-	GET_GAME_RESULTS_RESPONSE_ID = 17,
+	FINISHED_GAME_RESPONSE_ID = 17,
+	GET_GAME_RESULTS_RESPONSE_ID = 18,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -148,3 +149,8 @@ typedef struct GetGameResultResponse
 	STATUS status;
 	std::vector<PlayerResults> results;
 }GetGameResultResponse;
+
+typedef struct FinishedGameResponse
+{
+	STATUS status;
+}FinishedGameResponse;

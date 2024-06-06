@@ -30,7 +30,8 @@ typedef enum : unsigned int
 	LEAVE_GAME_REQUEST_ID = 14,
 	GET_QUESTION_REQUEST_ID = 15,
 	SUBMIT_ANSWER_REQUEST_ID = 16,
-	GET_GAME_RESULT_REQUEST_ID = 17,
+	FINISHED_GAME_REQUEST_ID = 17,
+	GET_GAME_RESULT_REQUEST_ID = 18,
 	ERROR_REQUEST_ID = 99
 }RequestId;
 
@@ -88,4 +89,5 @@ struct CreateRoomRequest
 struct SubmitAnswerRequest
 {
 	unsigned int answerID;
+	double timeForAnwser;
 };
