@@ -44,9 +44,15 @@ void GameManager::deleteGame(const unsigned int id)
 
 	if (it != _games.end())
 	{
+		submitResultsToDB(*it);
 		_games.erase(it);
 	}
 
+}
+
+void GameManager::submitResultsToDB(const Game& game) const
+{
+	_database->updateStatistics(game.getGameResults());
 }
 
 GameManager::GameManager(IDatabase* database)

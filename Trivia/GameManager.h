@@ -37,6 +37,8 @@ public:
 
 private:
 
+	void submitResultsToDB(const Game& game) const;
+
 	GameManager(IDatabase* database);
 
 	IDatabase* _database;

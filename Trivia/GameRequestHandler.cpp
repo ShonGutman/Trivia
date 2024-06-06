@@ -1,5 +1,8 @@
 #include "GameRequestHandler.h"
 
+static std::mutex _resultsMutex;
+static std::condition_variable _resultsCond;
+
 GameRequestHandler::GameRequestHandler(RequestHandlerFactory& factory, Game& game)
 	:_factoryHandler(factory), _game(game)
 {
@@ -35,6 +38,7 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& info, LoggedU
         break;
 
     case GET_GAME_RESULT_REQUEST_ID:
+        return getResults(info);
         break;
 
     default:
@@ -50,6 +54,11 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& info, const Logge
     {
         LeaveGameResponse response;
         _game.removePlayer(user);
+
+        if (_game.isFinished())
+        {
+            _resultsCond.notify_all();
+        }
 
         //SUCCESS reponse to leave game
         response.status = SUCCESS;
@@ -156,6 +165,13 @@ RequestResult GameRequestHandler::finishedGame(const RequestInfo& info, const Lo
     {
         FinishedGameResponse response;
 
+        _game.FinishedGame(user);
+
+        if (_game.isFinished())
+        {
+            _resultsCond.notify_all();
+        }
+
         //put data to reponse
         response.status = SUCCESS;
 
@@ -169,9 +185,48 @@ RequestResult GameRequestHandler::finishedGame(const RequestInfo& info, const Lo
     {
         ErrorResponse response;
 
-        //FAILED reponse to getQuestion
+        //FAILED reponse to finishGame
         response.message = e.what();
         response.id = FINISHED_GAME_RESPONSE_ID;
+
+        //if failed move to menu
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
+
+RequestResult GameRequestHandler::getResults(const RequestInfo& info)
+{
+    RequestResult result;
+
+    //lock the mutex - to wait until all threads finished
+    std::unique_lock<std::mutex> locker(_resultsMutex);
+    //wait until being notified
+    _resultsCond.wait(locker, [&]() {return _game.isFinished(); });
+
+    try
+    {
+        GetGameResultResponse response;
+
+        //put data to reponse
+        response.status = SUCCESS;
+        response.results = _game.getGameResults();
+
+        //move to menu
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+    }
+
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getResults
+        response.message = e.what();
+        response.id = GET_GAME_RESULTS_RESPONSE_ID;
 
         //if failed move to menu
         result.newHandler = _factoryHandler.createMenuRequestHandler();

@@ -30,6 +30,8 @@ private:
 
 	RequestResult finishedGame(const RequestInfo& info, const LoggedUser& user);
 
+	RequestResult getResults(const RequestInfo& info);
+
 	Game& _game;
 	RequestHandlerFactory& _factoryHandler;
 };
