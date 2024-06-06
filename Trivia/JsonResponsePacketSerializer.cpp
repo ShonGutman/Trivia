@@ -190,6 +190,16 @@ Buffer JsonResponsePacketSerializer::serializerResponse(const GetGameResultRespo
     return fitBuffToProtocol(jsonGameResults.dump(), GET_GAME_RESULTS_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializerResponse(const FinishedGameResponse& response)
+{
+    json jsonFinishedGame;
+
+    //put data into json
+    jsonFinishedGame[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonFinishedGame.dump(), FINISHED_GAME_RESPONSE_ID);
+}
+
 Buffer JsonResponsePacketSerializer::decToBin(const unsigned int decNum)
 {
     //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
