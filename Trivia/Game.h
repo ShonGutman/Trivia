@@ -48,7 +48,7 @@ class Game
 public:
 
 	//CTOR of class Game //
-	Game(const std::vector<Question> questions, const std::vector<LoggedUser> users, const unsigned int GameID);
+	Game(const std::vector<Question>& questions, const std::vector<LoggedUser>& users, const unsigned int GameID);
 
 
 	/*
