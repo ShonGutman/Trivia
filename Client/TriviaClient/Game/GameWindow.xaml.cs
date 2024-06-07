@@ -27,43 +27,30 @@ namespace TriviaClient
             this.username = username;
             this.room = room;
 
+            //set lables to proper values
             UserLabel.Content = "Hello, " + username;
+            RoomName.Content = room.roomName;
             QuestionCount.Content = room.questionNum;
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
 
-            // Set the target time to the current time plus the time per question
-            targetTime = DateTime.Now.AddSeconds(this.room.timePerQuestion);
-
             Loaded += GameWindow_Loaded;
         }
 
         private void GameWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // Set the target time to the current time plus the time per question
+            targetTime = DateTime.Now.AddSeconds(this.room.timePerQuestion);
+
             timer.Start();
             UpdateTimer(); // Initial update
         }
 
-        private void Ans1_Click(object sender, RoutedEventArgs e)
+        private void CheckAnswer(object sender, RoutedEventArgs e)
         {
             // Handle answer 1 click
-        }
-
-        private void Ans2_Click(object sender, RoutedEventArgs e)
-        {
-            // Handle answer 2 click
-        }
-
-        private void Ans3_Click(object sender, RoutedEventArgs e)
-        {
-            // Handle answer 3 click
-        }
-
-        private void Ans4_Click(object sender, RoutedEventArgs e)
-        {
-            // Handle answer 4 click
         }
 
         private void EXIT_Click(object sender, RoutedEventArgs e)
@@ -95,5 +82,6 @@ namespace TriviaClient
                 Counter.Content = $"{countdown.Seconds:D2}:{countdown.Milliseconds / 10:D2}";
             }
         }
+
     }
 }
