@@ -1,6 +1,6 @@
 #include "RoomAdminRequestHandler.h"
 
-RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory& factory, int gameRoomID)
+RoomAdminRequestHandler::RoomAdminRequestHandler(RequestHandlerFactory& factory, const unsigned int gameRoomID)
 	:_factoryHandler(factory), _roomID(gameRoomID)
 {
 }
@@ -68,19 +68,32 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info, Logged
 	RequestResult result;
 
 	RoomManager& roomManager = _factoryHandler.getRoomManager();
+	GameManager& gameManager = _factoryHandler.getGameManager();
 
 	try
 	{
 		StartGameResponse response;
-		roomManager.getRoom(_roomID).makeRoomActive();
+
+		Room& room = roomManager.getRoom(_roomID);
+		room.makeRoomActive();
+
 
 		//SUCCESS reponse to opening room
 		response.status = SUCCESS;
 
-		//assign to RoomAdminHandler in the meanwhile CHANGE TO GAME HANDLER IN THE FUTURE
-		result.newHandler = _factoryHandler.createRoomAdminRequestHandler(_roomID);
+		//assign to gameRequestHandler
+		Game& game = gameManager.createGame(room);
+		result.newHandler = _factoryHandler.createGameRequestHandler(game);
 		result.response = JsonResponsePacketSerializer::serializerResponse(response);
+
+		// create a thread that handels the removal of the game and room at the end
+		unsigned int gameTime = room.getRoomData().numOfQuestionsInGame * room.getRoomData().timePerQuestion;
+
+		std::thread clientThread(&RoomAdminRequestHandler::deleteDataThread,
+			this, _roomID, gameTime);
+		clientThread.detach();
 	}
+
 	catch (const std::exception& e)
 	{
 		ErrorResponse response;
@@ -130,5 +143,16 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, Log
 	}
 
 	return result;
+}
+
+void RoomAdminRequestHandler::deleteDataThread(const unsigned int id, const unsigned int timeInSeconds)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(timeInSeconds + 10));
+
+	RoomManager& roomManager = _factoryHandler.getRoomManager();
+	GameManager& gameManager = _factoryHandler.getGameManager();
+
+	gameManager.deleteGame(id);
+	roomManager.deleteRoom(id);
 }
 

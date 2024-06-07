@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include "Room.h"
+#include "PlayerResults.h"
 
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
@@ -26,7 +27,8 @@ typedef enum : unsigned int {
 	LEAVE_GAME_RESPONSE_ID = 14,
 	GET_QUESTION_RESPONSE_ID = 15,
 	SUBMIT_ANSWER_RESPONSE_ID = 16,
-	GET_GAME_RESULTS_RESPONSE_ID = 17,
+	FINISHED_GAME_RESPONSE_ID = 17,
+	GET_GAME_RESULTS_RESPONSE_ID = 18,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -135,16 +137,14 @@ typedef struct GetQuestionResponse
 
 }GetQuestionResponse;
 
-typedef struct PlayerResults
-{
-	std::string username;
-	unsigned int numRightAns = 0;
-	unsigned int numWrongAns = 0;
-	double avgTimeForAns = 0;
-}PlayerResults;
 
 typedef struct GetGameResultResponse
 {
 	STATUS status;
 	std::vector<PlayerResults> results;
 }GetGameResultResponse;
+
+typedef struct FinishedGameResponse
+{
+	STATUS status;
+}FinishedGameResponse;

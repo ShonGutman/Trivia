@@ -77,6 +77,7 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
 
     //put data in jsonMsg into request object
     request.answerID = jsonMsg[ANSWER_ID_KEY].get<unsigned int>();
+    request.timeForAnwser = jsonMsg[ANSWER_RESPONSE_TIME].get<double>();
 
     return request;
 }

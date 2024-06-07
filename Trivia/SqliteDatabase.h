@@ -135,6 +135,14 @@ public:
 	 */
 	std::map<std::string, unsigned int> getHighscores() override;
 
+	/*
+	* Updates the statistics for each player based on the results of the game.
+	* It calculates the new average answer time for each player and updates their statistics accordingly.
+	*
+	* @param Gameresults A vector containing the results of all players in the game.
+	*/
+	void updateStatistics(const std::vector<PlayerResults>& Gameresults) override;
+
 
 private:
 
@@ -221,6 +229,18 @@ private:
 	* @return formatted string
 	*/
 	static string format(string fmt, std::vector<string> args);
+
+	/*
+	* Calculates the total average based on the averages and number of games from two sources.
+	* It computes the weighted average of the two averages using the number of games as weights.
+	*
+	* @param avg1 The average from the first source.
+	* @param numGames1 The number of games from the first source.
+	* @param avg2 The average from the second source.
+	* @param numGames2 The number of games from the second source.
+	* @return The total average calculated from both sources.
+	*/
+	double calculateTotalAverage(const double avg1, const unsigned int numGames1, const double avg2, const unsigned int numGames2);
 
 	sqlite3* _db;
 };
