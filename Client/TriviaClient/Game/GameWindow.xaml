@@ -148,10 +148,10 @@
                 FontWeight="Bold"
                 FontFamily="Hadassah Friedlaender Bold" 
                 Foreground="#FFF2BED1"/>
-            <Button Name="Ans1" Style="{StaticResource RoundedButtonStyle}" Click="CheckAnswer"/>
-            <Button Name="Ans2" Style="{StaticResource RoundedButtonStyle}" Click="CheckAnswer"/>
-            <Button Name="Ans3" Style="{StaticResource RoundedButtonStyle}" Click="CheckAnswer"/>
-            <Button Name="Ans4" Style="{StaticResource RoundedButtonStyle}" Click="CheckAnswer"/>
+            <Button Name="Ans1" Style="{StaticResource RoundedButtonStyle}" Tag="1" Click="CheckAnswer"/>
+            <Button Name="Ans2" Style="{StaticResource RoundedButtonStyle}" Tag="2" Click="CheckAnswer"/>
+            <Button Name="Ans3" Style="{StaticResource RoundedButtonStyle}" Tag="3" Click="CheckAnswer"/>
+            <Button Name="Ans4" Style="{StaticResource RoundedButtonStyle}" Tag="4" Click="CheckAnswer"/>
 
             <Label 
                 Content="Score: 0/?"
