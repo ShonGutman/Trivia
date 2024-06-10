@@ -90,7 +90,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info, Logged
 		unsigned int gameTime = room.getRoomData().numOfQuestionsInGame * room.getRoomData().timePerQuestion;
 
 		std::thread clientThread(&RoomAdminRequestHandler::deleteDataThread,
-			this, _roomID, gameTime);
+		this, _roomID, gameTime);
 		clientThread.detach();
 	}
 
@@ -147,7 +147,7 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info, Log
 
 void RoomAdminRequestHandler::deleteDataThread(const unsigned int id, const unsigned int timeInSeconds)
 {
-	std::this_thread::sleep_for(std::chrono::seconds(timeInSeconds + 10));
+	std::this_thread::sleep_for(std::chrono::seconds(timeInSeconds + 30));
 
 	RoomManager& roomManager = _factoryHandler.getRoomManager();
 	GameManager& gameManager = _factoryHandler.getGameManager();
