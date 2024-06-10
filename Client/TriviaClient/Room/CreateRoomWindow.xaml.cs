@@ -72,7 +72,8 @@ namespace TriviaClient
 
                 else
                 {
-                    RoomDataWindow window = new RoomDataWindow(communicator, username, true);
+                    RoomData room = new RoomData(0, roomName, playersNum, questionNum, timePerQuestion, false);
+                    RoomDataWindow window = new RoomDataWindow(communicator, username, true, room);
                     this.Close();
                     window.Show();
                 }
