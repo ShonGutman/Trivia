@@ -17,10 +17,17 @@ namespace TriviaClient
     /// <summary>
     /// Interaction logic for WaitingRoom.xaml
     /// </summary>
+    /// 
     public partial class WaitingRoom : Window
     {
-        public WaitingRoom()
+
+        private Communicator communicator;
+        private string username;
+        public WaitingRoom(Communicator communicator, string username)
         {
+            this.communicator = communicator;
+            this.username = username;
+
             InitializeComponent();
         }
     }
