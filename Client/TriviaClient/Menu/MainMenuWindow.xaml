@@ -91,7 +91,7 @@
             <Button Content="My Status" Style="{StaticResource RoundedButtonStyle}" Click="MyStatus_Click"/>
             <Button Content="Best Scores" Style="{StaticResource RoundedButtonStyle}" Click="BestScores_Click"/>
 
-            <Image Source="pictures/border.png" 
+            <Image Source="/pictures/border.png" 
                Stretch="Fill" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top"

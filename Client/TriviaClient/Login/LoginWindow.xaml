@@ -133,15 +133,12 @@
             </Style>
         </Button.Style>
      </Button>
-
-    <Image Source="pictures/boots.png" 
+            <Image Source="/pictures/boots.png" 
             Stretch="Fill" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Top" 
-            Height="100" Grid.Row="3" 
+            Height="100" 
             Width="100"/>
 
-    </StackPanel>
+        </StackPanel>
     </Grid>
 
 </Window>

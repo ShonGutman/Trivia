@@ -17,7 +17,7 @@
                 TextWrapping="Wrap" 
                 Foreground="#FFFC8DAE" Height="135" Width="250" TextAlignment="Center"/>
 
-            <Image Source="pictures/pink_clock.png" 
+            <Image Source="/pictures/pink_clock.png" 
                Stretch="Fill" 
                HorizontalAlignment="Center"
                Height="200" Width="200"/>
