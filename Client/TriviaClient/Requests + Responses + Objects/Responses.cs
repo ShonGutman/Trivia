@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TriviaClient.Requests___Responses___Objects;
 
 namespace TriviaClient
 {
@@ -168,6 +169,18 @@ namespace TriviaClient
             {
                 Status = status;
                 this.correctAnswerID = correctAnswerID;
+            }
+        }
+
+        public class GameResults
+        {
+            public STATUS Status { get; set; }
+            public List<PersonalGameResult> results { get; set; }
+
+            public GameResults(STATUS status, List<PersonalGameResult> results)
+            {
+                Status = status;
+                this.results = results;
             }
         }
     }
