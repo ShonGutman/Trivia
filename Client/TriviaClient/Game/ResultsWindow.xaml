@@ -5,15 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient.Game"
         mc:Ignorable="d"
-        Title="ResultsWindow" Height="450" Width="800">
+        Title="ResultsWindow" Height="450" Width="500">
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="The results :" FontFamily ="Hadassah Friedlaender Bold" FontSize="48" HorizontalAlignment="Center" Foreground="#FFF491B5"/>
-            <TextBlock x:Name="InfoMessage" Text="" FontSize="14" FontWeight="Bold" Foreground="#D14D72" HorizontalAlignment="Center" Margin="0 5"/>
+
+            <Grid>
+                <Image Source="/pictures/podium1.png" 
+                    Stretch="Fill" 
+                    Height="200" 
+                    Width="252" Margin="0,25,0,0"/>
+                <TextBlock x:Name="winner2" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="140,91,0,91" Width="53"/>
+                <TextBlock x:Name="winner1" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,180"/>
+                <TextBlock x:Name="winner3" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="291,112,0,73" RenderTransformOrigin="-0.985,0.478"/>
+            </Grid>
+            <TextBlock x:Name="rest" Text="rest of the winners" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="10"/>
+
+
             <Button 
                 Content="OK" 
                 Click="Button_Click"
-                Background="#F2BED1"
+                Background="#FFF596B5"
                 Foreground="#F9F5F6"
                 FontFamily ="Hadassah Friedlaender Bold"
                 FontSize="15"
