@@ -143,7 +143,7 @@ void SqliteDatabase::updateStatistics(const std::vector<PlayerResults>& Gameresu
 				numOfRightAns = numOfRightAns + {},
 				numOfWrongAns = numOfWrongAns + {},
 				avgAnsTime = {}
-				WHERE username = {};)";
+				WHERE username = "{}";)";
 
 		//preform the request with needed data
 		sqlStatement = format(sqlStatement, { std::to_string(it.numRightAns + it.numWrongAns),
