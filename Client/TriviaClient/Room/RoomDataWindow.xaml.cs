@@ -224,7 +224,11 @@ namespace TriviaClient
             {
                 if(roomStatus.hasGameBegun)
                 {
-                    //move to game window :)
+                    background_worker_get_players.CancelAsync();
+
+                    GameWindow window = new GameWindow(communicator, username, room);
+                    this.Close();
+                    window.Show();
                 }
 
                 else

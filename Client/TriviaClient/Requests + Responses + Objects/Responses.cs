@@ -156,7 +156,19 @@ namespace TriviaClient
                 this.answers = answers;
             }
 
+        }
 
+        public class SubmitAnswer
+        {
+            public STATUS Status { get; set; }
+
+            public uint correctAnswerID { get; set; }
+
+            public SubmitAnswer(STATUS status, uint correctAnswerID)
+            {
+                Status = status;
+                this.correctAnswerID = correctAnswerID;
+            }
         }
     }
 

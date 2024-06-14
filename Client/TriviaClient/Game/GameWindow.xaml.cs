@@ -15,14 +15,14 @@ namespace TriviaClient
         private string username;
         private RoomData room;
 
-        private int quesCounter = 0;
-        private int scoreCounter = 0;
+        private uint quesCounter = 1;
+        private uint scoreCounter = 0;
 
         private DispatcherTimer timer;
         private DateTime targetTime;
         private DateTime questionRecievedTime;
 
-        private TaskCompletionSource<string> answerCompletionSource;
+        private TaskCompletionSource<uint> answerCompletionSource;
 
         public GameWindow(Communicator communicator, string username, RoomData room)
         {
@@ -35,21 +35,22 @@ namespace TriviaClient
             //set lables to proper values
             UserLabel.Content = "Hello, " + username;
             RoomName.Content = room.roomName;
-            QuestionCount.Content = room.questionNum;
+
+            setQuestionAndScoreCounter(quesCounter, scoreCounter);
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
 
-            handleAllGameAsync();
+            _ = handleAllGameAsync();
         }
 
-        private void CheckAnswer(object sender, RoutedEventArgs e)
+        private void AnswerChoosed(object sender, RoutedEventArgs e)
         {
             if (answerCompletionSource != null && !answerCompletionSource.Task.IsCompleted)
             {
                 Button clickedButton = (Button)sender;
-                answerCompletionSource.SetResult(clickedButton.Content.ToString());
+                answerCompletionSource.SetResult(uint.Parse((string)clickedButton.Tag));
             }
         }
 
@@ -78,7 +79,7 @@ namespace TriviaClient
                 // Set an empty result since time ran out
                 if (answerCompletionSource != null && !answerCompletionSource.Task.IsCompleted)
                 {
-                    answerCompletionSource.SetResult("0");
+                    answerCompletionSource.SetResult(0);
                 }
 
             }
@@ -91,9 +92,8 @@ namespace TriviaClient
 
         private async Task handleAllGameAsync()
         {
-            uint count = room.questionNum;
 
-            while (count > 0)
+            while (quesCounter <= room.questionNum)
             {
 
                 Responses.GetQuestion questionMsg = await getNextQuestion();
@@ -110,13 +110,21 @@ namespace TriviaClient
                 targetTime = DateTime.Now.AddSeconds(this.room.timePerQuestion);
                 timer.Start();
 
-                answerCompletionSource = new TaskCompletionSource<string>();
-                string userAnswer = await answerCompletionSource.Task;
-                double answerTime = (questionRecievedTime - DateTime.Now).;
+                answerCompletionSource = new TaskCompletionSource<uint>();
+                uint userAnswer = await answerCompletionSource.Task;
+                double answerTime = (DateTime.Now - questionRecievedTime).TotalSeconds;
 
                 timer.Stop();
 
-                count--;
+                uint correctID = await submitAnswer(userAnswer, answerTime);
+
+                if (correctID == userAnswer)
+                {
+                    scoreCounter++;
+                }
+
+                setQuestionAndScoreCounter(++quesCounter, scoreCounter);
+
             }
 
             finishedGame();
@@ -160,9 +168,34 @@ namespace TriviaClient
             }
         }
 
-        private uint submitAnswer()
+        private async Task<uint> submitAnswer(uint answerID, double timeForAnswer)
         {
-            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.SUBMIT_ANSWER_REQUEST_ID);
+
+            //create CreateRoomRequest
+            Requests.SubmitAnswer request = new Requests.SubmitAnswer(answerID, timeForAnswer);
+
+            //serialize object and make it fit to protocol
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            byte[] msg = Helper.fitToProtocol(json, (int)Requests.RequestId.SUBMIT_ANSWER_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead get question response
+            if (response.id == Responses.ResponseId.SUBMIT_ANSWER_RESPONSE_ID)
+            {
+                return JsonConvert.DeserializeObject<Responses.SubmitAnswer>(response.messageJson).correctAnswerID;
+            }
+            return 0;
+
+        }
+
+        private void setQuestionAndScoreCounter(uint questionNum, uint score)
+        {
+            QuestionCount.Content = "Question " + questionNum + "/" + room.questionNum;
+            Score.Content = "Score: " + score + "/" + room.questionNum;
         }
     }
 }

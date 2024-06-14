@@ -138,6 +138,12 @@
     <ClInclude Include="GameRequestHandler.h">
       <Filter>Header Files\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerResults.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveDataManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,7 +219,7 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="GameRequestHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

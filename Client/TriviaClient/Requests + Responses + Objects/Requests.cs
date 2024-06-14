@@ -88,5 +88,18 @@ namespace TriviaClient
                 this.roomId = roomId;
             }
         }
+
+        public class SubmitAnswer
+        {
+            public uint answerID { get; set; }
+
+            public double timeForAnswer { get; set; }
+
+            public SubmitAnswer(uint answerID, double timeForAnswer)
+            { 
+               this.answerID = answerID;
+               this.timeForAnswer = timeForAnswer;
+            }
+        }
     }
 }
