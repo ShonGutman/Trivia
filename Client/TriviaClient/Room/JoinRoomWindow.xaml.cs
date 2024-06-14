@@ -189,7 +189,7 @@ namespace TriviaClient
 
             if (room != null)
             {
-                selctedRoom.roomId = room.roomId;
+                selctedRoom = room;
                 startRefreshPlayersThread();
             }
 
