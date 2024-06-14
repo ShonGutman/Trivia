@@ -139,10 +139,7 @@
       <Filter>Header Files\Handlers</Filter>
     </ClInclude>
     <ClInclude Include="PlayerResults.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RemoveDataManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ObjectsHeader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

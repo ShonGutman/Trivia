@@ -143,7 +143,6 @@
     <ClInclude Include="PlayerResults.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="RegexHelper.h" />
-    <ClInclude Include="RemoveDataManager.h" />
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="Responses.h" />

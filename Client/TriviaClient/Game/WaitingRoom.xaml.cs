@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,25 @@ namespace TriviaClient
             this.username = username;
 
             InitializeComponent();
+
+            _ = getResults();
+        }
+
+        private async Task getResults()
+        {
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.GET_GAME_RESULT_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead get question response
+            if (response.id == Responses.ResponseId.GET_GAME_RESULTS_RESPONSE_ID)
+            {
+                Responses.GameResults result = JsonConvert.DeserializeObject<Responses.GameResults>(response.messageJson);
+
+                //move to results page
+            }
         }
     }
 }
