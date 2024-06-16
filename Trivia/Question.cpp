@@ -35,10 +35,12 @@ std::map<unsigned int, std::string> Question::getPossibleAnswers() const
 
 	for (auto& it : _incorrects)
 	{
-		if (i != _correctAnserID)
+		if (i == _correctAnserID)
 		{
-			answers.insert({ i++, it });
+			//skip that number
+			i++;
 		}
+		answers.insert({ i++, it });
 	}
 
 	answers.insert({ _correctAnserID, _correctAnswer });

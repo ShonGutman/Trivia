@@ -1,0 +1,58 @@
+﻿<Window x:Class="TriviaClient.Game.ResultsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TriviaClient.Game"
+        mc:Ignorable="d"
+        Title="ResultsWindow" Height="450" Width="500">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="The results :" FontFamily ="Hadassah Friedlaender Bold" FontSize="48" HorizontalAlignment="Center" Foreground="#FFF491B5"/>
+
+            <Grid>
+                <Image Source="/pictures/podium1.png" 
+                    Stretch="Fill" 
+                    Height="200" 
+                    Width="252" Margin="0,25,0,0"/>
+                <TextBlock x:Name="winner2" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="140,91,0,91" Width="53"/>
+                <TextBlock x:Name="winner1" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,180"/>
+                <TextBlock x:Name="winner3" Text="Winner" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="291,112,0,73" RenderTransformOrigin="-0.985,0.478"/>
+            </Grid>
+            <TextBlock x:Name="rest" Text="rest of the winners" FontSize="14" FontWeight="Bold" Foreground="#FFED6E7A" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="10"/>
+
+
+            <Button 
+                Content="EXIT" 
+                Click="EXIT_Click"
+                Background="#FFF596B5"
+                Foreground="#F9F5F6"
+                FontFamily ="Hadassah Friedlaender Bold"
+                FontSize="15"
+                Height="35"
+                Width="250">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                        CornerRadius="16">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#D14D72" TargetName="LoginBorder"  />
+                                            <Setter Property="TextElement.Foreground" Value="#FCC8D1" TargetName="LoginBorder" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -91,5 +91,5 @@ private:
     * @param id The ID of the room and game to be deleted.
     * @param timeInSeconds The time period after which the data will be deleted.
     */
-    void deleteDataThread(const unsigned int id, const unsigned int timeInSeconds);
+    static void deleteDataThread(RequestHandlerFactory& factoryHandler, const unsigned int id, const unsigned int timeInSeconds);
 };

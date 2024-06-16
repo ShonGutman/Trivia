@@ -32,7 +32,7 @@ struct PlayerGame
 
 	PlayerGame(LoggedUser user)
 	{
-		user = user;
+		this->user = user;
 		playerGameData = GameData();
 	}
 

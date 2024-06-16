@@ -76,7 +76,18 @@ namespace TriviaClient
 
                 else
                 {
-                    RoomDataWindow window = new RoomDataWindow(communicator, username, false);
+
+                    if (background_worker_get_players.IsBusy)
+                    {
+                        background_worker_get_players.CancelAsync();
+                    }
+
+                    if (background_worker_get_rooms.IsBusy)
+                    {
+                        background_worker_get_rooms.CancelAsync();
+                    }
+
+                    RoomDataWindow window = new RoomDataWindow(communicator, username, false, selctedRoom);
                     this.Close();
                     window.Show();
                 }
@@ -178,7 +189,7 @@ namespace TriviaClient
 
             if (room != null)
             {
-                selctedRoom.roomId = room.roomId;
+                selctedRoom = room;
                 startRefreshPlayersThread();
             }
 

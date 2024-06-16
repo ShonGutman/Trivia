@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TriviaClient.Requests___Responses___Objects;
 
 namespace TriviaClient
 {
@@ -23,6 +24,11 @@ namespace TriviaClient
             CLOSE_ROOM_RESPONSE_ID = 11,
             START_GAME_RESPONSE_ID = 12,
             GET_ROOM_STATE_RESPONSE_ID = 13,
+            LEAVE_GAME_RESPONSE_ID = 14,
+            GET_QUESTION_RESPONSE_ID = 15,
+            SUBMIT_ANSWER_RESPONSE_ID = 16,
+            FINISHED_GAME_RESPONSE_ID = 17,
+            GET_GAME_RESULTS_RESPONSE_ID = 18,
             GENERAL_ERROR_RESPONSE_ID = 99
         }
 
@@ -74,10 +80,10 @@ namespace TriviaClient
         public class PersonalStatsResponse
         {
 
-            public int Status { get; set; }
+            public STATUS Status { get; set; }
             public string UserStatistics { get; set; }
 
-            public PersonalStatsResponse(int status, string UserStatistics)
+            public PersonalStatsResponse(STATUS status, string UserStatistics)
             {
                 this.Status = status;
                 this.UserStatistics = UserStatistics;
@@ -86,10 +92,10 @@ namespace TriviaClient
 
     public class HigheseScores
         {
-            public int Status { get; set; }
+            public STATUS Status { get; set; }
             public string HighScore { get; set; }
 
-            public HigheseScores(int status, string HighScore)
+            public HigheseScores(STATUS status, string HighScore)
             {
                 this.Status = status;
                 this.HighScore = HighScore;
@@ -98,10 +104,10 @@ namespace TriviaClient
 
         public class AllRooms
         {
-            public int Status { get; set; }
+            public STATUS Status { get; set; }
             public List<RoomData> Rooms { get; set; }
 
-            public AllRooms(int status, List<RoomData> Rooms)
+            public AllRooms(STATUS status, List<RoomData> Rooms)
             {
                 Status = status;
                 this.Rooms = Rooms;
@@ -111,10 +117,10 @@ namespace TriviaClient
 
         public class AllPllayers
         {
-            public int Status { get; set; }
+            public STATUS Status { get; set; }
             public List<string> PlayersInRoom { get; set; }
 
-            public AllPllayers(int status, List<string> PlayersInRoom)
+            public AllPllayers(STATUS status, List<string> PlayersInRoom)
             {
                 Status = status;
                 this.PlayersInRoom = PlayersInRoom;
@@ -124,16 +130,57 @@ namespace TriviaClient
 
         public class RoomStatus
         {
-            public int Status { get; set; }
+            public STATUS Status { get; set; }
             public bool hasGameBegun { get; set; }
 
             public List<string> PlayersInRoom { get; set; }
 
-            public RoomStatus(int status, bool hasGameBegun, List<string> PlayersInRoom)
+            public RoomStatus(STATUS status, bool hasGameBegun, List<string> PlayersInRoom)
             {
                 Status = status;
                 this.hasGameBegun = hasGameBegun;
                 this.PlayersInRoom = PlayersInRoom;
+            }
+        }
+
+        public class GetQuestion
+        {
+            public STATUS Status { get; set; }
+            public string question {  get; set; }
+
+           public Dictionary<string, string> answers {  get; set; }
+
+            public GetQuestion(STATUS status, string question, Dictionary<string, string> answers)
+            {
+                Status = status;
+                this.question = question;
+                this.answers = answers;
+            }
+
+        }
+
+        public class SubmitAnswer
+        {
+            public STATUS Status { get; set; }
+
+            public uint correctAnswerID { get; set; }
+
+            public SubmitAnswer(STATUS status, uint correctAnswerID)
+            {
+                Status = status;
+                this.correctAnswerID = correctAnswerID;
+            }
+        }
+
+        public class GameResults
+        {
+            public STATUS Status { get; set; }
+            public List<PersonalGameResult> results { get; set; }
+
+            public GameResults(STATUS status, List<PersonalGameResult> results)
+            {
+                Status = status;
+                this.results = results;
             }
         }
     }

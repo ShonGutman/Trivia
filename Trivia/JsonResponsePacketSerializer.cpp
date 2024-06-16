@@ -295,8 +295,6 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
         // Adds the data to the currentResult to the json
         currentResult[USERNAME_KEY] = resultVec[i].username;
         currentResult[NUMBER_OF_RIGHT_ANS_KEY] = resultVec[i].numRightAns;
-        currentResult[NUMBER_OF_WRONG_ANS_KEY] = resultVec[i].numWrongAns;
-        currentResult[AVG_TIME_FOR_ANS_KEY] = resultVec[i].avgTimeForAns;
 
         // Adds the currentResult to the json of results.
         convortedJson[i] = currentResult;
@@ -331,7 +329,14 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 {
     //convert map to json
     // first = answer id, sec = answer
-    return json(answers);
+
+    nlohmann::json jsonObject = nlohmann::json::object();
+
+    for (const auto& pair : answers) {
+        jsonObject[std::to_string(pair.first)] = pair.second;
+    }
+
+    return jsonObject;
 }
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)
