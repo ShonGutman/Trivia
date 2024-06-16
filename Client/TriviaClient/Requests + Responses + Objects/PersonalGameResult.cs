@@ -11,15 +11,11 @@ namespace TriviaClient.Requests___Responses___Objects
     {
         public string username { get; set; }
         public uint numRightAnswers { get; set; }
-        public uint numWrongAnswers { get; set; }
-        public double averageTimeForAnswer { get; set; }
 
-        public PersonalGameResult(string username, uint numRightAnswers, uint numWrongAnswers, double averageTimeForAnswer)
+        public PersonalGameResult(string username, uint numRightAnswers)
         {
             this.username = username;
             this.numRightAnswers = numRightAnswers;
-            this.numWrongAnswers = numWrongAnswers;
-            this.averageTimeForAnswer = averageTimeForAnswer;
         }
     }
 

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TriviaClient.Game;
 
 namespace TriviaClient
 {
@@ -47,7 +48,9 @@ namespace TriviaClient
             {
                 Responses.GameResults result = JsonConvert.DeserializeObject<Responses.GameResults>(response.messageJson);
 
-                //move to results page
+                ResultsWindow window = new ResultsWindow(communicator, username, result.results);
+                this.Close();
+                window.Show();
             }
         }
     }

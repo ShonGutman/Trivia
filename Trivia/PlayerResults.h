@@ -6,16 +6,11 @@ typedef struct PlayerResults
 {
 	std::string username;
 	unsigned int numRightAns = 0;
-	unsigned int numWrongAns = 0;
-	double avgTimeForAns = 0;
 
-	PlayerResults(const std::string& username, unsigned int numRightAns,
-		unsigned int numWrongAns, double avgTimeForAns)
+	PlayerResults(const std::string& username, unsigned int numRightAns)
 	{
 		this->username = username;
 		this->numRightAns = numRightAns;
-		this->numWrongAns = numWrongAns;
-		this->avgTimeForAns = avgTimeForAns;
 	}
 
 }PlayerResults;
