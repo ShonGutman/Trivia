@@ -91,14 +91,14 @@ namespace TriviaClient
             window.Show();
         }
 
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void AddQuesrion_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
