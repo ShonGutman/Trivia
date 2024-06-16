@@ -152,7 +152,15 @@ void RoomAdminRequestHandler::deleteDataThread(RequestHandlerFactory& factoryHan
 	RoomManager& roomManager = factoryHandler.getRoomManager();
 	GameManager& gameManager = factoryHandler.getGameManager();
 
-	gameManager.deleteGame(id);
-	roomManager.deleteRoom(id);
+	try
+	{
+		gameManager.deleteGame(id);
+		roomManager.deleteRoom(id);
+	}
+	catch (const std::exception&)
+	{
+		// do nothing. room was deleted when admin disconnected
+	}
+
 }
 

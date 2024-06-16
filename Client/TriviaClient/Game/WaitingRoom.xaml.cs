@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,26 +33,36 @@ namespace TriviaClient
 
             InitializeComponent();
 
-            _ = getResults();
+            // Call getResults asynchronously
+            Application.Current.Dispatcher.Invoke(async () => await getResults());
+
         }
 
         private async Task getResults()
         {
             byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.GET_GAME_RESULT_REQUEST_ID);
 
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
-
-            //check if server response is indead get question response
-            if (response.id == Responses.ResponseId.GET_GAME_RESULTS_RESPONSE_ID)
+            // Use Task.Run to run the server communication on a background thread
+            await Task.Run(() =>
             {
-                Responses.GameResults result = JsonConvert.DeserializeObject<Responses.GameResults>(response.messageJson);
+                //send and scan msg from server
+                communicator.sendMsg(msg);
+                Responses.GeneralResponse response = communicator.receiveMsg();
 
-                ResultsWindow window = new ResultsWindow(communicator, username, result.results);
-                this.Close();
-                window.Show();
-            }
+                //check if server response is indeed get question response
+                if (response.id == Responses.ResponseId.GET_GAME_RESULTS_RESPONSE_ID)
+                {
+                    Responses.GameResults result = JsonConvert.DeserializeObject<Responses.GameResults>(response.messageJson);
+
+                    // Update UI on the UI thread
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        ResultsWindow window = new ResultsWindow(communicator, username, result.results);
+                        this.Close();
+                        window.Show();
+                    });
+                }
+            });
         }
     }
 }

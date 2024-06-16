@@ -32,7 +32,7 @@ namespace TriviaClient.Game
             this.username = username;
 
             //sort results from highest to lowest. (credit: https://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object)
-            this.results = results.OrderBy(o => o.numRightAnswers).ToList();
+            this.results = results.OrderBy(o => o.numRightAnswers).Reverse().ToList();
 
             InitializeComponent();
 
@@ -63,7 +63,7 @@ namespace TriviaClient.Game
             else
             {
                 //there is no third player in game
-                winner2.Text = "";
+                winner3.Text = "";
             }
 
             string restPlayers = "";
