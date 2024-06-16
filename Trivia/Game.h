@@ -38,7 +38,8 @@ struct PlayerGame
 
 	operator PlayerResults() const
 	{
-		return PlayerResults(user.getName(), this->playerGameData.numRightAns);
+		return PlayerResults(user.getName(), this->playerGameData.numRightAns,
+			this->playerGameData.numWrongAns, this->playerGameData.avgTimeForAns);
 	}
 };
 

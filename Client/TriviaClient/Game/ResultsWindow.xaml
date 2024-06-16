@@ -23,8 +23,8 @@
 
 
             <Button 
-                Content="OK" 
-                Click="Button_Click"
+                Content="EXIT" 
+                Click="EXIT_Click"
                 Background="#FFF596B5"
                 Foreground="#F9F5F6"
                 FontFamily ="Hadassah Friedlaender Bold"
