@@ -1,5 +1,7 @@
 #pragma once
 
+#include <thread>
+#include <chrono>
 #include "Room.h"
 #include "RoomManager.h"
 #include "LoggedUser.h"
@@ -13,7 +15,7 @@ class RoomAdminRequestHandler : public IRequestHandler
 {
 public:
     //CTOR//
-    RoomAdminRequestHandler(RequestHandlerFactory& factory, int gameRoomID);
+    RoomAdminRequestHandler(RequestHandlerFactory& factory, const unsigned int gameRoomID);
 
     /**
      * Checks if the given request is relevant to this handler.
@@ -42,7 +44,7 @@ public:
 
 private:
 
-    int _roomID; ///<  the ID of the Room object.
+    unsigned int _roomID; ///<  the ID of the Room object.
     RequestHandlerFactory& _factoryHandler; ///< Reference to the RequestHandlerFactory.
 
     /**
@@ -58,17 +60,14 @@ private:
      */
     RequestResult closeRoom(const RequestInfo& info, LoggedUser& user);
 
-    /**
-     * Handles the request to start the game.
-     *
-     * This function handles the request to start the game, represented by a RequestInfo object,
-     * from the given LoggedUser. It processes the request and returns a RequestResult object
-     * containing the result of handling the request.
-     *
-     * @param info The RequestInfo object containing request details.
-     * @param user The LoggedUser object representing the user making the request.
-     * @return A RequestResult object containing the result of handling the request.
-     */
+    /*
+    * Handles the request to start a game in the room.
+    * It activates the room, creates a game, and initiates a thread to delete the room and game data after the game finishes.
+    *
+    * @param info The request information.
+    * @param user The logged-in user initiating the request.
+    * @return RequestResult containing the response and the next handler to be used.
+    */
     RequestResult startGame(const RequestInfo& info, LoggedUser& user);
 
     /**
@@ -83,4 +82,14 @@ private:
      * @return A RequestResult object containing the result of handling the request.
      */
     RequestResult getRoomState(const RequestInfo& info, LoggedUser& user);
+
+    /*
+    * Deletes data associated with a room and game after a specified time period.
+    * This function is intended to be executed in a separate thread.
+    * It sleeps for the specified time plus a safety buffer of 10 seconds before deleting the room and game data.
+    *
+    * @param id The ID of the room and game to be deleted.
+    * @param timeInSeconds The time period after which the data will be deleted.
+    */
+    static void deleteDataThread(RequestHandlerFactory& factoryHandler, const unsigned int id, const unsigned int timeInSeconds);
 };

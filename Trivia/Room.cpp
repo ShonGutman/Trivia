@@ -66,5 +66,5 @@ const RoomData Room::getRoomData() const
 
 void Room::makeRoomActive()
 {
-	this->_metaData.id = true;
+	this->_metaData.isActive = true;
 }

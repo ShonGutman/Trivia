@@ -44,7 +44,7 @@ void SqliteDatabase::signup(const string& username, const string& password, cons
 std::vector<Question> SqliteDatabase::getQuestions(const int numOfQuestions)
 {
 	std::vector<Question> questionsVector;
-	string sqlStatement = "select * from questions where ROWID <= {};";
+	string sqlStatement = "select * from questions order by random() limit {};";
 	sqlStatement = format(sqlStatement, { std::to_string(numOfQuestions) });
 
 	preformSqlRequest(sqlStatement, callbackQuestion, &questionsVector);
@@ -118,13 +118,39 @@ int SqliteDatabase::getPlayerScore(const string& username)
 	return score;
 }
 
-std::map<std::string, int> SqliteDatabase::getHighscores()
+std::map<std::string, unsigned int> SqliteDatabase::getHighscores()
 {
-	std::map<std::string, int> highscoreList;
+	std::map<std::string, unsigned int> highscoreList;
 	std::string sqlStatement = R"(select username, numOfRightAns from statistics;)";
 	preformSqlRequest(sqlStatement, callbackHighScoresMap, &highscoreList);
 
 	return highscoreList;
+}
+
+void SqliteDatabase::updateStatistics(const std::vector<PlayerResults>& Gameresults)
+{
+	for (auto& it : Gameresults)
+	{
+		//calculate the new avg of total answers
+		const double currentAvg = getPlayerAverageAnswerTime(it.username);
+		const unsigned int totalAnswers = getNumOfTotalAnswers(it.username);
+
+		const double newAvg = calculateTotalAverage(currentAvg, totalAnswers, it.avgTimeForAns, it.numRightAns + it.numWrongAns);
+
+		//body of the sqlRequest to set to user
+		std::string sqlStatement = R"(UPDATE statistics
+				SET numOfGames = numOfGames + {},
+				numOfRightAns = numOfRightAns + {},
+				numOfWrongAns = numOfWrongAns + {},
+				avgAnsTime = {}
+				WHERE username = "{}";)";
+
+		//preform the request with needed data
+		sqlStatement = format(sqlStatement, { std::to_string(it.numRightAns + it.numWrongAns),
+			std::to_string(it.numRightAns), std::to_string(it.numWrongAns), std::to_string(newAvg), it.username });
+
+		preformSqlRequest(sqlStatement);
+	}
 }
 
 bool SqliteDatabase::open()
@@ -348,7 +374,7 @@ int SqliteDatabase::callbackDouble(void* data, int argc, char** argv, char** azC
 int SqliteDatabase::callbackHighScoresMap(void* data, int argc, char** argv, char** azColName)
 {
 	// Cast the data pointer back to the map type
-	std::map<std::string, int>* resultMap = static_cast<std::map<std::string, int>*>(data);
+	std::map<std::string, unsigned int>* resultMap = static_cast<std::map<std::string, unsigned int>*>(data);
 	std::string username = "";
 	int numOfRightAns = 0;
 
@@ -384,4 +410,10 @@ string SqliteDatabase::format(string fmt, std::vector<string> args)
 	}
 	ss << fmt;
 	return ss.str();
+}
+
+double SqliteDatabase::calculateTotalAverage(const double avg1, const unsigned int numGames1, const double avg2, const unsigned int numGames2)
+{
+	double totalSum = (avg1 * numGames1) + (avg2 * numGames2);
+	return totalSum / (numGames1 + numGames2);
 }

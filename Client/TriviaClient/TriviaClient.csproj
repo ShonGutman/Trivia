@@ -12,7 +12,14 @@
     <None Remove="border.png" />
     <None Remove="pictures\boots.png" />
     <None Remove="pictures\border.png" />
+    <None Remove="pictures\pink_clock.png" />
+    <None Remove="pictures\podium1.png" />
+    <None Remove="pictures\podium2.png" />
     <None Remove="pictures\swans.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pictures\pink_clock.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +29,8 @@
   <ItemGroup>
     <Resource Include="pictures\boots.png" />
     <Resource Include="pictures\border.png" />
+    <Resource Include="pictures\podium1.png" />
+    <Resource Include="pictures\podium2.png" />
     <Resource Include="pictures\swans.png" />
   </ItemGroup>
 

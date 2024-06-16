@@ -87,12 +87,12 @@
         <StackPanel Grid.Column="1">
             <TextBox  
                 Name="RoomName_input"
-                Foreground="Gray"   
+                Foreground="#FF70676A"   
                 Margin="10"
                 Padding="0,5"
                 Width="250"
                 BorderThickness="0,0,0,1"
-                HorizontalAlignment="Left" Height="40"/>
+                HorizontalAlignment="Left" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
 
             <TextBox  
                 Name="playersNum_input"
@@ -102,7 +102,8 @@
                 Padding="0,5"
                 Width="250"
                 BorderThickness="0,0,0,1"
-                HorizontalAlignment="Left"/>
+                HorizontalAlignment="Left"
+                FontSize="16" FontFamily="Franklin Gothic Medium"/>
 
             <TextBox  
                 Name="questionNum_input"
@@ -112,7 +113,8 @@
                 Padding="0,5"
                 Width="250"
                 BorderThickness="0,0,0,1"
-                HorizontalAlignment="Left"/>
+                HorizontalAlignment="Left"
+                FontSize="16" FontFamily="Franklin Gothic Medium"/>
 
             <TextBox  
                 Name="pNum_input"
@@ -122,7 +124,8 @@
                 Padding="0,5"
                 Width="250"
                 BorderThickness="0,0,0,1"
-                HorizontalAlignment="Left"/>
+                HorizontalAlignment="Left"
+                FontSize="16" FontFamily="Franklin Gothic Medium"/>
         </StackPanel>
 
         <Button 

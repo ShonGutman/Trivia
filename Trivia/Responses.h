@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include "Room.h"
+#include "PlayerResults.h"
 
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
@@ -23,6 +24,11 @@ typedef enum : unsigned int {
 	CLOSE_ROOM_RESPONSE_ID = 11,
 	START_GAME_RESPONSE_ID = 12,
 	GET_ROOM_STATE_RESPONSE_ID = 13,
+	LEAVE_GAME_RESPONSE_ID = 14,
+	GET_QUESTION_RESPONSE_ID = 15,
+	SUBMIT_ANSWER_RESPONSE_ID = 16,
+	FINISHED_GAME_RESPONSE_ID = 17,
+	GET_GAME_RESULTS_RESPONSE_ID = 18,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -68,15 +74,15 @@ typedef struct GetPlayersInRoomResponse
 typedef struct GetHighscoreResponse
 {
 	STATUS status;
-	std::map<std::string, int> highScores; // std::string for the name, int for the score
+	std::map<std::string, unsigned int> highScores; // std::string for the name, int for the score
 }GetHighscoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
 	STATUS status;
-	int numberOfGames = 0;
-	int numRightAns = 0;
-	int numWrongAns = 0;
+	unsigned int numberOfGames = 0;
+	unsigned int numRightAns = 0;
+	unsigned int numWrongAns = 0;
 	double avgTimeForAns = 0;
 }GetPersonalStatsResponse;
 
@@ -111,3 +117,34 @@ typedef struct GetRoomStatusResponse
 	bool hasGameBegun = false;
 	std::set<LoggedUser> players;
 }GetRoomStatusResponse;
+
+typedef struct LeaveGameResponse
+{
+	STATUS status;
+}LeaveGameResponse;
+
+typedef struct SubmitAnswerResponse
+{
+	STATUS status;
+	unsigned int correctAnswerID;
+}SubmitAnswerResponse;
+
+typedef struct GetQuestionResponse
+{
+	STATUS status;
+	std::string question;
+	std::map<unsigned int, std::string> answers;
+
+}GetQuestionResponse;
+
+
+typedef struct GetGameResultResponse
+{
+	STATUS status;
+	std::vector<PlayerResults> results;
+}GetGameResultResponse;
+
+typedef struct FinishedGameResponse
+{
+	STATUS status;
+}FinishedGameResponse;

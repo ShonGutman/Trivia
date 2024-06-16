@@ -1,6 +1,6 @@
 #include "JsonResponsePacketSerializer.h"
 
-Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const ErrorResponse& response)
 {
     json jsonErr;
 
@@ -11,7 +11,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(ErrorResponse& response)
     return fitBuffToProtocol(jsonErr.dump(), response.id);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const LoginResponse& response)
 {
     json jsonLogin;
 
@@ -21,7 +21,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LoginResponse& response)
     return fitBuffToProtocol(jsonLogin.dump(), LOGIN_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const SignupResponse& response)
 {
     json jsonSignup;
 
@@ -31,7 +31,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(SignupResponse& response
     return fitBuffToProtocol(jsonSignup.dump(), SIGN_UP_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const LogoutResponse& response)
 {
     json jsonLogout;
 
@@ -41,7 +41,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LogoutResponse& response
     return fitBuffToProtocol(jsonLogout.dump(), LOGOUT_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(CloseRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const CloseRoomResponse& response)
 {
     json jsonCloseRoom;
 
@@ -51,7 +51,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(CloseRoomResponse& respo
     return fitBuffToProtocol(jsonCloseRoom.dump(), CLOSE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(StartGameResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const StartGameResponse& response)
 {
     json jsonStartRoom;
 
@@ -61,7 +61,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(StartGameResponse& respo
     return fitBuffToProtocol(jsonStartRoom.dump(), START_GAME_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetRoomStatusResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetRoomStatusResponse& response)
 {
     json jsonRoomStatus;
 
@@ -73,7 +73,17 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetRoomStatusResponse& r
     return fitBuffToProtocol(jsonRoomStatus.dump(), GET_ROOM_STATE_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const LeaveGameResponse& response)
+{
+    json jsonLeaveGame;
+
+    // Add data to the json object.
+    jsonLeaveGame[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonLeaveGame.dump(), LEAVE_GAME_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetAllRoomsResponse& response)
 {
     json jsonRoom;
 
@@ -84,7 +94,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetAllRoomsResponse& res
     return fitBuffToProtocol(jsonRoom.dump(), GET_ALL_ROOMS_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetPlayersInRoomResponse& response)
 {
     json jsonGetPlayersInRoom;
 
@@ -94,7 +104,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPlayersInRoomResponse
     return fitBuffToProtocol(jsonGetPlayersInRoom.dump(), GET_PLAYERS_IN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(JoinRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const JoinRoomResponse& response)
 {
     json jsonJoinRoom;
 
@@ -104,7 +114,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(JoinRoomResponse& respon
     return fitBuffToProtocol(jsonJoinRoom.dump(), JOIN_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(CreateRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const CreateRoomResponse& response)
 {
     json jsonCreateRoom;
 
@@ -114,7 +124,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(CreateRoomResponse& resp
     return fitBuffToProtocol(jsonCreateRoom.dump(), CREATE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetHighscoreResponse& response)
 {
     json jsonHighScore;
 
@@ -125,7 +135,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetHighscoreResponse& re
     return fitBuffToProtocol(jsonHighScore.dump(), GET_HIGHEST_SCORE_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetPersonalStatsResponse& response)
 {
     json jsonStats;
 
@@ -136,7 +146,7 @@ Buffer JsonResponsePacketSerializer::serializerResponse(GetPersonalStatsResponse
     return fitBuffToProtocol(jsonStats.dump(), GET_PERSONAL_SCORE_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& response)
+Buffer JsonResponsePacketSerializer::serializerResponse(const LeaveRoomResponse& response)
 {
     json jsonLeaveRoom;
 
@@ -146,7 +156,51 @@ Buffer JsonResponsePacketSerializer::serializerResponse(LeaveRoomResponse& respo
     return fitBuffToProtocol(jsonLeaveRoom.dump(), LEAVE_ROOM_RESPONSE_ID);
 }
 
-Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetQuestionResponse& response)
+{
+    json jsonQuestion;
+
+    // Add data to the json object.
+    jsonQuestion[STATUS_KEY] = response.status;
+    jsonQuestion[QUESTION_KEY] = response.question;
+    jsonQuestion[ALL_ANSWERS_KEY] = convertObjectToJson(response.answers);
+
+    return fitBuffToProtocol(jsonQuestion.dump(), GET_QUESTION_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const SubmitAnswerResponse& response)
+{
+    json jsonsubmitAnswer;
+
+    // Add data to the json object.
+    jsonsubmitAnswer[STATUS_KEY] = response.status;
+    jsonsubmitAnswer[CORRECT_ANSWER_ID] = response.correctAnswerID;
+
+    return fitBuffToProtocol(jsonsubmitAnswer.dump(), SUBMIT_ANSWER_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const GetGameResultResponse& response)
+{
+    json jsonGameResults;
+
+    // Add data to the json object.
+    jsonGameResults[STATUS_KEY] = response.status;
+    jsonGameResults[GAME_RESULTS_KEY] = convertObjectToJson(response.results);
+
+    return fitBuffToProtocol(jsonGameResults.dump(), GET_GAME_RESULTS_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const FinishedGameResponse& response)
+{
+    json jsonFinishedGame;
+
+    //put data into json
+    jsonFinishedGame[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonFinishedGame.dump(), FINISHED_GAME_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::decToBin(const unsigned int decNum)
 {
     //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
 
@@ -165,7 +219,7 @@ Buffer JsonResponsePacketSerializer::decToBin(unsigned int decNum)
 }
 
 
-Buffer JsonResponsePacketSerializer::strToBin(std::string str)
+Buffer JsonResponsePacketSerializer::strToBin(const std::string& str)
 {
     Buffer convertResult;
 
@@ -178,7 +232,7 @@ Buffer JsonResponsePacketSerializer::strToBin(std::string str)
     return convertResult;
 }
 
-Buffer JsonResponsePacketSerializer::fitBuffToProtocol(std::string msg, ResponseId code)
+Buffer JsonResponsePacketSerializer::fitBuffToProtocol(const std::string& msg, ResponseId code)
 {
     // Protocol goes like this :
     // 1 byte - code
@@ -232,6 +286,23 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
     return convortedJson;
 }
 
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::vector<PlayerResults>& resultVec)
+{
+    json convortedJson, currentResult;
+
+    for (int i = 0; i < resultVec.size(); i++)
+    {
+        // Adds the data to the currentResult to the json
+        currentResult[USERNAME_KEY] = resultVec[i].username;
+        currentResult[NUMBER_OF_RIGHT_ANS_KEY] = resultVec[i].numRightAns;
+
+        // Adds the currentResult to the json of results.
+        convortedJson[i] = currentResult;
+    }
+
+    return convortedJson;
+}
+
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::set<LoggedUser>& LoggedSet)
 {
@@ -247,11 +318,25 @@ nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJs
 }
 
 
-nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, int>& scoresMap)
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<std::string, unsigned int>& scoresMap)
 {
     //convert map to json
     // first = name, sec = high score
     return json(scoresMap);
+}
+
+nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const std::map<unsigned int, std::string>& answers)
+{
+    //convert map to json
+    // first = answer id, sec = answer
+
+    nlohmann::json jsonObject = nlohmann::json::object();
+
+    for (const auto& pair : answers) {
+        jsonObject[std::to_string(pair.first)] = pair.second;
+    }
+
+    return jsonObject;
 }
 
 nlohmann::json_abi_v3_11_3::json JsonResponsePacketSerializer::convertObjectToJson(const GetPersonalStatsResponse& presonalStatsStruct)

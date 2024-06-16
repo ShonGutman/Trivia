@@ -1,5 +1,7 @@
 #include "RoomManager.h"
 
+static std::mutex _roomsMutex;
+
 #define NUM_QUESTIONS 10
 
 //init num of rooms joined to be zero at the start
@@ -20,7 +22,10 @@ void RoomManager::createRoom(const LoggedUser& roomAdmin, const RoomData& data)
 	}
 
 	//create new room
+	//lock the mutex - to protect _roomsMutex (shared var)
+	std::unique_lock<std::mutex> locker(_roomsMutex);
 	auto result = _rooms.insert({ data.id, Room(data, roomAdmin) });
+	locker.unlock();
 
 	//result is a pair of 2 values an iterator to object and bool to indicate if element was inserted successfully
 	if (!result.second)
@@ -33,7 +38,13 @@ void RoomManager::createRoom(const LoggedUser& roomAdmin, const RoomData& data)
 
 void RoomManager::deleteRoom(const unsigned int roomID)
 {
-	bool erased = _rooms.erase(roomID);
+	bool erased = false;
+
+	{
+		//lock the mutex - to protect _roomsMutex (shared var)
+		std::lock_guard<std::mutex> locker(_roomsMutex);
+		erased = _rooms.erase(roomID);
+	}
 
 	if (!erased)
 	{
@@ -72,6 +83,7 @@ void RoomManager::removeUserFromAllRooms(const LoggedUser& user)
 		{
 			pair.second.removeUser(user);
 		}
+
 		catch (const std::exception&)
 		{
 			//if remove failed it means user isnt a member of room. no need to handle anything
