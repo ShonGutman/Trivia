@@ -13,7 +13,8 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
         || GET_ALL_ROOMS_REQUEST_ID == info.id
         || GET_PLAYERS_IN_ROOM_REQUEST_ID == info.id
         || GET_PERSONAL_SCORE_REQUEST_ID == info.id
-        || GET_HIGHEST_SCORE_REQUEST_ID == info.id;
+        || GET_HIGHEST_SCORE_REQUEST_ID == info.id
+        || SEND_QUESTION_REQUEST_ID == info.id;
 }
 
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
@@ -51,6 +52,11 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedU
     else if (GET_HIGHEST_SCORE_REQUEST_ID == info.id)
     {
         return this->getHighestScores(info);
+    }
+
+    else if (SEND_QUESTION_REQUEST_ID == info.id)
+    {
+        return this->addQuestion(info);
     }
 
     else
@@ -313,4 +319,9 @@ RequestResult MenuRequestHandler::getHighestScores(const RequestInfo& info)
     }
 
     return result;
+}
+
+RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
+{
+    //TODO
 }
