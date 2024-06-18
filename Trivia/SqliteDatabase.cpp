@@ -258,7 +258,7 @@ bool SqliteDatabase::addQuestions()
 	const string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
 	{
 		{"London", "Berlin", "Rome"},
-		{"Ernest Hemingway", "F. Scott Fitzgerald", "Harper Lee"},
+		{"Ernest Hemingway", "F. Scott Fitzgerald", "Albus Dumbeldor"},
 		{"CO2", "NaCl", "NH3"},
 		{"1918", "1939", "1945"},
 		{"Michelangelo", "Vincent van Gogh", "Pablo Picasso"},

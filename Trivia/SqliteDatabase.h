@@ -143,6 +143,15 @@ public:
 	*/
 	void updateStatistics(const std::vector<PlayerResults>& Gameresults) override;
 
+	/*
+	* adds a question to questions table based on the param
+	* @param question the question
+	* @param correct the correct ans
+	* @param incorecct a string array holding 3 incorrect answers
+	* @return true if inserted with no errors. false if there were errors
+	*/
+	bool addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT]);
+
 
 private:
 
@@ -180,15 +189,6 @@ private:
 	* @return true if inserted with no errors. false if there were errors
 	*/
 	bool addQuestions();
-
-	/*
-	* adds a question to questions table based on the param
-	* @param question the question
-	* @param correct the correct ans
-	* @param incorecct a string array holding 3 incorrect answers
-	* @return true if inserted with no errors. false if there were errors
-	*/
-	bool addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT]);
 
 	/*
 	* function cinitalizes all tables in data base
