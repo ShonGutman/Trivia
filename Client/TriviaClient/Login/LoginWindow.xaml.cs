@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TriviaClient.Login;
 
 namespace TriviaClient
 {
@@ -101,12 +102,16 @@ namespace TriviaClient
 
         private void ForgotPass_Click(object sender, RoutedEventArgs e)
         {
-
+            ForgotPasswordWindow mainWindow = new ForgotPasswordWindow(communicator);
+            this.Close();
+            mainWindow.Show();
         }
 
-        private void ChangePAss_Click(object sender, RoutedEventArgs e)
+        private void ChangePass_Click(object sender, RoutedEventArgs e)
         {
-
+            ChangePasswordWindow mainWindow = new ChangePasswordWindow(communicator);
+            this.Close();
+            mainWindow.Show();
         }
     }
 }

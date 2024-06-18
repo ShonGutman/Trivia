@@ -19,7 +19,9 @@ namespace TriviaClient.Login
     /// </summary>
     public partial class ChangePasswordWindow : Window
     {
-        public ChangePasswordWindow()
+        private Communicator communicator;
+
+        public ChangePasswordWindow(Communicator communicator)
         {
             InitializeComponent();
         }
