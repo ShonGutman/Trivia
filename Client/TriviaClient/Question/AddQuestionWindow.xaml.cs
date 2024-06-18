@@ -39,13 +39,31 @@ namespace TriviaClient.Question
                 && thirdAnsCheckBox.IsChecked != true && forthAnsCheckBox.IsChecked != true))
             {
                 // Display error message
-                ErrorPopup errorWindow = new ErrorPopup("Please enter the question, the answers and pick which will be the correct ans");
+                ErrorPopup errorWindow = new ErrorPopup("Please enter the question, the answers\nand pick which will be the correct ans");
                 errorWindow.ShowDialog();
 
                 return true;
             }
+            else
+            {
+                int checkedCount = 0;
+                if (firstAnsCheckBox.IsChecked == true) checkedCount++;
+                if (secAnsCheckBox.IsChecked == true) checkedCount++;
+                if (thirdAnsCheckBox.IsChecked == true) checkedCount++;
+                if (forthAnsCheckBox.IsChecked == true) checkedCount++;
+
+                if (checkedCount != 1)
+                {
+                    // Display error message
+                    ErrorPopup errorWindow = new ErrorPopup("Please pick exactly one correct answer.");
+                    errorWindow.ShowDialog();
+
+                    return true;
+                }
+            }
 
             return false;
+
         }
 
         private void SendInfo_Click(object sender, RoutedEventArgs e)
