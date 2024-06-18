@@ -82,6 +82,22 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
     return request;
 }
 
+sendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionRequestt(const Buffer& buffer)
+{
+    sendQuestionRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    //put data in jsonMsg into request object
+    request.question = jsonMsg[QUESTION_KEY].get<std::string>();
+    request.correct = jsonMsg[CORRECT_KEY].get<std::string>();
+    request.incorrect1 = jsonMsg[INCORRECT1_KEY].get<std::string>();
+    request.incorrect2 = jsonMsg[INCORRECT2_KEY].get<std::string>();
+    request.incorrect3 = jsonMsg[INCORRECT3_KEY].get<std::string>();
+
+    return request;
+}
+
 nlohmann::json_abi_v3_11_3::json JsonRequestPacketDeserializer::convertBufferToJson(const Buffer& buffer)
 {
     //convert buffer to std::string

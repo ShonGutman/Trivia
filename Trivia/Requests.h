@@ -97,7 +97,10 @@ struct SubmitAnswerRequest
 
 struct sendQuestionRequest
 {
-	const string question;
-	const string correct;
-	const string incorecct[NUM_OF_INCORRECT];
+	std::string question;
+	std::string correct;
+	std::string incorrect1;
+	std::string incorrect2;
+	std::string incorrect3;
+
 };
