@@ -323,5 +323,38 @@ RequestResult MenuRequestHandler::getHighestScores(const RequestInfo& info)
 
 RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
 {
-    //TODO
+    RequestResult result;
+
+    sendQuestionRequest request = JsonRequestPacketDeserializer::deserializeSendQuestionRequestt(info.buffer);
+
+    try
+    {
+        addQuestionResponse response;
+
+        //Adding the question into the database
+        SqliteDatabase database = SqliteDatabase();
+        std::string incorrectQuestionArray[NUM_OF_INCORRECT] = { request.incorrect1, request.incorrect2, request.incorrect3 };
+        database.addQuestion(request.question ,request.correct, incorrectQuestionArray);
+
+        //SUCCESS reponse to getHighscoreResponse
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getHighscoreResponse
+        response.message = e.what();
+        response.id = SEND_QUESTION_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
 }
