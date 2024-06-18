@@ -12,6 +12,8 @@ using std::tm;
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
+#define NUM_OF_INCORRECT 3
+
 typedef enum : unsigned int
 {
 	LOGIN_REQUEST_ID = 1,
@@ -32,6 +34,7 @@ typedef enum : unsigned int
 	SUBMIT_ANSWER_REQUEST_ID = 16,
 	FINISHED_GAME_REQUEST_ID = 17,
 	GET_GAME_RESULT_REQUEST_ID = 18,
+	SEND_QUESTION_REQUEST_ID = 19,
 	ERROR_REQUEST_ID = 99
 }RequestId;
 
@@ -90,4 +93,11 @@ struct SubmitAnswerRequest
 {
 	unsigned int answerID;
 	double timeForAnwser;
+};
+
+struct sendQuestionRequest
+{
+	const string question;
+	const string correct;
+	const string incorecct[NUM_OF_INCORRECT];
 };

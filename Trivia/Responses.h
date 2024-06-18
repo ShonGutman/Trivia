@@ -29,6 +29,7 @@ typedef enum : unsigned int {
 	SUBMIT_ANSWER_RESPONSE_ID = 16,
 	FINISHED_GAME_RESPONSE_ID = 17,
 	GET_GAME_RESULTS_RESPONSE_ID = 18,
+	SEND_QUESTION_RESPONSE_ID = 19,
 	GENERAL_ERROR_RESPONSE_ID = 99
 } ResponseId;
 
@@ -137,7 +138,6 @@ typedef struct GetQuestionResponse
 
 }GetQuestionResponse;
 
-
 typedef struct GetGameResultResponse
 {
 	STATUS status;
@@ -148,3 +148,8 @@ typedef struct FinishedGameResponse
 {
 	STATUS status;
 }FinishedGameResponse;
+
+typedef struct addQuestionResponse
+{
+	STATUS status;
+}addQuestionResponse;
