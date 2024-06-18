@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace TriviaClient.Login
 {
     /// <summary>
-    /// Interaction logic for ForgotPasswordWindow.xaml
+    /// Interaction logic for ChangePasswordWindow.xaml
     /// </summary>
-    public partial class ForgotPasswordWindow : Window
+    public partial class ChangePasswordWindow : Window
     {
-        public ForgotPasswordWindow()
+        public ChangePasswordWindow()
         {
             InitializeComponent();
-        }
-
-        private void ConfirmCode_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
