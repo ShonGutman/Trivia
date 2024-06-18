@@ -103,5 +103,10 @@ namespace TriviaClient
         {
 
         }
+
+        private void ChangePAss_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
