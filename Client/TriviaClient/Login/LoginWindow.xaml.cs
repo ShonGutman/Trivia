@@ -98,5 +98,10 @@ namespace TriviaClient
             this.Close();
             mainWindow.Show();
         }
+
+        private void ForgotPass_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
