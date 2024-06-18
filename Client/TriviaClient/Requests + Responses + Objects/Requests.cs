@@ -9,7 +9,7 @@ namespace TriviaClient
     namespace Requests
     {
 
-       public enum RequestId : uint
+        public enum RequestId : uint
         {
             LOGIN_REQUEST_ID = 1,
             SIGN_UP_REQUEST_ID = 2,
@@ -29,12 +29,13 @@ namespace TriviaClient
             SUBMIT_ANSWER_REQUEST_ID = 16,
             FINISHED_GAME_REQUEST_ID = 17,
             GET_GAME_RESULT_REQUEST_ID = 18,
+            SEND_QUESTION_REQUEST_ID = 19,
             ERROR_REQUEST_ID = 99
         }
         public class LoginRequest
         {
             public string username { get; set; }
-            public string password {  get; set; }
+            public string password { get; set; }
 
             public LoginRequest(string username, string password)
             {
@@ -96,9 +97,27 @@ namespace TriviaClient
             public double timeForAnswer { get; set; }
 
             public SubmitAnswer(uint answerID, double timeForAnswer)
-            { 
-               this.answerID = answerID;
-               this.timeForAnswer = timeForAnswer;
+            {
+                this.answerID = answerID;
+                this.timeForAnswer = timeForAnswer;
+            }
+        }
+
+        public class sendQuestionRequest
+        {
+            public string question { get; set; }
+            public string correct { get; set; }
+            public string incorrect1 { get; set; }
+            public string incorrect2 { get; set; }
+            public string incorrect3 { get; set; }
+
+            public sendQuestionRequest(string question, string correct, string incorrect1, string incorrect2, string incorrect3)
+            {
+                this.question = question;
+                this.correct = correct;
+                this.incorrect1 = incorrect1;
+                this.incorrect2 = incorrect2;
+                this.incorrect3 = incorrect3;
             }
         }
     }

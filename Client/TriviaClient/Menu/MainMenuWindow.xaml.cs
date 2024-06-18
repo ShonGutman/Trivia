@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TriviaClient.Question;
 
 namespace TriviaClient
 {
@@ -98,7 +99,9 @@ namespace TriviaClient
 
         private void AddQuesrion_Click(object sender, RoutedEventArgs e)
         {
-
+            AddQuestionWindow window = new AddQuestionWindow(communicator, username);
+            this.Close();
+            window.Show();
         }
     }
 }

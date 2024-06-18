@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="AddQuestionWindow" Height="450" Width="800">
     <Grid>
+        <Label
+            Name="UserLabel"
+            Content="Hello User!"
+            FontSize="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            FontFamily="Hadassah Friedlaender Bold"
+            FontWeight="SemiBold"
+            Foreground="#E6A4B4"
+        />
+        
         <Button 
         Name="backButton"
         Click="backButton_Click"
@@ -49,7 +60,7 @@
             />
 
                 <TextBox  
-                Name="RoomName_input"
+                Name="question_input"
                 Foreground="#FF70676A" Margin="10" Padding="0,5" Width="495" BorderThickness="0,0,0,1" HorizontalAlignment="Center" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
 
                 <TextBlock Text="Type Answers Here :" 
@@ -65,14 +76,14 @@
 
                 <StackPanel Grid.Column="0">
                     <DockPanel Margin="10">
-                        <CheckBox VerticalAlignment="Center" Margin="5"/>
+                        <CheckBox x:Name="firstAnsCheckBox" VerticalAlignment="Center" Margin="5"/>
                         <TextBox  
                         Name="firstAns"
                         Foreground="#FF70676A" Padding="0,5" Width="298" BorderThickness="0,0,0,1" HorizontalAlignment="Center" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
                     </DockPanel>
 
                     <DockPanel Margin="10">
-                        <CheckBox VerticalAlignment="Center" Margin="5"/>
+                        <CheckBox x:Name="secAnsCheckBox" VerticalAlignment="Center" Margin="5"/>
                         <TextBox  
                         Name="secAns"
                         Foreground="#FF70676A" Padding="0,5" Width="298" BorderThickness="0,0,0,1" HorizontalAlignment="Center" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
@@ -81,14 +92,14 @@
 
                 <StackPanel Grid.Column="1">
                     <DockPanel Margin="10">
-                        <CheckBox VerticalAlignment="Center" Margin="5"/>
+                        <CheckBox x:Name="thirdAnsCheckBox" VerticalAlignment="Center" Margin="5"/>
                         <TextBox  
                         Name="thirdAns"
                         Foreground="#FF70676A" Padding="0,5" Width="298" BorderThickness="0,0,0,1" HorizontalAlignment="Center" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
                     </DockPanel>
 
                     <DockPanel Margin="10">
-                        <CheckBox VerticalAlignment="Center" Margin="5"/>
+                        <CheckBox x:Name="forthAnsCheckBox" VerticalAlignment="Center" Margin="5"/>
                         <TextBox  
                         Name="forthAns"
                         Foreground="#FF70676A" Padding="0,5" Width="298" BorderThickness="0,0,0,1" HorizontalAlignment="Center" Height="40" FontSize="16" FontFamily="Franklin Gothic Medium"/>
