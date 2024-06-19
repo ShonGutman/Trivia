@@ -21,6 +21,11 @@ using json = nlohmann::json;
 #define ANSWER_ID_KEY "answerID"
 #define ANSWER_RESPONSE_TIME "timeForAnswer"
 
+#define QUESTION_KEY "question"
+#define CORRECT_KEY "correct"
+#define INCORRECT1_KEY "incorrect1"
+#define INCORRECT2_KEY "incorrect2"
+#define INCORRECT3_KEY "incorrect3"
 
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4
@@ -94,6 +99,17 @@ public:
 	 * @return A SubmitAnswerRequest object deserialized from the buffer.
 	 */
 	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const Buffer& buffer);
+
+	/**
+	 * Deserialize a buffer into a sendQuestionRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a sendQuestionRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A sendQuestionRequest object deserialized from the buffer.
+	 */
+	static sendQuestionRequest deserializeSendQuestionRequestt(const Buffer& buffer);
 
 private:
 

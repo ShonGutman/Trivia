@@ -3,7 +3,7 @@
 RequestHandlerFactory::RequestHandlerFactory(IDatabase* database)
     : _database(database),
     _loginManager(LoginManager::get(database)),
-    _roomManager(RoomManager::get()),
+    _roomManager(RoomManager::get(database)),
     _statisticsManager(StatisticsManager::get(database)),
     _gameManager(GameManager::get(database))
 {
