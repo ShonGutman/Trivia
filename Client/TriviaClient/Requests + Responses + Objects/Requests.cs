@@ -125,11 +125,13 @@ namespace TriviaClient
         public class ChangePasswordRequest
         {
             public string username { get; set; }
+            public string currentPassword { get; set; }
             public string newPassword { get; set; }
 
-            public ChangePasswordRequest(string username, string newPassword)
+            public ChangePasswordRequest(string username, string currentPassword, string newPassword)
             {
                 this.username = username;
+                this.currentPassword = currentPassword;
                 this.newPassword = newPassword;
             }
         }

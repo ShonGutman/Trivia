@@ -88,11 +88,11 @@ namespace TriviaClient.Login
 
             //get userName & password from field in gui
             string username = userName_Input_Change.Text;
-            string oldPassword = OldPassword_Input.Text;
+            string currentPassword = OldPassword_Input.Text;
             string newPassword = newPass_Input.Text;
 
             //create a login request
-            Requests.LoginRequest request = new Requests.LoginRequest(username, oldPassword);
+            Requests.LoginRequest request = new Requests.LoginRequest(username, currentPassword);
 
             //serialize object and make it fit to protocol
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
@@ -122,7 +122,7 @@ namespace TriviaClient.Login
                 else if (signout())
                 {
                     // Create a change password request
-                    Requests.ChangePasswordRequest changePasswordRequest = new Requests.ChangePasswordRequest(username, newPassword);
+                    Requests.ChangePasswordRequest changePasswordRequest = new Requests.ChangePasswordRequest(username, currentPassword, newPassword);
 
                     // Serialize the change password request
                     string changePasswordJson = JsonConvert.SerializeObject(changePasswordRequest, Formatting.Indented);
