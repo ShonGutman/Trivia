@@ -32,6 +32,7 @@ typedef enum : unsigned int
 	SUBMIT_ANSWER_REQUEST_ID = 16,
 	FINISHED_GAME_REQUEST_ID = 17,
 	GET_GAME_RESULT_REQUEST_ID = 18,
+	SEND_QUESTION_REQUEST_ID = 19,
 	ERROR_REQUEST_ID = 99
 }RequestId;
 
@@ -90,4 +91,14 @@ struct SubmitAnswerRequest
 {
 	unsigned int answerID;
 	double timeForAnwser;
+};
+
+struct sendQuestionRequest
+{
+	std::string question;
+	std::string correct;
+	std::string incorrect1;
+	std::string incorrect2;
+	std::string incorrect3;
+
 };

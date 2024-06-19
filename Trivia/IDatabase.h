@@ -7,6 +7,8 @@
 #include "Question.h"
 #include "PlayerResults.h"
 
+#define NUM_OF_INCORRECT 3
+
 using std::string;
 
 class IDatabase
@@ -27,6 +29,8 @@ public:
 
 	virtual float getPlayerAverageAnswerTime(const string& username) = 0;
 
+	virtual unsigned int getNumOfQuestions() = 0;
+
 	virtual int  getNumOfCorrectAnswers(const string& username) = 0;
 
 	virtual int  getNumOfWrongAnswers(const string& username) = 0;
@@ -40,6 +44,8 @@ public:
 	virtual std::map<std::string, unsigned int> getHighscores() = 0;
 
 	virtual void updateStatistics(const std::vector<PlayerResults>& Gameresults) = 0;
+
+	virtual bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]) = 0;
 
 protected:
 
