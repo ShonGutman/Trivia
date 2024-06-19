@@ -113,7 +113,7 @@ const int RoomManager::getNextRoomId() const
 	return RoomManager::_amountOfRoomsEverJoined + 1;
 }
 
-bool RoomManager::addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT])
+void RoomManager::addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT])
 {
 	if (_database->addQuestion(question, correct, incorecct))
 	{
@@ -124,15 +124,14 @@ bool RoomManager::addQuestion(const std::string& question, const std::string& co
 			// Change number of questions
 			this->_numberOfQuestions++;
 			locker.unlock();
-			return true;
 		}
 		catch (const std::exception&)
 		{
-			return false;
+			throw std::runtime_error("couldn't add question");
 		}
 	}
 	else
 	{
-		return false;
+		throw std::runtime_error("couldn't add question");
 	}
 }

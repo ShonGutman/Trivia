@@ -87,9 +87,8 @@ public:
 	* @param question the question
 	* @param correct the correct ans
 	* @param incorecct a string array holding 3 incorrect answers
-	* @return true if inserted with no errors. false if there were errors
 	*/
-	bool addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT]);
+	void addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT]);
 
 private:
 
