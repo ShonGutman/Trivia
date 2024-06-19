@@ -153,9 +153,9 @@ namespace TriviaClient.Login
                             InfoWindow infoWindow = new InfoWindow("Password changed successfully!");
                             infoWindow.ShowDialog();
 
-                            MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator, username);
+                            LoginWindow loginWindow = new LoginWindow(communicator);
                             this.Close();
-                            mainMenuWindow.Show();
+                            loginWindow.Show();
                         }
                     }
                 }
