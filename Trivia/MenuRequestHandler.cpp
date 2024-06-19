@@ -13,7 +13,8 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
         || GET_ALL_ROOMS_REQUEST_ID == info.id
         || GET_PLAYERS_IN_ROOM_REQUEST_ID == info.id
         || GET_PERSONAL_SCORE_REQUEST_ID == info.id
-        || GET_HIGHEST_SCORE_REQUEST_ID == info.id;
+        || GET_HIGHEST_SCORE_REQUEST_ID == info.id
+        || SEND_QUESTION_REQUEST_ID == info.id;
 }
 
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
@@ -51,6 +52,11 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info, LoggedU
     else if (GET_HIGHEST_SCORE_REQUEST_ID == info.id)
     {
         return this->getHighestScores(info);
+    }
+
+    else if (SEND_QUESTION_REQUEST_ID == info.id)
+    {
+        return this->addQuestion(info);
     }
 
     else
@@ -218,7 +224,6 @@ RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
     RequestResult result;
 
     RoomManager& roomManger = _factoryHandler.getRoomManager();
-
     try
     {
         GetPlayersInRoomResponse response;
@@ -306,6 +311,45 @@ RequestResult MenuRequestHandler::getHighestScores(const RequestInfo& info)
         //FAILED reponse to getHighscoreResponse
         response.message = e.what();
         response.id = GET_HIGHEST_SCORE_RESPONSE_ID;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}
+
+RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
+{
+    RequestResult result;
+
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
+
+    SendQuestionRequest request = JsonRequestPacketDeserializer::deserializeSendQuestionRequest(info.buffer);
+
+    try
+    {
+        addQuestionResponse response;
+
+        //Adding the question into the database
+        std::string incorrectQuestionArray[NUM_OF_INCORRECT] = { request.incorrect1, request.incorrect2, request.incorrect3 };
+        roomManger.addQuestion(request.question ,request.correct, incorrectQuestionArray);
+
+        //SUCCESS reponse to getHighscoreResponse
+        response.status = SUCCESS;
+
+        //assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        //FAILED reponse to getHighscoreResponse
+        response.message = e.what();
+        response.id = SEND_QUESTION_RESPONSE_ID;
 
         //assign to MenuHandler
         result.newHandler = _factoryHandler.createMenuRequestHandler();

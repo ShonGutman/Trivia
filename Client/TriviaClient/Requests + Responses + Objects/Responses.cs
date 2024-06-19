@@ -29,6 +29,8 @@ namespace TriviaClient
             SUBMIT_ANSWER_RESPONSE_ID = 16,
             FINISHED_GAME_RESPONSE_ID = 17,
             GET_GAME_RESULTS_RESPONSE_ID = 18,
+            SEND_QUESTION_RESPONSE_ID = 19,
+            CHANGE_PASSWORD_RESPONSE_ID = 20,
             GENERAL_ERROR_RESPONSE_ID = 99
         }
 

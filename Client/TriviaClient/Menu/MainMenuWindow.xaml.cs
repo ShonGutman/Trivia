@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TriviaClient.Question;
 
 namespace TriviaClient
 {
@@ -34,32 +36,12 @@ namespace TriviaClient
 
         private void Signout_Click(object sender, RoutedEventArgs e)
         {
-            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
-
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
-
-            //check if server response is indead logout response
-            if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
+            if (signout())
             {
-                //check if server responsed was failed
-                if (Helper.isFailed(response.messageJson))
-                {
-
-                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
-
-                    //raise error popup with server's response
-                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
-                    errorWindow.ShowDialog();
-                }
-
-                else
-                {
-                    MainWindow mainWindow = new MainWindow(communicator);
-                    this.Close();
-                    mainWindow.Show();
-                }
+                // Move to the prev menu
+                MainWindow mainWindow = new MainWindow(communicator);
+                this.Close();
+                mainWindow.Show();
             }
         }
 
@@ -91,14 +73,50 @@ namespace TriviaClient
             window.Show();
         }
 
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            if(signout())
+                Application.Current.Shutdown();
+        }
+
+        private void AddQuesrion_Click(object sender, RoutedEventArgs e)
+        {
+            AddQuestionWindow window = new AddQuestionWindow(communicator, username);
             this.Close();
+            window.Show();
+        }
+
+        private bool signout()
+        {
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead logout response
+            if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else 
+            { 
+                return false; 
+            }
         }
     }
 }

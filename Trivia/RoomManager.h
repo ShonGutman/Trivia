@@ -1,10 +1,13 @@
 #pragma once
 
 #include "Room.h"
+#include "IDatabase.h"
 #include <map>
 #include <string>
 #include <mutex>
 #include <vector>
+
+#define NUM_OF_INCORRECT 3
 
 class RoomManager
 {
@@ -16,7 +19,7 @@ public:
 	*
 	* @return the instance of RoomManager
 	*/
-	static RoomManager& get();
+	static RoomManager& get(IDatabase* database = nullptr);;
 
 	// Delete copy constructor and assignment operator to prevent copies
 	RoomManager(const RoomManager& other) = delete;
@@ -79,11 +82,23 @@ public:
 	*/
 	const int getNextRoomId() const;
 
+	/*
+	* uses the addQuestion function of the database and adds a question to questions table based on the param
+	* @param question the question
+	* @param correct the correct ans
+	* @param incorecct a string array holding 3 incorrect answers
+	*/
+	void addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT]);
+
 private:
 
-	RoomManager() = default;
+	RoomManager(IDatabase* _database);
 
 	std::map<unsigned int, Room> _rooms;
 
 	static int _amountOfRoomsEverJoined;
+
+	unsigned int _numberOfQuestions;
+
+	IDatabase* _database;
 };

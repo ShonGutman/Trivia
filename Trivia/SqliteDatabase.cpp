@@ -60,6 +60,16 @@ void SqliteDatabase::createEmptyStatisticColumn(const string& username)
 	preformSqlRequest(sqlStatement);
 }
 
+unsigned int SqliteDatabase::getNumOfQuestions()
+{
+	unsigned int numOfQuestions = 0;
+	std::string sqlStatement = "select count(*) from questions;";
+
+	preformSqlRequest(sqlStatement, callbackNumber, &numOfQuestions);
+
+	return numOfQuestions;
+}
+
 float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 {
 	double avgAnsTime = 0;
@@ -151,6 +161,15 @@ void SqliteDatabase::updateStatistics(const std::vector<PlayerResults>& Gameresu
 
 		preformSqlRequest(sqlStatement);
 	}
+}
+
+bool SqliteDatabase::changePassword(const string& username, const string& newPassword)
+{
+	std::string sqlStatement = R"(update users set password = "{}" where username = "{}";)";
+
+	sqlStatement = format(sqlStatement, { newPassword, username });
+
+	return preformSqlRequest(sqlStatement);
 }
 
 bool SqliteDatabase::open()
@@ -258,7 +277,7 @@ bool SqliteDatabase::addQuestions()
 	const string incorrects[NUM_QUESTIONS][NUM_OF_INCORRECT] =
 	{
 		{"London", "Berlin", "Rome"},
-		{"Ernest Hemingway", "F. Scott Fitzgerald", "Harper Lee"},
+		{"Ernest Hemingway", "F. Scott Fitzgerald", "Albus Dumbeldor"},
 		{"CO2", "NaCl", "NH3"},
 		{"1918", "1939", "1945"},
 		{"Michelangelo", "Vincent van Gogh", "Pablo Picasso"},
@@ -282,7 +301,7 @@ bool SqliteDatabase::addQuestions()
 }
 
 
-bool SqliteDatabase::addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT])
+bool SqliteDatabase::addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT])
 {
 	string sqlStatement = R"(insert into questions (question, correct, incorrect1, incorrect2, incorrect3)
 							 values ("{}", "{}", "{}", "{}", "{}");)";

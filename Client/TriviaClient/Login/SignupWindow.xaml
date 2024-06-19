@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaClient"
         mc:Ignorable="d"
-        Title="SignupWindow" Height="360" Width="649" Background="#F9F5F6">
+        Title="SignupWindow" Height="400" Width="690" Background="#F9F5F6">
 
     <Grid>
         <Button 

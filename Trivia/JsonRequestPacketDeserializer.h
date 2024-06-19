@@ -7,6 +7,8 @@ using json = nlohmann::json;
 
 #define USERNAME_KEY "username"
 #define PASSWORD_KEY "password"
+#define NEW_PASSWORD_KEY "newPassword"
+#define CURRENT_PASSWORD_KEY "currentPassword"
 #define EMAIL_KEY "email"
 #define ADDRESS_KEY "address"
 #define PHONE_NUMBER_KEY "phoneNumber"
@@ -21,6 +23,11 @@ using json = nlohmann::json;
 #define ANSWER_ID_KEY "answerID"
 #define ANSWER_RESPONSE_TIME "timeForAnswer"
 
+#define QUESTION_KEY "question"
+#define CORRECT_KEY "correct"
+#define INCORRECT1_KEY "incorrect1"
+#define INCORRECT2_KEY "incorrect2"
+#define INCORRECT3_KEY "incorrect3"
 
 #define SIZE_BYTE 8
 #define MSG_MAX_SIZE 4
@@ -94,6 +101,28 @@ public:
 	 * @return A SubmitAnswerRequest object deserialized from the buffer.
 	 */
 	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const Buffer& buffer);
+
+	/**
+	 * Deserialize a buffer into a SendQuestionRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a SendQuestionRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A SendQuestionRequest object deserialized from the buffer.
+	 */
+	static SendQuestionRequest deserializeSendQuestionRequest(const Buffer& buffer);
+
+	/**
+	 * Deserialize a buffer into a ChangePasswordRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a ChangePasswordRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A ChangePasswordRequest object deserialized from the buffer.
+	 */
+	static ChangePasswordRequest deserializeChangePasswordRequest(const Buffer& buffer);
 
 private:
 

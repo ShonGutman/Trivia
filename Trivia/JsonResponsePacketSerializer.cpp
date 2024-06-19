@@ -200,6 +200,27 @@ Buffer JsonResponsePacketSerializer::serializerResponse(const FinishedGameRespon
     return fitBuffToProtocol(jsonFinishedGame.dump(), FINISHED_GAME_RESPONSE_ID);
 }
 
+Buffer JsonResponsePacketSerializer::serializerResponse(const addQuestionResponse& response)
+{
+    json jsonAddQuestion;
+
+    //put data into json
+    jsonAddQuestion[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonAddQuestion.dump(), SEND_QUESTION_RESPONSE_ID);
+}
+
+Buffer JsonResponsePacketSerializer::serializerResponse(const ChangePasswordResponse& response)
+{
+    json jsonChangePassword;
+
+    // Add data to the json object.
+    jsonChangePassword[STATUS_KEY] = response.status;
+
+    return fitBuffToProtocol(jsonChangePassword.dump(), CHANGE_PASSWORD_RESPONSE_ID); 
+}
+
+
 Buffer JsonResponsePacketSerializer::decToBin(const unsigned int decNum)
 {
     //credit: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting

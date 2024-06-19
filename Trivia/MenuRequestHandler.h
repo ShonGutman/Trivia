@@ -105,5 +105,16 @@ private:
 	*/
 	RequestResult getHighestScores(const RequestInfo& info);
 
+	/*
+	* Processes a request to retrieve the result of the addition of question. 
+	* If successful, it returns a response containing the highest scores along with
+	* the current menu handler. If the operation fails (e.g., no scores available), an error response is returned,
+	* and the current menu handler is maintained.
+	*
+	* @param info The request information, typically empty as no additional data is required.
+	* @return RequestResult containing the response to the get highest scores request and the next handler to be used.
+	*/
+	RequestResult addQuestion(const RequestInfo& info);
+
 	RequestHandlerFactory& _factoryHandler;
 };
