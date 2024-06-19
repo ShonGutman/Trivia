@@ -62,6 +62,18 @@ public:
 	 */
 	void logout(const string& username);
 
+	/**
+	 * Changes the password of an existing user.
+	 *
+	 * This function changes the password for a user by verifying the current password
+	 * and then updating it with the new password if the current password is correct.
+	 *
+	 * @param username The username of the user.
+	 * @param currentPassword The current password of the user.
+	 * @param newPassword The new password to be set.
+	 */
+	void changePassword(const string& username, const string& currentPassword, const string& newPassword);
+
 
 private:
 	// Private constructor to prevent external instantiation

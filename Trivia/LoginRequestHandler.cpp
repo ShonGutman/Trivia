@@ -7,7 +7,7 @@ LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& factory)
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
-    return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID;
+    return info.id == LOGIN_REQUEST_ID || info.id == SIGN_UP_REQUEST_ID || info.id == CHANGE_PASSWORD_REQUEST_ID;
 }
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, LoggedUser& user)
@@ -21,6 +21,11 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, Logged
     else if(SIGN_UP_REQUEST_ID == info.id)
     {
         return this->signup(info, user);
+    }
+
+    else if (CHANGE_PASSWORD_REQUEST_ID == info.id)
+    {
+        return this->changePassword(info);
     }
 
     else
@@ -110,3 +115,38 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& u
     return result;
 }
 
+RequestResult LoginRequestHandler::changePassword(const RequestInfo& info)
+{
+    ChangePasswordRequest request = JsonRequestPacketDeserializer::deserializeChangePasswordRequest(info.buffer);
+
+    RequestResult result;
+
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
+
+    try
+    {
+        ChangePasswordResponse response;
+        loginManager.changePassword(request.username, request.currentPassword, request.newPassword);
+
+        // SUCCESS response to change password
+        response.status = SUCCESS;
+
+        // Assign to LoginHandler
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
+
+        // FAILED response to change password
+        response.message = e.what();
+        response.id = CHANGE_PASSWORD_RESPONSE_ID;
+
+        // Assign to LoginHandler
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+
+    return result;
+}

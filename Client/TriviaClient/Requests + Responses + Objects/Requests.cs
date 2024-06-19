@@ -30,6 +30,7 @@ namespace TriviaClient
             FINISHED_GAME_REQUEST_ID = 17,
             GET_GAME_RESULT_REQUEST_ID = 18,
             SEND_QUESTION_REQUEST_ID = 19,
+            CHANGE_PASSWORD_REQUEST_ID = 20,
             ERROR_REQUEST_ID = 99
         }
         public class LoginRequest
@@ -118,6 +119,20 @@ namespace TriviaClient
                 this.incorrect1 = incorrect1;
                 this.incorrect2 = incorrect2;
                 this.incorrect3 = incorrect3;
+            }
+        }
+
+        public class ChangePasswordRequest
+        {
+            public string username { get; set; }
+            public string currentPassword { get; set; }
+            public string newPassword { get; set; }
+
+            public ChangePasswordRequest(string username, string currentPassword, string newPassword)
+            {
+                this.username = username;
+                this.currentPassword = currentPassword;
+                this.newPassword = newPassword;
             }
         }
     }

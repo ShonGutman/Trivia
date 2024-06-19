@@ -82,9 +82,9 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
     return request;
 }
 
-sendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionRequestt(const Buffer& buffer)
+SendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionRequest(const Buffer& buffer)
 {
-    sendQuestionRequest request;
+    SendQuestionRequest request;
 
     auto jsonMsg = convertBufferToJson(buffer);
 
@@ -94,6 +94,20 @@ sendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionReques
     request.incorrect1 = jsonMsg[INCORRECT1_KEY].get<std::string>();
     request.incorrect2 = jsonMsg[INCORRECT2_KEY].get<std::string>();
     request.incorrect3 = jsonMsg[INCORRECT3_KEY].get<std::string>();
+
+    return request;
+}
+
+ChangePasswordRequest JsonRequestPacketDeserializer::deserializeChangePasswordRequest(const Buffer& buffer)
+{
+    ChangePasswordRequest request;
+
+    auto jsonMsg = convertBufferToJson(buffer);
+
+    // Put data in jsonMsg into request object
+    request.username = jsonMsg[USERNAME_KEY].get<std::string>();
+    request.currentPassword = jsonMsg[CURRENT_PASSWORD_KEY].get<std::string>();
+    request.newPassword = jsonMsg[NEW_PASSWORD_KEY].get<std::string>();
 
     return request;
 }

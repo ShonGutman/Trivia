@@ -159,6 +159,16 @@ public:
 	*/
 	bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]) override;
 
+	/**
+	 * Changes the password for a user in the SQLite database.
+	 *
+	 * This function updates the password for the specified user in the database.
+	 *
+	 * @param username The username of the user whose password is to be changed.
+	 * @param newPassword The new password to be set for the user.
+	 */
+	bool changePassword(const string& username, const string& newPassword) override;
+
 
 private:
 
