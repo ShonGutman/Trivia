@@ -154,3 +154,8 @@ typedef struct addQuestionResponse
 {
 	STATUS status;
 }addQuestionResponse;
+
+typedef struct ChangePasswordRespnse
+{
+	STATUS status;
+}ChangePasswordRespnse;

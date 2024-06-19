@@ -51,5 +51,20 @@ private:
 	 */
 	RequestResult signup(const RequestInfo& info, LoggedUser& user);
 
+	/**
+	 * Handles a changePassword request.
+	 *
+	 * This function processes a changePassword request received from the client. It deserializes
+	 * the request information, registers the new user using the LoginManager, and generates
+	 * an appropriate response. If the changePassword is successful, it returns a success response
+	 * along with a new handler for the menu request. If the changePassword fails, it returns an
+	 * error response and remains in the login state.
+	 *
+	 * @param info The request information containing the changePassword details.
+	 * @param user The user the will have their password changed
+	 * @return The result of handling the changePassword request, including the response and the new handler.
+	 */
+	RequestResult changePassword(const RequestInfo& info, LoggedUser& user);
+
 	RequestHandlerFactory& _factoryHandler;
 };

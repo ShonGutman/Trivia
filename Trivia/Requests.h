@@ -103,3 +103,9 @@ struct sendQuestionRequest
 	std::string incorrect3;
 
 };
+
+struct ChangePasswordRequest
+{
+	std::string username;
+	std::string newPassword;
+};
