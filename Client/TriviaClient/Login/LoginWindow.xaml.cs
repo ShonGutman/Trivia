@@ -99,14 +99,6 @@ namespace TriviaClient
             this.Close();
             mainWindow.Show();
         }
-
-        private void ForgotPass_Click(object sender, RoutedEventArgs e)
-        {
-            ForgotPasswordWindow mainWindow = new ForgotPasswordWindow(communicator);
-            this.Close();
-            mainWindow.Show();
-        }
-
         private void ChangePass_Click(object sender, RoutedEventArgs e)
         {
             ChangePasswordWindow mainWindow = new ChangePasswordWindow(communicator);
