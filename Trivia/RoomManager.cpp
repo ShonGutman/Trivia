@@ -117,18 +117,10 @@ void RoomManager::addQuestion(const std::string& question, const std::string& co
 {
 	if (_database->addQuestion(question, correct, incorecct))
 	{
-		try
-		{
-			// lock the mutex to protect shared var
-			std::unique_lock<std::mutex> locker(_questionNumMutex);
-			// Change number of questions
-			this->_numberOfQuestions++;
-			locker.unlock();
-		}
-		catch (const std::exception&)
-		{
-			throw std::runtime_error("couldn't add question");
-		}
+		std::unique_lock<std::mutex> locker(_questionNumMutex);
+		// Change number of questions
+		this->_numberOfQuestions++;
+		locker.unlock();
 	}
 	else
 	{
