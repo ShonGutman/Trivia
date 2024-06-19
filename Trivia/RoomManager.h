@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Room.h"
-#include "SqliteDatabase.h"
+#include "IDatabase.h"
 #include <map>
 #include <string>
 #include <mutex>

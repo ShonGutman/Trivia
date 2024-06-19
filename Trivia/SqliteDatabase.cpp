@@ -62,7 +62,7 @@ void SqliteDatabase::createEmptyStatisticColumn(const string& username)
 
 unsigned int SqliteDatabase::getNumOfQuestions()
 {
-	int numOfQuestions = 0;
+	unsigned int numOfQuestions = 0;
 	std::string sqlStatement = "select count(*) from questions;";
 
 	preformSqlRequest(sqlStatement, callbackNumber, &numOfQuestions);
