@@ -80,6 +80,27 @@ void LoginManager::logout(const string& username)
 	}
 }
 
+void LoginManager::changePassword(const string& username, const string& currentPassword, const string& newPassword)
+{
+	if (!re::isPasswordLegal(newPassword))
+	{
+		throw std::runtime_error("New password doesn't match required structure!");
+	}
+
+	if (_database->doesPasswordMatch(username, currentPassword))
+	{
+		if (!_database->changePassword(username, newPassword))
+		{
+			throw std::runtime_error("Failed to change password!");
+		}
+	}
+	else
+	{
+		throw std::runtime_error("Current password doesn't match given username!");
+	}
+}
+
+
 void LoginManager::isSignupInputValid(const string& password, const string& email, const string& address, const string& phoneNumber, const string& birthday)
 {
 	if (!re::isPasswordLegal(password))

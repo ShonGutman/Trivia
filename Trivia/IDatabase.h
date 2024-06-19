@@ -47,6 +47,8 @@ public:
 
 	virtual bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]) = 0;
 
+	virtual bool changePassword(const string& username, const string& newPassword) = 0;
+
 protected:
 
 	virtual bool open() = 0;

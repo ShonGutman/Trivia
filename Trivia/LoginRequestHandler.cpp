@@ -117,37 +117,36 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& u
 
 RequestResult LoginRequestHandler::changePassword(const RequestInfo& info, LoggedUser& user)
 {
-    // TODO
-    //ChangePasswordRequest request = JsonRequestPacketDeserializer::deserializeChangePasswordRequest(info.buffer);
+    ChangePasswordRequest request = JsonRequestPacketDeserializer::deserializeChangePasswordRequest(info.buffer);
 
-    //RequestResult result;
+    RequestResult result;
 
-    //LoginManager& loginManager = _factoryHandler.getLoginManager();
+    LoginManager& loginManager = _factoryHandler.getLoginManager();
 
-    //try
-    //{
-    //    ChangePasswordResponse response;
-    //    loginManager.changePassword(request.username, request.newPassword);
+    try
+    {
+        ChangePasswordResponse response;
+        loginManager.changePassword(request.username, request.newPassword);
 
-    //    // SUCCESS response to change password
-    //    response.status = SUCCESS;
+        // SUCCESS response to change password
+        response.status = SUCCESS;
 
-    //    // Assign to MenuHandler
-    //    result.newHandler = _factoryHandler.createMenuRequestHandler();
-    //    result.response = JsonResponsePacketSerializer::serializerResponse(response);
-    //}
-    //catch (const std::exception& e)
-    //{
-    //    ErrorResponse response;
+        // Assign to MenuHandler
+        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
+    catch (const std::exception& e)
+    {
+        ErrorResponse response;
 
-    //    // FAILED response to change password
-    //    response.message = e.what();
-    //    response.id = CHANGE_PASSWORD_RESPONSE_ID;
+        // FAILED response to change password
+        response.message = e.what();
+        response.id = CHANGE_PASSWORD_RESPONSE_ID;
 
-    //    // Assign to LoginHandler
-    //    result.newHandler = _factoryHandler.createLoginRequestHandler();
-    //    result.response = JsonResponsePacketSerializer::serializerResponse(response);
-    //}
+        // Assign to LoginHandler
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
+        result.response = JsonResponsePacketSerializer::serializerResponse(response);
+    }
 
     return result;
 }

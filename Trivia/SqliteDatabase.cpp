@@ -163,6 +163,15 @@ void SqliteDatabase::updateStatistics(const std::vector<PlayerResults>& Gameresu
 	}
 }
 
+bool SqliteDatabase::changePassword(const string& username, const string& newPassword)
+{
+	std::string sqlStatement = R"(update users set password = {} where username = {};)";
+
+	sqlStatement = format(sqlStatement, { newPassword, username });
+
+	return preformSqlRequest(sqlStatement);
+}
+
 bool SqliteDatabase::open()
 {
 	string dbName = DB_FILENAME;
