@@ -60,6 +60,16 @@ void SqliteDatabase::createEmptyStatisticColumn(const string& username)
 	preformSqlRequest(sqlStatement);
 }
 
+unsigned int SqliteDatabase::getNumOfQuestions()
+{
+	int numOfQuestions = 0;
+	std::string sqlStatement = "select count(*) from questions;";
+
+	preformSqlRequest(sqlStatement, callbackNumber, &numOfQuestions);
+
+	return numOfQuestions;
+}
+
 float SqliteDatabase::getPlayerAverageAnswerTime(const string& username)
 {
 	double avgAnsTime = 0;

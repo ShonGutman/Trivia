@@ -29,6 +29,8 @@ public:
 
 	virtual float getPlayerAverageAnswerTime(const string& username) = 0;
 
+	virtual unsigned int getNumOfQuestions() = 0;
+
 	virtual int  getNumOfCorrectAnswers(const string& username) = 0;
 
 	virtual int  getNumOfWrongAnswers(const string& username) = 0;

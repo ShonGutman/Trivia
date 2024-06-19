@@ -1,24 +1,28 @@
 #include "RoomManager.h"
 
 static std::mutex _roomsMutex;
-
-#define NUM_QUESTIONS 10
+static std::mutex _questionNumMutex;
 
 //init num of rooms joined to be zero at the start
 int RoomManager::_amountOfRoomsEverJoined = 0;
 
-RoomManager& RoomManager::get()
+RoomManager& RoomManager::get(IDatabase* database)
 {
-	static RoomManager instance;
+	static RoomManager instance(database);
 	return instance;
+}
+
+RoomManager::RoomManager(IDatabase* database)
+	:_database(database), _numberOfQuestions(database->getNumOfQuestions())
+{
 }
 
 void RoomManager::createRoom(const LoggedUser& roomAdmin, const RoomData& data)
 {
 
-	if (data.numOfQuestionsInGame > NUM_QUESTIONS)
+	if (data.numOfQuestionsInGame > _numberOfQuestions)
 	{ 
-		throw std::runtime_error("Questions limit in game is: " + std::to_string(NUM_QUESTIONS));
+		throw std::runtime_error("Questions limit in game is: " + std::to_string(_numberOfQuestions));
 	}
 
 	//create new room
@@ -107,4 +111,30 @@ void RoomManager::removeUserFromAllRooms(const LoggedUser& user)
 const int RoomManager::getNextRoomId() const
 {
 	return RoomManager::_amountOfRoomsEverJoined + 1;
+}
+
+bool RoomManager::addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT])
+{
+	SqliteDatabase database = SqliteDatabase();
+
+	if (database.addQuestion(question, correct, incorecct))
+	{
+		try
+		{
+			// lock the mutex to protect shared var
+			std::unique_lock<std::mutex> locker(_questionNumMutex);
+			// Change number of questions
+			this->_numberOfQuestions++;
+			locker.unlock();
+			return true;
+		}
+		catch (const std::exception&)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }

@@ -5,7 +5,6 @@
 #include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
 #include "LoggedUser.h"
-#include "SqliteDatabase.h"
 
 // to avoid circular definition
 class RequestHandlerFactory;

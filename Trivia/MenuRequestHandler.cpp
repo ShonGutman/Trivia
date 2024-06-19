@@ -224,7 +224,6 @@ RequestResult MenuRequestHandler::getAllPlayersInRoom(const RequestInfo& info)
     RequestResult result;
 
     RoomManager& roomManger = _factoryHandler.getRoomManager();
-
     try
     {
         GetPlayersInRoomResponse response;
@@ -325,6 +324,8 @@ RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
 {
     RequestResult result;
 
+    RoomManager& roomManger = _factoryHandler.getRoomManager();
+
     sendQuestionRequest request = JsonRequestPacketDeserializer::deserializeSendQuestionRequestt(info.buffer);
 
     try
@@ -332,9 +333,8 @@ RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
         addQuestionResponse response;
 
         //Adding the question into the database
-        SqliteDatabase database = SqliteDatabase();
         std::string incorrectQuestionArray[NUM_OF_INCORRECT] = { request.incorrect1, request.incorrect2, request.incorrect3 };
-        database.addQuestion(request.question ,request.correct, incorrectQuestionArray);
+        roomManger.addQuestion(request.question ,request.correct, incorrectQuestionArray);
 
         //SUCCESS reponse to getHighscoreResponse
         response.status = SUCCESS;

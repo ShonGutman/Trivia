@@ -81,6 +81,13 @@ public:
 	void createEmptyStatisticColumn(const string& username) override;
 
 	/**
+	 * Retrieves the number of questions in the database.
+	 *
+	 * @return The number of questions in the database.
+	 */
+	unsigned int getNumOfQuestions() override;
+
+	/**
 	* Retrieves the average answer time for a player.
 	*
 	* @param username The username of the player.
