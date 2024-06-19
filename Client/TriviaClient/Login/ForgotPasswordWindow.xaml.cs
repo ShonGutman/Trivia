@@ -30,5 +30,15 @@ namespace TriviaClient.Login
         {
 
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SendCodeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

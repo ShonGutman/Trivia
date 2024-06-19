@@ -161,5 +161,12 @@ namespace TriviaClient.Login
                 }
             }
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow(communicator);
+            this.Close();
+            loginWindow.Show();
+        }
     }
 }

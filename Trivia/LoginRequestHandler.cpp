@@ -126,7 +126,7 @@ RequestResult LoginRequestHandler::changePassword(const RequestInfo& info, Logge
     try
     {
         ChangePasswordResponse response;
-        loginManager.changePassword(request.username, request.newPassword);
+        loginManager.changePassword(request.username, request.currentPassword, request.newPassword);
 
         // SUCCESS response to change password
         response.status = SUCCESS;

@@ -8,6 +8,7 @@ using json = nlohmann::json;
 #define USERNAME_KEY "username"
 #define PASSWORD_KEY "password"
 #define NEW_PASSWORD_KEY "newPassword"
+#define CURRENT_PASSWORD_KEY "currentPassword"
 #define EMAIL_KEY "email"
 #define ADDRESS_KEY "address"
 #define PHONE_NUMBER_KEY "phoneNumber"

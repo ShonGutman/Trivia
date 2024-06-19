@@ -106,6 +106,7 @@ ChangePasswordRequest JsonRequestPacketDeserializer::deserializeChangePasswordRe
 
     // Put data in jsonMsg into request object
     request.username = jsonMsg[USERNAME_KEY].get<std::string>();
+    request.currentPassword = jsonMsg[CURRENT_PASSWORD_KEY].get<std::string>();
     request.newPassword = jsonMsg[NEW_PASSWORD_KEY].get<std::string>();
 
     return request;

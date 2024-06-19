@@ -108,4 +108,5 @@ struct ChangePasswordRequest
 {
 	std::string username;
 	std::string newPassword;
+	std::string currentPassword;
 };
