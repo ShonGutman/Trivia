@@ -115,9 +115,7 @@ const int RoomManager::getNextRoomId() const
 
 bool RoomManager::addQuestion(const std::string& question, const std::string& correct, const std::string incorecct[NUM_OF_INCORRECT])
 {
-	SqliteDatabase database = SqliteDatabase();
-
-	if (database.addQuestion(question, correct, incorecct))
+	if (_database->addQuestion(question, correct, incorecct))
 	{
 		try
 		{
