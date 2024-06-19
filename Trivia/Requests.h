@@ -94,7 +94,7 @@ struct SubmitAnswerRequest
 	double timeForAnwser;
 };
 
-struct sendQuestionRequest
+struct SendQuestionRequest
 {
 	std::string question;
 	std::string correct;

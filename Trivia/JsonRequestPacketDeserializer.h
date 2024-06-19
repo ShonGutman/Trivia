@@ -103,15 +103,15 @@ public:
 	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const Buffer& buffer);
 
 	/**
-	 * Deserialize a buffer into a sendQuestionRequest object.
+	 * Deserialize a buffer into a SendQuestionRequest object.
 	 *
-	 * This function parses the data contained in the buffer and constructs a sendQuestionRequest object
+	 * This function parses the data contained in the buffer and constructs a SendQuestionRequest object
 	 * based on the information found in the buffer.
 	 *
 	 * @param buffer The buffer containing the serialized data.
-	 * @return A sendQuestionRequest object deserialized from the buffer.
+	 * @return A SendQuestionRequest object deserialized from the buffer.
 	 */
-	static sendQuestionRequest deserializeSendQuestionRequest(const Buffer& buffer);
+	static SendQuestionRequest deserializeSendQuestionRequest(const Buffer& buffer);
 
 	/**
 	 * Deserialize a buffer into a ChangePasswordRequest object.

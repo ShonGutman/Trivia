@@ -25,7 +25,7 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info, Logged
 
     else if (CHANGE_PASSWORD_REQUEST_ID == info.id)
     {
-        return this->changePassword(info, user);
+        return this->changePassword(info);
     }
 
     else
@@ -115,7 +115,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& info, LoggedUser& u
     return result;
 }
 
-RequestResult LoginRequestHandler::changePassword(const RequestInfo& info, LoggedUser& user)
+RequestResult LoginRequestHandler::changePassword(const RequestInfo& info)
 {
     ChangePasswordRequest request = JsonRequestPacketDeserializer::deserializeChangePasswordRequest(info.buffer);
 

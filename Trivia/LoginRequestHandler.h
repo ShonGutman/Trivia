@@ -61,10 +61,9 @@ private:
 	 * error response and remains in the login state.
 	 *
 	 * @param info The request information containing the changePassword details.
-	 * @param user The user the will have their password changed
 	 * @return The result of handling the changePassword request, including the response and the new handler.
 	 */
-	RequestResult changePassword(const RequestInfo& info, LoggedUser& user);
+	RequestResult changePassword(const RequestInfo& info);
 
 	RequestHandlerFactory& _factoryHandler;
 };

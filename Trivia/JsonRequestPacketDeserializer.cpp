@@ -82,9 +82,9 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
     return request;
 }
 
-sendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionRequest(const Buffer& buffer)
+SendQuestionRequest JsonRequestPacketDeserializer::deserializeSendQuestionRequest(const Buffer& buffer)
 {
-    sendQuestionRequest request;
+    SendQuestionRequest request;
 
     auto jsonMsg = convertBufferToJson(buffer);
 
