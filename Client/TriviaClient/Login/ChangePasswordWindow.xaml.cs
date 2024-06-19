@@ -45,39 +45,6 @@ namespace TriviaClient.Login
             return false;
         }
 
-        private bool signout()
-        {
-            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
-
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
-
-            //check if server response is indead logout response
-            if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
-            {
-                //check if server responsed was failed
-                if (Helper.isFailed(response.messageJson))
-                {
-                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
-
-                    //raise error popup with server's response
-                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
-                    errorWindow.ShowDialog();
-
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
         {
             //stop because not all input is given
@@ -91,73 +58,41 @@ namespace TriviaClient.Login
             string currentPassword = OldPassword_Input.Text;
             string newPassword = newPass_Input.Text;
 
-            //create a login request
-            Requests.LoginRequest request = new Requests.LoginRequest(username, currentPassword);
+            // Create a change password request
+            Requests.ChangePasswordRequest changePasswordRequest = new Requests.ChangePasswordRequest(username, currentPassword, newPassword);
 
-            //serialize object and make it fit to protocol
-            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+            // Serialize the change password request
+            string changePasswordJson = JsonConvert.SerializeObject(changePasswordRequest, Formatting.Indented);
 
-            byte[] msg = Helper.fitToProtocol(json, (int)Requests.RequestId.LOGIN_REQUEST_ID);
+            byte[] changePasswordMsg = Helper.fitToProtocol(changePasswordJson, (int)Requests.RequestId.CHANGE_PASSWORD_REQUEST_ID);
 
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
+            // Send the change password request to the server
+            communicator.sendMsg(changePasswordMsg);
+            Responses.GeneralResponse changePasswordResponse = communicator.receiveMsg();
 
-            //check if server response is indead login response
-            if (response.id == Responses.ResponseId.LOGIN_RESPONSE_ID)
+            // Check if server response is indeed a change password response
+            if (changePasswordResponse.id == Responses.ResponseId.CHANGE_PASSWORD_RESPONSE_ID)
             {
-                //check if server responsed was failed
-                if (Helper.isFailed(response.messageJson))
+                // Check if the server response indicates success or failure
+                if (Helper.isFailed(changePasswordResponse.messageJson))
                 {
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(changePasswordResponse.messageJson);
 
-                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
-
-                    //raise error popup with server's response
+                    // Raise error popup with server's response
                     ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
                     errorWindow.ShowDialog();
                 }
-
-                // The old password and the username match, allow the user to change its password
-                // we techniclly signed in, so make sure to sign out too
-                else if (signout())
+                else
                 {
-                    // Create a change password request
-                    Requests.ChangePasswordRequest changePasswordRequest = new Requests.ChangePasswordRequest(username, currentPassword, newPassword);
+                    // Password change was successful
 
-                    // Serialize the change password request
-                    string changePasswordJson = JsonConvert.SerializeObject(changePasswordRequest, Formatting.Indented);
+                    // Display info message for paasword
+                    InfoWindow infoWindow = new InfoWindow("Password changed successfully!");
+                    infoWindow.ShowDialog();
 
-                    byte[] changePasswordMsg = Helper.fitToProtocol(changePasswordJson, (int)Requests.RequestId.CHANGE_PASSWORD_REQUEST_ID);
-
-                    // Send the change password request to the server
-                    communicator.sendMsg(changePasswordMsg);
-                    Responses.GeneralResponse changePasswordResponse = communicator.receiveMsg();
-
-                    // Check if server response is indeed a change password response
-                    if (changePasswordResponse.id == Responses.ResponseId.CHANGE_PASSWORD_RESPONSE_ID)
-                    {
-                        // Check if the server response indicates success or failure
-                        if (Helper.isFailed(changePasswordResponse.messageJson))
-                        {
-                            Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(changePasswordResponse.messageJson);
-
-                            // Raise error popup with server's response
-                            ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
-                            errorWindow.ShowDialog();
-                        }
-                        else
-                        {
-                            // Password change was successful
-
-                            // Display info message for paasword
-                            InfoWindow infoWindow = new InfoWindow("Password changed successfully!");
-                            infoWindow.ShowDialog();
-
-                            LoginWindow loginWindow = new LoginWindow(communicator);
-                            this.Close();
-                            loginWindow.Show();
-                        }
-                    }
+                    LoginWindow loginWindow = new LoginWindow(communicator);
+                    this.Close();
+                    loginWindow.Show();
                 }
             }
         }
