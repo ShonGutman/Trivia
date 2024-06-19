@@ -131,8 +131,8 @@ RequestResult LoginRequestHandler::changePassword(const RequestInfo& info, Logge
         // SUCCESS response to change password
         response.status = SUCCESS;
 
-        // Assign to MenuHandler
-        result.newHandler = _factoryHandler.createMenuRequestHandler();
+        // Assign to LoginHandler
+        result.newHandler = _factoryHandler.createLoginRequestHandler();
         result.response = JsonResponsePacketSerializer::serializerResponse(response);
     }
     catch (const std::exception& e)
