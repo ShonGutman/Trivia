@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,33 +36,7 @@ namespace TriviaClient
 
         private void Signout_Click(object sender, RoutedEventArgs e)
         {
-            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
-
-            //send and scan msg from server
-            communicator.sendMsg(msg);
-            Responses.GeneralResponse response = communicator.receiveMsg();
-
-            //check if server response is indead logout response
-            if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
-            {
-                //check if server responsed was failed
-                if (Helper.isFailed(response.messageJson))
-                {
-
-                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
-
-                    //raise error popup with server's response
-                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
-                    errorWindow.ShowDialog();
-                }
-
-                else
-                {
-                    MainWindow mainWindow = new MainWindow(communicator);
-                    this.Close();
-                    mainWindow.Show();
-                }
-            }
+            signout();
         }
 
         private void JoinRoom_Click(object sender, RoutedEventArgs e)
@@ -94,6 +69,7 @@ namespace TriviaClient
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            signout();
             this.Close();
         }
 
@@ -102,6 +78,37 @@ namespace TriviaClient
             AddQuestionWindow window = new AddQuestionWindow(communicator, username);
             this.Close();
             window.Show();
+        }
+
+        private void signout()
+        {
+            byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
+
+            //send and scan msg from server
+            communicator.sendMsg(msg);
+            Responses.GeneralResponse response = communicator.receiveMsg();
+
+            //check if server response is indead logout response
+            if (response.id == Responses.ResponseId.LOGOUT_RESPONSE_ID)
+            {
+                //check if server responsed was failed
+                if (Helper.isFailed(response.messageJson))
+                {
+
+                    Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
+
+                    //raise error popup with server's response
+                    ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
+                    errorWindow.ShowDialog();
+                }
+
+                else
+                {
+                    MainWindow mainWindow = new MainWindow(communicator);
+                    this.Close();
+                    mainWindow.Show();
+                }
+            }
         }
     }
 }
