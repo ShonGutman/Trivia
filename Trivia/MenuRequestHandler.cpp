@@ -326,7 +326,7 @@ RequestResult MenuRequestHandler::addQuestion(const RequestInfo& info)
 
     RoomManager& roomManger = _factoryHandler.getRoomManager();
 
-    sendQuestionRequest request = JsonRequestPacketDeserializer::deserializeSendQuestionRequestt(info.buffer);
+    sendQuestionRequest request = JsonRequestPacketDeserializer::deserializeSendQuestionRequest(info.buffer);
 
     try
     {

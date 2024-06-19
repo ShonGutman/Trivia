@@ -7,6 +7,7 @@ using json = nlohmann::json;
 
 #define USERNAME_KEY "username"
 #define PASSWORD_KEY "password"
+#define NEW_PASSWORD_KEY "newPassword"
 #define EMAIL_KEY "email"
 #define ADDRESS_KEY "address"
 #define PHONE_NUMBER_KEY "phoneNumber"
@@ -109,7 +110,18 @@ public:
 	 * @param buffer The buffer containing the serialized data.
 	 * @return A sendQuestionRequest object deserialized from the buffer.
 	 */
-	static sendQuestionRequest deserializeSendQuestionRequestt(const Buffer& buffer);
+	static sendQuestionRequest deserializeSendQuestionRequest(const Buffer& buffer);
+
+	/**
+	 * Deserialize a buffer into a ChangePasswordRequest object.
+	 *
+	 * This function parses the data contained in the buffer and constructs a ChangePasswordRequest object
+	 * based on the information found in the buffer.
+	 *
+	 * @param buffer The buffer containing the serialized data.
+	 * @return A ChangePasswordRequest object deserialized from the buffer.
+	 */
+	static ChangePasswordRequest deserializeChangePasswordRequest(const Buffer& buffer);
 
 private:
 
