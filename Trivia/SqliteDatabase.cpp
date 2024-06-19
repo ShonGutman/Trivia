@@ -282,7 +282,7 @@ bool SqliteDatabase::addQuestions()
 }
 
 
-bool SqliteDatabase::addQuestion(const string question, const string correct, const string incorecct[NUM_OF_INCORRECT])
+bool SqliteDatabase::addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT])
 {
 	string sqlStatement = R"(insert into questions (question, correct, incorrect1, incorrect2, incorrect3)
 							 values ("{}", "{}", "{}", "{}", "{}");)";
