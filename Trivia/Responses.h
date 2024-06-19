@@ -155,7 +155,7 @@ typedef struct addQuestionResponse
 	STATUS status;
 }addQuestionResponse;
 
-typedef struct ChangePasswordRespnse
+typedef struct ChangePasswordResponse
 {
 	STATUS status;
-}ChangePasswordRespnse;
+}ChangePasswordResponse;

@@ -121,5 +121,17 @@ namespace TriviaClient
                 this.incorrect3 = incorrect3;
             }
         }
+
+        public class ChangePasswordRequest
+        {
+            public string username { get; set; }
+            public string newPassword { get; set; }
+
+            public ChangePasswordRequest(string username, string newPassword)
+            {
+                this.username = username;
+                this.newPassword = newPassword;
+            }
+        }
     }
 }
