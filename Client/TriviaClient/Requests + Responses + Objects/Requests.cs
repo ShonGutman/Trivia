@@ -30,6 +30,7 @@ namespace TriviaClient
             FINISHED_GAME_REQUEST_ID = 17,
             GET_GAME_RESULT_REQUEST_ID = 18,
             SEND_QUESTION_REQUEST_ID = 19,
+            CHANGE_PASSWORD_REQUEST_ID = 20,
             ERROR_REQUEST_ID = 99
         }
         public class LoginRequest

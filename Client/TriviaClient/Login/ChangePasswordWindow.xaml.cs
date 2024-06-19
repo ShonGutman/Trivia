@@ -148,7 +148,11 @@ namespace TriviaClient.Login
                         else
                         {
                             // Password change was successful
-                            MessageBox.Show("Password changed successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            // Display info message for paasword
+                            InfoWindow infoWindow = new InfoWindow("Password changed successfully!");
+                            infoWindow.ShowDialog();
+
                             MainMenuWindow mainMenuWindow = new MainMenuWindow(communicator, username);
                             this.Close();
                             mainMenuWindow.Show();
