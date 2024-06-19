@@ -74,38 +74,35 @@ namespace TriviaClient.Question
                 return;
             }
 
-            //get the input
+            // Get the input
             string question = question_input.Text;
             string correct = " ";
-            string incorrect1 = " ", incorrect2 = " ", incorrect3 = " ";
-            if (firstAnsCheckBox.IsChecked == true)
+            string[] incorrect = new string[3];
+
+            // Create a dictionary to map checkboxes to their corresponding text boxes
+            var answerMap = new Dictionary<CheckBox, TextBox>
             {
-                correct = firstAns.Text;
-                incorrect1 = secAns.Text;
-                incorrect2 = thirdAns.Text;
-                incorrect3 = forthAns.Text;
-            }
-            else if (secAnsCheckBox.IsChecked == true)
+                { firstAnsCheckBox, firstAns },
+                { secAnsCheckBox, secAns },
+                { thirdAnsCheckBox, thirdAns },
+                { forthAnsCheckBox, forthAns }
+            };
+
+            // Find the checked checkbox and set the correct and incorrect answers
+            foreach (var pair in answerMap)
             {
-                correct = secAns.Text;
-                incorrect1 = firstAns.Text;
-                incorrect2 = thirdAns.Text;
-                incorrect3 = forthAns.Text;
+                if (pair.Key.IsChecked == true)
+                {
+                    correct = pair.Value.Text;
+                    incorrect = answerMap.Values.Where(tb => tb != pair.Value).Select(tb => tb.Text).ToArray();
+                    break;
+                }
             }
-            else if (thirdAnsCheckBox.IsChecked == true)
-            {
-                correct = thirdAns.Text;
-                incorrect1 = secAns.Text;
-                incorrect2 = firstAns.Text;
-                incorrect3 = forthAns.Text;
-            }
-            else if (forthAnsCheckBox.IsChecked == true)
-            {
-                correct = forthAns.Text;
-                incorrect1 = secAns.Text;
-                incorrect2 = thirdAns.Text;
-                incorrect3 = firstAns.Text;
-            }
+
+            // Assign incorrect answers individually if needed
+            string incorrect1 = incorrect[0];
+            string incorrect2 = incorrect[1];
+            string incorrect3 = incorrect[2];
 
 
             //create a send question request

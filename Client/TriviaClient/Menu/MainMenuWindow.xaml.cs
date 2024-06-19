@@ -36,7 +36,13 @@ namespace TriviaClient
 
         private void Signout_Click(object sender, RoutedEventArgs e)
         {
-            signout();
+            if (signout())
+            {
+                // Move to the prev menu
+                MainWindow mainWindow = new MainWindow(communicator);
+                this.Close();
+                mainWindow.Show();
+            }
         }
 
         private void JoinRoom_Click(object sender, RoutedEventArgs e)
@@ -69,8 +75,8 @@ namespace TriviaClient
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            signout();
-            this.Close();
+            if(signout())
+                Application.Current.Shutdown();
         }
 
         private void AddQuesrion_Click(object sender, RoutedEventArgs e)
@@ -80,7 +86,7 @@ namespace TriviaClient
             window.Show();
         }
 
-        private void signout()
+        private bool signout()
         {
             byte[] msg = Helper.fitToProtocol("", (int)Requests.RequestId.LOGOUT_REQUEST_ID);
 
@@ -94,20 +100,22 @@ namespace TriviaClient
                 //check if server responsed was failed
                 if (Helper.isFailed(response.messageJson))
                 {
-
                     Responses.ErrorResponse errorResponse = JsonConvert.DeserializeObject<Responses.ErrorResponse>(response.messageJson);
 
                     //raise error popup with server's response
                     ErrorPopup errorWindow = new ErrorPopup(errorResponse.message);
                     errorWindow.ShowDialog();
-                }
 
+                    return false;
+                }
                 else
                 {
-                    MainWindow mainWindow = new MainWindow(communicator);
-                    this.Close();
-                    mainWindow.Show();
+                    return true;
                 }
+            }
+            else 
+            { 
+                return false; 
             }
         }
     }
