@@ -150,7 +150,7 @@ public:
 	* @param incorecct a string array holding 3 incorrect answers
 	* @return true if inserted with no errors. false if there were errors
 	*/
-	bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]);
+	bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]) override;
 
 
 private:

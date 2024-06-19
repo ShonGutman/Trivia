@@ -7,6 +7,8 @@
 #include "Question.h"
 #include "PlayerResults.h"
 
+#define NUM_OF_INCORRECT 3
+
 using std::string;
 
 class IDatabase
@@ -40,6 +42,8 @@ public:
 	virtual std::map<std::string, unsigned int> getHighscores() = 0;
 
 	virtual void updateStatistics(const std::vector<PlayerResults>& Gameresults) = 0;
+
+	virtual bool addQuestion(const string& question, const string& correct, const string incorecct[NUM_OF_INCORRECT]) = 0;
 
 protected:
 
