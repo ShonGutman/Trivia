@@ -12,8 +12,6 @@ using std::tm;
 #define BYTE unsigned char
 typedef std::vector<BYTE> Buffer;
 
-#define NUM_OF_INCORRECT 3
-
 typedef enum : unsigned int
 {
 	LOGIN_REQUEST_ID = 1,
